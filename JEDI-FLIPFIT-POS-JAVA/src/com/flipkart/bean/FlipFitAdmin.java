@@ -1,16 +1,16 @@
 package com.flipkart.bean;
 
 public class FlipFitAdmin {
-    private int id;
+    private int adminId;
     private String adminEmail;
     private String adminPassword;
 
-    public int getId() {
-        return id;
+    public int getAdminId() {
+        return adminId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setAdminId(int adminId) {
+        this.adminId = adminId;
     }
 
     public String getAdminEmail() {

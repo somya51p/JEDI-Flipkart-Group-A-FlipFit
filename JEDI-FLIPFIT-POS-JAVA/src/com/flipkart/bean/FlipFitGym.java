@@ -1,18 +1,17 @@
 package com.flipkart.bean;
 
 public class FlipFitGym {
-    private int id;
+    private int gymId;
     private int gymOwnerId;
     private String gymName;
-    private String location;
-    private boolean approvalStatus;
+    private String gymLocation;
 
-    public int getId() {
-        return id;
+    public int getGymId() {
+        return gymId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setGymId(int gymId) {
+        this.gymId = gymId;
     }
 
     public int getGymOwnerId() {
@@ -31,19 +30,11 @@ public class FlipFitGym {
         this.gymName = gymName;
     }
 
-    public String getLocation() {
-        return location;
+    public String getGymLocation() {
+        return gymLocation;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public boolean isApprovalStatus() {
-        return approvalStatus;
-    }
-
-    public void setApprovalStatus(boolean approvalStatus) {
-        this.approvalStatus = approvalStatus;
+    public void setGymLocation(String gymLocation) {
+        this.gymLocation = gymLocation;
     }
 }

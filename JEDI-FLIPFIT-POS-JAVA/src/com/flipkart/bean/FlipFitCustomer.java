@@ -2,58 +2,58 @@ package com.flipkart.bean;
 
 public class FlipFitCustomer {
 
-    private int id;
-    private String name;
-    private String email;
-    private String phoneNumber;
-    private String address;
-    private String password;
+    private int customerId;
+    private String customerName;
+    private String customerEmail;
+    private String customerPhone;
+    private String customerAddress;
+    private String customerPassword;
 
-    public int getId() {
-        return id;
+    public int getCustomerId() {
+        return customerId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
     }
 
-    public String getName() {
-        return name;
+    public String getCustomerName() {
+        return customerName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
     }
 
-    public String getEmail() {
-        return email;
+    public String getCustomerEmail() {
+        return customerEmail;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setCustomerEmail(String customerEmail) {
+        this.customerEmail = customerEmail;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getCustomerPhone() {
+        return customerPhone;
     }
 
-    public void setPhone(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setCustomerPhone(String customerPhone) {
+        this.customerPhone = customerPhone;
     }
 
-    public String getAddress() {
-        return address;
+    public String getCustomerAddress() {
+        return customerAddress;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setCustomerAddress(String customerAddress) {
+        this.customerAddress = customerAddress;
     }
 
-    public String getPassword() {
-        return password;
+    public String getCustomerPassword() {
+        return customerPassword;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setCustomerPassword(String customerPassword) {
+        this.customerPassword = customerPassword;
     }
 }
