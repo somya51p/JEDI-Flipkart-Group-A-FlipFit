@@ -2,7 +2,7 @@ package com.flipkart.business;
 
 import com.flipkart.bean.FlipFitCustomer;
 
-public class FlipFitCustomerService {
+public class FlipFitCustomerService implements FlipFitCustomerInterface {
 
     FlipFitCustomer flipfitcustomer = new FlipFitCustomer();
 
@@ -30,18 +30,6 @@ public class FlipFitCustomerService {
 
     public void filterSlots(){
         System.out.println("All slots are filtered");
-    }
-
-    public void bookSlots(){
-        System.out.println("Slot is booked");
-    }
-
-    public void viewBookings(){
-        System.out.println("All bookings are viewed");
-    }
-
-    public void cancelBookings(){
-        System.out.println("Slot is cancelled");
     }
 
 }
