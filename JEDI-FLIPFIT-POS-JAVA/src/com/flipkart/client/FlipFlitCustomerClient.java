@@ -6,8 +6,7 @@ public class FlipFlitCustomerClient {
 		  
 		 
 		FlipFitCustomerService service=new FlipFitCustomerService();
-		service.createCustomer();
-		System.out.println(service.getCustomerId());
+		service.createCustomer(101,"Sarthak","sarthak.vats@gmail.com", "987","ABC", "XYZ" );
 		service.editProfile();
 		service.viewGyms();
 		service.viewSlots();
