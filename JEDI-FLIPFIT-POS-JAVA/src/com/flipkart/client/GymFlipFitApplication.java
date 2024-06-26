@@ -11,7 +11,7 @@ public class GymFlipFitApplication {
         FlipFitCustomerInterface userService = new FlipFitCustomerService();
         FlipFitGymOwnerInterface gymOwnerService = new FlipFitGymOwnerService();
 
-        System.out.println("--------Welcome to FlipFit Application-------- ");
+        System.out.println("--------Welcome to FlipFit Application--------");
         System.out.println("Enter preferred choices: \n1. Login\n2. Register as Customer\n3. Register as Gym owner\n4. Change Password\n5. Exit");
         Scanner in = new Scanner(System.in);
         int choice = in.nextInt();
@@ -53,6 +53,8 @@ public class GymFlipFitApplication {
                 if(userPassword.equals(confirmUserPassword)) {
                     userService.createCustomer(101,userName,userEmail, userPhoneNumber,address, userPassword);
                     System.out.println("You have successfully registered as Customer");
+                    System.out.println("*********************************************");
+                    GymFlipFitCustomerMenu.displayCustomerOptions();
                 } else {
                     System.out.println("Passwords do not match");
                 }
@@ -79,6 +81,8 @@ public class GymFlipFitApplication {
                     gymOwnerService.createGymOwner(1, ownerName, ownerEmail, ownerPhoneNumber, ownerAddress,
                             panNumber, gstNumber, "Pending");
                     System.out.println("You have successfully registered as Gym owner");
+                    System.out.println("*********************************************");
+                    GymFlipFitOwnerMenu.displayGymOwnerOptions();
                 } else {
                     System.out.println("Passwords do not match");
                 }
