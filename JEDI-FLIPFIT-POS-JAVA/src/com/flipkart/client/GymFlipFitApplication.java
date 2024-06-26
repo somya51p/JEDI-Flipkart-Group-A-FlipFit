@@ -56,6 +56,7 @@ public class GymFlipFitApplication {
                 } else {
                     System.out.println("Passwords do not match");
                 }
+                break;
             case 3:
                 System.out.println("Register as Gym owner: ");
                 System.out.println("Enter your name: ");
@@ -81,6 +82,7 @@ public class GymFlipFitApplication {
                 } else {
                     System.out.println("Passwords do not match");
                 }
+                break;
             case 4:
                 System.out.println("Change Password: ");
                 System.out.println("Enter your old password: ");
@@ -92,9 +94,11 @@ public class GymFlipFitApplication {
                 } else {
                     System.out.println("Passwords changed successfully");
                 }
+                break;
             case 5:
                 System.out.println("Thank you for using FlipFit App");
                 in.close();
+                break;
             default:
                 System.out.println("Invalid choice");
         }
