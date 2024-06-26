@@ -25,9 +25,9 @@ public class GymFlipFitApplication {
                 int role = in.nextInt();
                 if(role == 1) {
                     System.out.println("Logged in as Customer");
-                    //func call
                 } else if(role == 2) {
                     System.out.println("Logged in as Gym owner");
+                    GymFlipFitOwnerMenu.displayGymOwnerOptions();
                 } else if(role == 3) {
                     System.out.println("Logged in as Admin");
                 }  else {
