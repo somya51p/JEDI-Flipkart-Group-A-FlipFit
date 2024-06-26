@@ -2,7 +2,7 @@ package com.flipkart.business;
 
 import com.flipkart.bean.Booking;
 
-public class BookingService implements BookingInterface {
+public class BookingGymService implements BookingGymInterface {
 
     Booking booking = new Booking();
 
