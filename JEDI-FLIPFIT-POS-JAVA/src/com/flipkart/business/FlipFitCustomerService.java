@@ -13,7 +13,7 @@ public class FlipFitCustomerService {
         flipfitcustomer.setCustomerPhone(phoneNumber);
         flipfitcustomer.setCustomerAddress(address);
         flipfitcustomer.setCustomerPassword(password);
-        System.out.println("Customer Details are added!");
+        System.out.println("Customer Details" + id + " are added!");
     }
 
     public void editProfile(){
