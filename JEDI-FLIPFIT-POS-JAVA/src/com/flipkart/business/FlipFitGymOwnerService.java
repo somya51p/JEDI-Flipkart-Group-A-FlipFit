@@ -1,9 +1,8 @@
 package com.flipkart.business;
 
 import com.flipkart.bean.FlipFitGymOwner;
-import com.flipkart.business.FlipFitGymService;
 
-public class FlipFitGymOwnerService {
+public class FlipFitGymOwnerService implements FlipFitGymOwnerInterface {
 
     FlipFitGymOwner gymOwner = new FlipFitGymOwner();
     public void createGymOwner(int id, String name, String email, String phone, String address, String pan_no, String gst_no, String status) {
@@ -25,9 +24,6 @@ public class FlipFitGymOwnerService {
     }
 
     public void registerGym(int gymId, String name, String location) {
-        FlipFitGymService gymService = new FlipFitGymService();
-        gymService.createGym(gymId, gymOwner.getOwnerId(), name, location);
-
         System.out.println("gym registered successfully");
     }
 

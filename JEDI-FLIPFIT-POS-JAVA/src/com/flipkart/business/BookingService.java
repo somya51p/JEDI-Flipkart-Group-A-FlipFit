@@ -2,7 +2,7 @@ package com.flipkart.business;
 
 import com.flipkart.bean.Booking;
 
-public class BookingService {
+public class BookingService implements BookingInterface {
 
     Booking booking = new Booking();
 
@@ -16,6 +16,22 @@ public class BookingService {
         booking.setBookingType(bookingType);
         booking.setBookingAmount(bookingAmount);
         System.out.println("Booking is Done!!");
+    }
+
+    public void bookSlots(){
+        System.out.println("Slot is booked");
+    }
+
+    public void viewBookings(){
+        System.out.println("All bookings are viewed");
+    }
+
+    public void cancelBookings(){
+        System.out.println("Slot is cancelled");
+    }
+
+    public void makePayment() {
+        System.out.println("Payment Successful!");
     }
 
 }

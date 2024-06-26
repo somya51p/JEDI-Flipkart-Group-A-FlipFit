@@ -1,11 +1,12 @@
 package com.flipkart.client;
 
+import com.flipkart.business.FlipFitGymOwnerInterface;
 import com.flipkart.business.FlipFitGymOwnerService;
 
 public class GymOwnerServiceClient {
 
 	public static void main(String[] args) {
-		FlipFitGymOwnerService gymOwnerService = new FlipFitGymOwnerService();
+		FlipFitGymOwnerInterface gymOwnerService = new FlipFitGymOwnerService();
 
 		gymOwnerService.createGymOwner(1, "John Doe", "john.doe@example.com", "9876543210", "123 Street, City",
 				"ABCDE1234F", "GST1234567", "Pending");
