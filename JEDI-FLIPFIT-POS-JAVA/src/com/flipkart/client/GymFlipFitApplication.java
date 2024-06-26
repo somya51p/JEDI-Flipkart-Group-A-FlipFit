@@ -25,11 +25,13 @@ public class GymFlipFitApplication {
                 int role = in.nextInt();
                 if(role == 1) {
                     System.out.println("Logged in as Customer");
+                    GymFlipFitCustomerMenu.displayCustomerOptions();
                 } else if(role == 2) {
                     System.out.println("Logged in as Gym owner");
                     GymFlipFitOwnerMenu.displayGymOwnerOptions();
                 } else if(role == 3) {
                     System.out.println("Logged in as Admin");
+                    GymFlipFitAdminMenu.displayAdminOptions();
                 }  else {
                     System.out.println("Invalid role choice");
                 }
@@ -91,6 +93,7 @@ public class GymFlipFitApplication {
                     System.out.println("Passwords changed successfully");
                 }
             case 5:
+                System.out.println("Thank you for using FlipFit App");
                 in.close();
             default:
                 System.out.println("Invalid choice");

@@ -6,7 +6,7 @@ import com.flipkart.business.FlipfitAdminService;
 import java.util.Scanner;
 
 public class GymFlipFitAdminMenu {
-	public static void displayAdminOptions(String[] args) {
+	public static void displayAdminOptions() {
 		FlipfitAdminInterface adminService = new FlipfitAdminService() ;
 		boolean flag= true ;
 		do {
@@ -31,7 +31,7 @@ public class GymFlipFitAdminMenu {
 					adminService.cancelRequest(101);
 					break;
 				case 6:
-					System.out.println("Exit");
+					System.out.println("Thank you for using FlipFit App");
 					flag= false ;
 					break;
 				default:

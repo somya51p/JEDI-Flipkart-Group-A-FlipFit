@@ -52,6 +52,7 @@ public class GymFlipFitOwnerMenu {
 							"ABCDE1234F","GST1234567","Approved");
 					break;
 				case 11:
+					System.out.println("Thank you for using FlipFit Application");
 					flag = false;
 					break;
 				default:

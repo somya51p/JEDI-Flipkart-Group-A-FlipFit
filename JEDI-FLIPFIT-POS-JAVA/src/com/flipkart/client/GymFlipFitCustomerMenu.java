@@ -8,7 +8,7 @@ import java.util.*;
 
 public class GymFlipFitCustomerMenu {
    
-	public static void displayCustomerOptions(String[] Args){
+	public static void displayCustomerOptions(){
 		FlipFitCustomerInterface userService = new FlipFitCustomerService();
 		BookingGymInterface bookingService = new BookingGymService();
 
@@ -16,7 +16,7 @@ public class GymFlipFitCustomerMenu {
 
 		do{
 			System.out.println("Welcome to FlipFit Customer Page");
-			System.out.println("Customer Menu: \n1. Edit your Profile\n2. View all Gyms\n3. View available Slots\n 4. Filter Slots\n5. Book your slot\n6. View your bookings\n7. Cancel your bookings\n8. Exit");
+			System.out.println("Customer Menu: \n1. Edit your Profile\n2. View all Gyms\n3. View available Slots\n4. Filter Slots\n5. Book your slot\n6. View your bookings\n7. Cancel your bookings\n8. Exit");
 
 			Scanner in = new Scanner(System.in);
 			int i = in.nextInt();
@@ -45,7 +45,7 @@ public class GymFlipFitCustomerMenu {
 					bookingService.cancelBookings();
 					break;
 				case 8:
-					System.out.println("Thank you for using FlipFit Customer Page");
+					System.out.println("Thank you for using FlipFit App");
 					flag = false;
 					break;
 				default:
