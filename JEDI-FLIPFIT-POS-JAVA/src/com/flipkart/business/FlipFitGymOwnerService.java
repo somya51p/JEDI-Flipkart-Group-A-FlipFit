@@ -20,7 +20,7 @@ public class FlipFitGymOwnerService {
         System.out.println("gym owner details added");
     }
 
-    public void editProfile(int id, String name, String email, int phone, String password, String address, String pan_no, String gst_no, String status) {
+    public void editProfile(int id, String name, String email, String phone, String password, String address, String pan_no, String gst_no, String status) {
         System.out.println("edited gym owner details");
     }
 
