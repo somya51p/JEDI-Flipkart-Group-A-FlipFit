@@ -1,7 +1,7 @@
 package com.flipkart.business;
 import com.flipkart.bean.FlipFitAdmin;
 
-public class FlipfitAdminService {
+public class FlipfitAdminService implements FlipfitAdminInterface{
         FlipFitAdmin flipfitadmin = new FlipFitAdmin();
 
         public void createAdmin(int adminId, String adminEmail, String adminPassword){
