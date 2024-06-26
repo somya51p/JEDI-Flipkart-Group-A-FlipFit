@@ -3,7 +3,7 @@ import com.flipkart.business.BookingGymInterface;
 import com.flipkart.business.BookingGymService;
 import com.flipkart.business.FlipFitCustomerInterface;
 import com.flipkart.business.FlipFitCustomerService;
-public class FlipFlitCustomerClient {
+public class GymFlipFitCustomerMenu {
    
 	public static void main(String[] Args){
 

@@ -3,7 +3,7 @@ package com.flipkart.client;
 import com.flipkart.business.FlipFitGymOwnerInterface;
 import com.flipkart.business.FlipFitGymOwnerService;
 
-public class GymOwnerServiceClient {
+public class GymFlipFitOwnerMenu {
 
 	public static void main(String[] args) {
 		FlipFitGymOwnerInterface gymOwnerService = new FlipFitGymOwnerService();

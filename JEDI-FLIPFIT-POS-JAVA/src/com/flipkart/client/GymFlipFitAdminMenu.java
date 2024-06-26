@@ -3,7 +3,7 @@ package com.flipkart.client;
 import com.flipkart.business.FlipfitAdminInterface;
 import com.flipkart.business.FlipfitAdminService;
 
-public class AdminServiceClient {
+public class GymFlipFitAdminMenu {
 
 	public static void main(String[] args) {
 		FlipfitAdminInterface adminService = new FlipfitAdminService();
