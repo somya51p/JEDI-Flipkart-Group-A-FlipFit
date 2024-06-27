@@ -6,12 +6,6 @@ import java.sql.*;
 
 public class BookingGymDAOImpl implements BookingGymDAOInterface {
 
-    public static void main(String[] args) {
-        BookingGymDAOInterface dao= new BookingGymDAOImpl();
-        dao.createBooking(1, 1, 150, 250, "02-03-24","5", "confirmed", 500);
-
-    }
-
     @Override
     public void createBooking(int bookingId, int customerId, int gymId, int transactionId, String bookingDate, String bookingTimeSlot, String bookingType, int bookingAmount) {
         Connection con = null;
@@ -23,7 +17,7 @@ public class BookingGymDAOImpl implements BookingGymDAOInterface {
 
             // Establish the connection
             con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/flipfit_schema", "root", "Fk!@#%215487");
+                    "jdbc:mysql://localhost:3306/FlipFit", "root", "Fk!@#%215023");
 
             // Query to insert a new booking
             String query = "INSERT INTO booking (bookingId, customerId, gymId, transactionId, bookingDate, bookingTimeSlot, bookingType, bookingAmount) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";

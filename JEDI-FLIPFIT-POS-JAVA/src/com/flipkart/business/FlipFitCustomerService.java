@@ -3,25 +3,17 @@ package com.flipkart.business;
 import com.flipkart.bean.FlipFitCustomer;
 import com.flipkart.bean.Roles;
 import com.flipkart.bean.Users;
+import com.flipkart.dao.FlipFitCustomerDAOImpl;
+import com.flipkart.dao.FlipFitCustomerDAOInterface;
 
 public class FlipFitCustomerService implements FlipFitCustomerInterface {
 
-    FlipFitCustomer flipfitcustomer = new FlipFitCustomer();
-    Users user = new Users();
+    FlipFitCustomerDAOInterface customerDAO = new FlipFitCustomerDAOImpl();
 
-
-    public void createCustomer(int customerId, int userId, String name, String phoneNumber, String address, String userEmail, String userPass) {
-        flipfitcustomer.setCustomerName(name);
-        flipfitcustomer.setCustomerPhone(phoneNumber);
-        flipfitcustomer.setCustomerAddress(address);
-        user.setUserEmail(userEmail);
-        user.setUserPassword(userPass);
-
-        user.setRoleId(1);
-        flipfitcustomer.setCustomerId(customerId);
-        user.setUserId(userId);
-
+    public void createCustomer(int userId, String name, String phoneNumber, String address) {
+        customerDAO.createCustomer(userId, name, phoneNumber, address);
         System.out.println("Customer Details are added!");
+
     }
 
     public void editProfile(){

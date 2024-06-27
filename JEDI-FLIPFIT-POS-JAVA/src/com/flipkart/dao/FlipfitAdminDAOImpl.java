@@ -2,17 +2,7 @@ package com.flipkart.dao;
 
 import java.sql.*; 
 public class FlipfitAdminDAOImpl implements FlipfitAdminDAOInterface{
-	 public static void main(String[] args) {
-	        FlipfitAdminDAOInterface dao = new FlipfitAdminDAOImpl();
-	        boolean flag=dao.viewGymOwnerRequests();
-	        flag=dao.approveGymOwnerRequests(23);
-	        dao.viewGymOwnerRequests();
-	        dao.cancelRequest(22);
-	        dao.cancelRequest(10);
-	        dao.removeGymOwner(22);
-	        
-	        
-	    }
+
     @Override
     public void createAdmin(int adminId, String adminEmail, String adminPassword) {};
 
@@ -26,7 +16,7 @@ public class FlipfitAdminDAOImpl implements FlipfitAdminDAOInterface{
             Class.forName("com.mysql.cj.jdbc.Driver");
 
             con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/flipfit", "root", "mysqliswow");
+                    "jdbc:mysql://localhost:3306/FlipFit", "root", "Fk!@#%215023");
 
             String query = "SELECT * FROM flipfitGymOwner WHERE ownerId = ?";
             stmt = con.prepareStatement(query);

@@ -2,9 +2,25 @@ package com.flipkart.client;
 
 import com.flipkart.business.FlipFitGymOwnerInterface;
 import com.flipkart.business.FlipFitGymOwnerService;
+import com.flipkart.business.FlipFitUserInterface;
+import com.flipkart.business.FlipFitUserService;
 import java.util.*;
 
 public class GymFlipFitOwnerMenu {
+
+	public static void login(String email, String password)
+	{
+		FlipFitUserInterface user = new FlipFitUserService();
+
+		if(user.authenticateUser(email, password, 2)>0)
+		{
+			System.out.println("Logged in as Gym Owner");
+			displayGymOwnerOptions();
+		}
+		else{
+			System.out.println("Invalid credentials");
+		}
+	}
 
 	public static void displayGymOwnerOptions() {
 
