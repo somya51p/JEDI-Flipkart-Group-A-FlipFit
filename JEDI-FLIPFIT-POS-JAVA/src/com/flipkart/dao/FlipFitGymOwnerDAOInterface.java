@@ -10,6 +10,6 @@ public interface FlipFitGymOwnerDAOInterface {
     public void viewAllBookings();
     public void viewBookings(int gymId);
     public void viewAvailableSlots(int gymId);
-    public void addSlot(int gymId, int slotId);
-    public void removeSlot(int gymId, int slotId);
+    public void addSlot(int gymId, int slotId, String slotTime, int slotCapacity);
+    public void removeSlot( int slotId);
 }

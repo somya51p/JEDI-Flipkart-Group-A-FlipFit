@@ -6,12 +6,13 @@ import java.sql.PreparedStatement;
 
 public class FlipFitGymOwnerDAOImpl implements FlipFitGymOwnerDAOInterface{
 
-//        public static void main(String[] args) {
-//        FlipFitGymOwnerDAOInterface dao = new FlipFitGymOwnerDAOImpl();
+        public static void main(String[] args) {
+        FlipFitGymOwnerDAOInterface dao = new FlipFitGymOwnerDAOImpl();
 //        //dao.createGymOwner(1, 2, "John Doe", "1111111111", "abc", "6y4r874ybddjik", "hdsuw3yd636","gdwy","bhwj");
 //        //dao.registerGym(2,"bdwh","sg");
 //        dao.editGym(2,"gegw","hduywg");
-//    }
+          dao.addSlot(1, 2, "4", 7);
+  }
 
 
     @Override
@@ -148,6 +149,45 @@ public class FlipFitGymOwnerDAOImpl implements FlipFitGymOwnerDAOInterface{
     @Override
     public void removeGym(int gymId) {
 
+        Connection con = null;
+        PreparedStatement stmt = null;
+
+        try {
+
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            con = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/flipfit_schema", "root", "Fk!@#%215038");
+
+
+            String query = "DELETE FROM flipfitGym WHERE gymId = ?";
+
+            stmt = con.prepareStatement(query);
+            stmt.setInt(1, gymId);
+
+            int rowsAffected = stmt.executeUpdate();
+
+
+            if (rowsAffected > 0) {
+                System.out.println("Gym with ID " + gymId + " has been deleted.");
+
+            } else {
+                System.out.println("No gym found with ID " + gymId);
+
+            }
+        } catch (Exception e) {
+
+            System.out.println("Error: " + e.getMessage());
+
+        } finally {
+            try {
+                if (stmt != null) stmt.close();
+                if (con != null) con.close();
+            } catch (Exception e) {
+                System.out.println("Error closing resources: " + e.getMessage());
+            }
+        }
+
     }
 
     @Override
@@ -171,12 +211,66 @@ public class FlipFitGymOwnerDAOImpl implements FlipFitGymOwnerDAOInterface{
     }
 
     @Override
-    public void addSlot(int gymId, int slotId) {
+    public void addSlot(int gymId, int slotId, String slotTime, int slotCapacity) {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/flipfit_schema", "root", "Fk!@#%215020");
+            PreparedStatement slotStmt = con.prepareStatement(
+                    "INSERT INTO slot (slotId, gymId, slotTime, slotCapacity) VALUES (?, ?, ?, ?)"
+            );
 
+            slotStmt.setInt(1, slotId);
+            slotStmt.setInt(2, gymId);
+            slotStmt.setString(3, slotTime);
+            slotStmt.setInt(4, slotCapacity);
+
+            int slotInsertCount = slotStmt.executeUpdate();
+            System.out.println(slotInsertCount + " slot record(s) inserted");
+            con.close();
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
-
     @Override
-    public void removeSlot(int gymId, int slotId) {
+    public void removeSlot(int slotId) {
+        Connection con = null;
+        PreparedStatement stmt = null;
 
+        try {
+
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            con = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/flipfit_schema", "root", "Fk!@#%215038");
+
+
+            String query = "DELETE FROM Slot WHERE slotId = ?";
+
+            stmt = con.prepareStatement(query);
+            stmt.setInt(1, slotId);
+
+            int rowsAffected = stmt.executeUpdate();
+
+
+            if (rowsAffected > 0) {
+                System.out.println("slot with ID " + slotId + " has been deleted.");
+
+            } else {
+                System.out.println("No slot found with ID " + slotId);
+
+            }
+        } catch (Exception e) {
+
+            System.out.println("Error: " + e.getMessage());
+
+        } finally {
+            try {
+                if (stmt != null) stmt.close();
+                if (con != null) con.close();
+            } catch (Exception e) {
+                System.out.println("Error closing resources: " + e.getMessage());
+            }
+        }
     }
 }
