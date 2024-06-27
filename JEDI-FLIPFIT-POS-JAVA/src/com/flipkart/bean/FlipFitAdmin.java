@@ -2,8 +2,7 @@ package com.flipkart.bean;
 
 public class FlipFitAdmin {
     private int adminId;
-    private String adminEmail;
-    private String adminPassword;
+    private int userId;
 
     public int getAdminId() {
         return adminId;
@@ -13,20 +12,12 @@ public class FlipFitAdmin {
         this.adminId = adminId;
     }
 
-    public String getAdminEmail() {
-        return adminEmail;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setAdminEmail(String adminEmail) {
-        this.adminEmail = adminEmail;
-    }
-
-    public String getAdminPassword() {
-        return adminPassword;
-    }
-
-    public void setAdminPassword(String adminPassword) {
-        this.adminPassword = adminPassword;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
 }
