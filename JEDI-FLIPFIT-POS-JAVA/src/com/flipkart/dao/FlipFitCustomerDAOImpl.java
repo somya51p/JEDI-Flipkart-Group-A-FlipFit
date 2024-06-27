@@ -6,7 +6,8 @@ public class FlipFitCustomerDAOImpl implements FlipFitCustomerDAOInterface {
 
     public static void main(String[] args) {
         FlipFitCustomerDAOInterface dao = new FlipFitCustomerDAOImpl();
-        dao.createCustomer(1, 1, "John Doe", "1111111111", "abc", "john.doe@example.com", "somya");
+        //dao.createCustomer(1, 1, "John Doe", "1111111111", "abc", "john.doe@example.com", "somya");
+        dao.editProfile(1, "Sarthak Doe", "1111111111", "abc");
     }
 
     @Override
@@ -19,7 +20,7 @@ public class FlipFitCustomerDAOImpl implements FlipFitCustomerDAOInterface {
             Class.forName("com.mysql.jdbc.Driver");
 
             con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/flipfit", "root", "mysqliswow");
+                    "jdbc:mysql://localhost:3306/flipfit_schema", "root", "Fk!@#%215020");
 
             con.setAutoCommit(false); // Start transaction
 
@@ -55,9 +56,32 @@ public class FlipFitCustomerDAOImpl implements FlipFitCustomerDAOInterface {
     }
 
     @Override
-    public void editProfile() {
+        public void editProfile(int customerId, String customerName, String customerPhone, String customerAddress) {
+            try {
+                // Load MySQL JDBC driver
+                Class.forName("com.mysql.jdbc.Driver");
 
-    }
+                // Establish a connection to the database
+                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/flipfit_schema", "root", "Fk!@#%215020");
+
+                // Update the Customer table
+                PreparedStatement customerStmt = con.prepareStatement("UPDATE flipfitCustomer SET customerName=?, customerPhone=?, customerAddress=? WHERE customerId=?");
+                customerStmt.setString(1, customerName);
+                customerStmt.setString(2, customerPhone);
+                customerStmt.setString(3, customerAddress);
+                customerStmt.setInt(4, customerId);
+
+                // Execute the customer update
+                int customerUpdateCount = customerStmt.executeUpdate();
+                System.out.println(customerUpdateCount + " customer record(s) updated");
+
+                // Close the connection
+                con.close();
+
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
 
     @Override
     public void viewGyms() {
