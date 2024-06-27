@@ -7,7 +7,9 @@ public class FlipFitCustomerDAOImpl implements FlipFitCustomerDAOInterface {
     public static void main(String[] args) {
         FlipFitCustomerDAOInterface dao = new FlipFitCustomerDAOImpl();
         //dao.createCustomer(1, 1, "John Doe", "1111111111", "abc", "john.doe@example.com", "somya");
-        dao.editProfile(1, "Sarthak Doe", "1111111111", "abc");
+//        dao.editProfile(1, "Sarthak Doe", "1111111111", "abc");
+//        dao.viewGyms();
+        dao.viewSlots(1, "12-12-12");
     }
 
     @Override
@@ -85,12 +87,106 @@ public class FlipFitCustomerDAOImpl implements FlipFitCustomerDAOInterface {
 
     @Override
     public void viewGyms() {
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
 
+        try {
+
+            Class.forName("com.mysql.jdbc.Driver");
+
+            con = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/flipfit", "root", "mysqliswow");
+
+
+            String query = "SELECT * FROM flipfitGym";
+            stmt = con.prepareStatement(query);
+
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("gymId");
+                int ownerId = rs.getInt("gymOwnerId");
+                String gymName = rs.getString("gymName");
+                String gymLocation = rs.getString("gymLocation");
+
+                System.out.println("ID: " + id);
+                System.out.println("Gym Owner Id: " + ownerId);
+                System.out.println("Gym Name: " + gymName);
+                System.out.println("Gym Location: " + gymLocation);
+                System.out.println("=================================");
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (stmt != null) stmt.close();
+                if (con != null) con.close();
+            } catch (Exception e) {
+                System.out.println("Error closing resources: " + e.getMessage());
+            }
+        }
     }
 
     @Override
-    public void viewSlots() {
+    public void viewSlots(int gymId, String date) {
+        // TODO: not complete implementation
+        Connection con = null;
+        PreparedStatement stmtSlots = null;
+        PreparedStatement stmtBookings = null;
+        ResultSet rsSlots = null;
+        ResultSet rsBookings = null;
 
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            con = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/flipfit", "root", "mysqliswow");
+
+            // Step 1: Retrieve all slots for the given gymId
+            String querySlots = "SELECT * FROM slot WHERE gymId = ?";
+            stmtSlots = con.prepareStatement(querySlots);
+            stmtSlots.setInt(1, gymId);
+            rsSlots = stmtSlots.executeQuery();
+
+            while (rsSlots.next()) {
+                int slotId = rsSlots.getInt("slotId");
+                String slotTime = rsSlots.getString("slotTime");
+
+                // Step 2: Count how many slots are already booked for the given gymId and date
+                String queryBookings = "SELECT COUNT(*) as bookedCount FROM Booking WHERE gymId = ? AND bookingDate = ? AND bookingTimeSlot = ?";
+                stmtBookings = con.prepareStatement(queryBookings);
+                stmtBookings.setInt(1, gymId);
+                stmtBookings.setString(2, date);
+                stmtBookings.setString(3, slotTime);
+                rsBookings = stmtBookings.executeQuery();
+
+                int bookedCount = 0;
+                if (rsBookings.next()) {
+                    bookedCount = rsBookings.getInt("bookedCount");
+                }
+
+                System.out.println("Slot ID: " + slotId);
+                System.out.println("Slot Time: " + slotTime);
+                System.out.println("Booked Count: " + bookedCount);
+                System.out.println("=================================");
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        } finally {
+            try {
+                if (rsBookings != null) rsBookings.close();
+                if (stmtBookings != null) stmtBookings.close();
+                if (rsSlots != null) rsSlots.close();
+                if (stmtSlots != null) stmtSlots.close();
+                if (con != null) con.close();
+            } catch (Exception e) {
+                System.out.println("Error closing resources: " + e.getMessage());
+            }
+        }
     }
 
     @Override
