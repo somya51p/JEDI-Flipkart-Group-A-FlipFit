@@ -6,11 +6,12 @@ import java.sql.PreparedStatement;
 
 public class FlipFitGymOwnerDAOImpl implements FlipFitGymOwnerDAOInterface{
 
-        public static void main(String[] args) {
-        FlipFitGymOwnerDAOInterface dao = new FlipFitGymOwnerDAOImpl();
-        //dao.createGymOwner(1, 2, "John Doe", "1111111111", "abc", "6y4r874ybddjik", "hdsuw3yd636","gdwy","bhwj");
-        dao.editProfile(1, "Sarthak Doe", "1111111111", "abc", "hwu","gyw","jw");
-    }
+//        public static void main(String[] args) {
+//        FlipFitGymOwnerDAOInterface dao = new FlipFitGymOwnerDAOImpl();
+//        //dao.createGymOwner(1, 2, "John Doe", "1111111111", "abc", "6y4r874ybddjik", "hdsuw3yd636","gdwy","bhwj");
+//        //dao.registerGym(2,"bdwh","sg");
+//        dao.editGym(2,"gegw","hduywg");
+//    }
 
 
     @Override
@@ -94,13 +95,55 @@ public class FlipFitGymOwnerDAOImpl implements FlipFitGymOwnerDAOInterface{
 
     @Override
     public void registerGym(int gymId, String name, String location) {
+        Connection con = null;
+        PreparedStatement stmtGym = null;
 
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/flipfit_schema", "root", "Fk!@#%215020");
+            con.setAutoCommit(false);
+
+            String queryGym = "INSERT INTO flipfitGym (gymId, gymOwnerId, gymName, gymLocation) VALUES (?, ?, ?, ?)";
+            stmtGym = con.prepareStatement(queryGym);
+            stmtGym.setInt(1, gymId);
+            stmtGym.setInt(2, 1);  //need to work
+            stmtGym.setString(3, name);
+            stmtGym.setString(4, location);
+
+            int gymInsertCount = stmtGym.executeUpdate();
+            System.out.println(gymInsertCount + " user records inserted");
+
+            con.commit();
+
+        }catch (Exception e) {
+            System.out.println(e);
+
+        }
     }
 
     @Override
-    public void editGym(int gymId) {
+        public void editGym(int gymId, String gymName, String gymLocation) {
+            try {
+                Class.forName("com.mysql.jdbc.Driver");
 
-    }
+                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/flipfit_schema", "root", "Fk!@#%215020");
+                PreparedStatement gymStmt = con.prepareStatement(
+                        "UPDATE flipfitGym SET gymName=?, gymLocation=? WHERE gymId=?"
+                );
+
+                gymStmt.setString(1, gymName);
+                gymStmt.setString(2, gymLocation);
+                gymStmt.setInt(3, gymId);
+
+                int gymUpdateCount = gymStmt.executeUpdate();
+                System.out.println(gymUpdateCount + " gym record(s) updated");
+
+                con.close();
+
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
 
     @Override
     public void removeGym(int gymId) {
