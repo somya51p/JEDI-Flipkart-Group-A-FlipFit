@@ -1,13 +1,23 @@
 package com.flipkart.business;
 import com.flipkart.bean.FlipFitAdmin;
+import com.flipkart.bean.Roles;
+import com.flipkart.bean.Users;
 
 public class FlipfitAdminService implements FlipfitAdminInterface{
         FlipFitAdmin flipfitadmin = new FlipFitAdmin();
+        Users user= new Users();
+        Roles role= new Roles();
 
-        public void createAdmin(int adminId, String adminEmail, String adminPassword){
+        public void createAdmin(int adminId, int userId, String email, String password, int roleId, String roleName, String roleDescription){
               flipfitadmin.setAdminId(adminId);
-              flipfitadmin.setAdminEmail(adminEmail);
-              flipfitadmin.setAdminPassword(adminPassword);
+              flipfitadmin.setUserId(userId);
+              user.setUserId(userId);
+              user.setUserEmail(email);
+              user.setUserPassword(password);
+              user.setRoleId(roleId);
+              role.setRoleId(roleId);
+              role.setRoleName(roleName);
+              role.setRoleDescription(roleDescription);
               System.out.println("Admin created");
         }
 
