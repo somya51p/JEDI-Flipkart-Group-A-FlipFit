@@ -2,7 +2,7 @@ package com.flipkart.business;
 
 public interface FlipFitCustomerInterface {
 
-    public void createCustomer(int id, String name, String email, String phoneNumber, String address, String password);
+    public void createCustomer(int customerId, int userId, String name, String phoneNumber, String address, String userEmail, String userPass);
     public void editProfile();
     public void viewGyms();
     public void viewSlots();
