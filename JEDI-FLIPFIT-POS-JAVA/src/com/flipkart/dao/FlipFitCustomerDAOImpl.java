@@ -22,7 +22,7 @@ public class FlipFitCustomerDAOImpl implements FlipFitCustomerDAOInterface {
             Class.forName("com.mysql.jdbc.Driver");
 
             con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/flipfit_schema", "root", "Fk!@#%215020");
+                    "jdbc:mysql://localhost:3306/FlipFit", "root", "mysqliswow");
 
             con.setAutoCommit(false); // Start transaction
 
@@ -145,7 +145,6 @@ public class FlipFitCustomerDAOImpl implements FlipFitCustomerDAOInterface {
             con = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/flipfit", "root", "mysqliswow");
 
-            // Step 1: Retrieve all slots for the given gymId
             String querySlots = "SELECT * FROM slot WHERE gymId = ?";
             stmtSlots = con.prepareStatement(querySlots);
             stmtSlots.setInt(1, gymId);
@@ -155,7 +154,6 @@ public class FlipFitCustomerDAOImpl implements FlipFitCustomerDAOInterface {
                 int slotId = rsSlots.getInt("slotId");
                 String slotTime = rsSlots.getString("slotTime");
 
-                // Step 2: Count how many slots are already booked for the given gymId and date
                 String queryBookings = "SELECT COUNT(*) as bookedCount FROM Booking WHERE gymId = ? AND bookingDate = ? AND bookingTimeSlot = ?";
                 stmtBookings = con.prepareStatement(queryBookings);
                 stmtBookings.setInt(1, gymId);
