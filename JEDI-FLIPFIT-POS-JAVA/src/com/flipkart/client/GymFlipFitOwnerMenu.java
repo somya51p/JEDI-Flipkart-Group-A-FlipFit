@@ -47,10 +47,10 @@ public class GymFlipFitOwnerMenu {
 				case 9:
 					gymOwnerService.viewAllRegisteredGymCenters();
 					break;
-				case 10:
-					gymOwnerService.editProfile(1, "John Doe", "john.doe@example.com", "9876543210", "password", "123 Street, City",
-							"ABCDE1234F","GST1234567","Approved");
-					break;
+//				case 10:
+//					gymOwnerService.editProfile(1, "John Doe", "john.doe@example.com", "9876543210", "password", "123 Street, City",
+//							"ABCDE1234F","GST1234567","Approved");
+//					break;
 				case 11:
 					System.out.println("Thank you for using FlipFit Application");
 					flag = false;
