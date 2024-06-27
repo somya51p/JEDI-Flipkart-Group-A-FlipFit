@@ -9,6 +9,7 @@ public class FlipfitAdminDAOImpl implements FlipfitAdminDAOInterface{
 	        dao.viewGymOwnerRequests();
 	        dao.cancelRequest(22);
 	        dao.cancelRequest(10);
+	        dao.removeGymOwner(22);
 	        
 	        
 	    }
@@ -176,8 +177,45 @@ public class FlipfitAdminDAOImpl implements FlipfitAdminDAOInterface{
 
     @Override
     public boolean removeGymOwner(int ownerId) {
-    	
-        return false;
+    	 Connection con = null;
+         PreparedStatement stmt = null;
+
+    	 try {
+             
+             Class.forName("com.mysql.cj.jdbc.Driver");
+
+             con = DriverManager.getConnection(
+                     "jdbc:mysql://localhost:3306/flipfit_schema", "root", "Fk!@#%215038");
+
+       
+             String query = "DELETE FROM flipfitGymOwner WHERE ownerId = ?";
+          
+             stmt = con.prepareStatement(query);
+             stmt.setInt(1, ownerId);
+
+             int rowsAffected = stmt.executeUpdate();
+
+            
+             if (rowsAffected > 0) {
+                 System.out.println("Gym owner with ID " + ownerId + " has been deleted.");
+                 return true; 
+             } else {
+                 System.out.println("No gym owner found with ID " + ownerId);
+                 return false; 
+             }
+         } catch (Exception e) {
+            
+             System.out.println("Error: " + e.getMessage());
+             return false; 
+         } finally {
+             try {
+                 if (stmt != null) stmt.close();
+                 if (con != null) con.close();
+             } catch (Exception e) {
+                 System.out.println("Error closing resources: " + e.getMessage());
+             }
+         }
+      
     }
 
     @Override
