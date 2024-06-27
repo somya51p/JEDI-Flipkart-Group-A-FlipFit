@@ -4,10 +4,9 @@ public class FlipFitCustomer {
 
     private int customerId;
     private String customerName;
-    private String customerEmail;
     private String customerPhone;
     private String customerAddress;
-    private String customerPassword;
+    private int userId;
 
     public int getCustomerId() {
         return customerId;
@@ -23,14 +22,6 @@ public class FlipFitCustomer {
 
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
-    }
-
-    public String getCustomerEmail() {
-        return customerEmail;
-    }
-
-    public void setCustomerEmail(String customerEmail) {
-        this.customerEmail = customerEmail;
     }
 
     public String getCustomerPhone() {
@@ -49,11 +40,12 @@ public class FlipFitCustomer {
         this.customerAddress = customerAddress;
     }
 
-    public String getCustomerPassword() {
-        return customerPassword;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setCustomerPassword(String customerPassword) {
-        this.customerPassword = customerPassword;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
+
 }

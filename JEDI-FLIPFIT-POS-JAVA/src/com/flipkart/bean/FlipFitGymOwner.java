@@ -4,12 +4,12 @@ public class FlipFitGymOwner {
 
     private int ownerId;
     private String ownerName;
-    private String ownerEmail;
     private String ownerPhone;
     private String ownerAddress;
     private String ownerGstNum;
     private String ownerPanNum;
     private String approvalStatus;
+    private int userId;
 
     public int getOwnerId() {
         return ownerId;
@@ -35,12 +35,12 @@ public class FlipFitGymOwner {
         this.ownerPanNum = ownerPanNum;
     }
 
-    public String getOwnerEmail() {
-        return ownerEmail;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setOwnerEmail(String ownerEmail) {
-        this.ownerEmail = ownerEmail;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getOwnerPhone() {
