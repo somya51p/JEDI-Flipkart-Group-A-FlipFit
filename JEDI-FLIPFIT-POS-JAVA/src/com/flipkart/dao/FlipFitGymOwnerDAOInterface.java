@@ -1,8 +1,8 @@
 package com.flipkart.dao;
 
 public interface FlipFitGymOwnerDAOInterface {
-    public void createGymOwner(int id, String name, String email, String phone, String address, String pan_no, String gst_no, String status);
-    public void editProfile(int id, String name, String email, String phone, String password, String address, String pan_no, String gst_no, String status);
+    public void createGymOwner(int gymOwnerId, int userId, String name, String phone, String address, String pan_no, String gst_no, String userEmail, String userPass);
+    public void editProfile(int ownerId, String ownerName, String ownerPhone, String ownerAddress, String ownerGstNum, String ownerPanNum, String approvalStatus);
     public void registerGym(int gymId, String name, String location);
     public void editGym(int gymId);
     public void removeGym(int gymId);

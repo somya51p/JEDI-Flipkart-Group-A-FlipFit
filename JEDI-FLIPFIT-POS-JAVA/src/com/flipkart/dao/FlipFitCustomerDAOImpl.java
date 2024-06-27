@@ -4,11 +4,11 @@ import java.sql.*;
 
 public class FlipFitCustomerDAOImpl implements FlipFitCustomerDAOInterface {
 
-    public static void main(String[] args) {
-        FlipFitCustomerDAOInterface dao = new FlipFitCustomerDAOImpl();
-        //dao.createCustomer(1, 1, "John Doe", "1111111111", "abc", "john.doe@example.com", "somya");
-        dao.editProfile(1, "Sarthak Doe", "1111111111", "abc");
-    }
+//    public static void main(String[] args) {
+//        FlipFitCustomerDAOInterface dao = new FlipFitCustomerDAOImpl();
+//        //dao.createCustomer(1, 1, "John Doe", "1111111111", "abc", "john.doe@example.com", "somya");
+//        dao.editProfile(1, "Sarthak Doe", "1111111111", "abc");
+//    }
 
     @Override
     public void createCustomer(int customerId, int userId, String name, String phoneNumber, String address, String userEmail, String userPass) {
