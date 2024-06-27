@@ -51,7 +51,7 @@ public class GymFlipFitApplication {
                 System.out.println("Enter your confirm password: ");
                 String confirmUserPassword = in.next();
                 if(userPassword.equals(confirmUserPassword)) {
-                    userService.createCustomer(101,userName,userEmail, userPhoneNumber,address, userPassword);
+                    userService.createCustomer(101, 901, userName, userPhoneNumber, address, userEmail, userPassword);
                     System.out.println("You have successfully registered as Customer");
                     System.out.println("*********************************************");
                     GymFlipFitCustomerMenu.displayCustomerOptions();
@@ -78,8 +78,8 @@ public class GymFlipFitApplication {
                 System.out.println("Enter your confirm password: ");
                 String confirmOwnerPassword = in.next();
                 if(ownerPassword.equals(confirmOwnerPassword)) {
-                    gymOwnerService.createGymOwner(1, ownerName, ownerEmail, ownerPhoneNumber, ownerAddress,
-                            panNumber, gstNumber, "Pending");
+                    gymOwnerService.createGymOwner(101,902, ownerName, ownerPhoneNumber,  ownerAddress,
+                            panNumber, gstNumber,   ownerEmail, ownerPassword);
                     System.out.println("You have successfully registered as Gym owner");
                     System.out.println("*********************************************");
                     GymFlipFitOwnerMenu.displayGymOwnerOptions();
