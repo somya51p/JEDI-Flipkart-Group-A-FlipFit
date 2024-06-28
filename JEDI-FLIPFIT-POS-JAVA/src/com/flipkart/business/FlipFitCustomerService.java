@@ -29,6 +29,7 @@ public class FlipFitCustomerService implements FlipFitCustomerInterface {
     }
 
     public void viewGyms(){
+        customerDAO.viewGyms();
         System.out.println("All gyms are viewed");
     }
 

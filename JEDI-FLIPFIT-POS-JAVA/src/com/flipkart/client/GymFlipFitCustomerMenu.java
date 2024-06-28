@@ -35,8 +35,29 @@ public class GymFlipFitCustomerMenu {
 					userService.filterSlots();
 					break;
 				case 5:
+<<<<<<< Updated upstream
 					bookingService.bookSlots();
 					bookingService.makePayment(); //it should come under book slot
+=======
+					String temp2 = in.nextLine();
+					System.out.println("Enter your payment mode");
+					String modeOfPayment = in.nextLine();
+					System.out.println("Enter your payment details");
+					String paymentDetails = in.nextLine();
+					System.out.println("Enter your payment date");
+					String expiryDate = in.nextLine();
+					int transactionId = bookingService.makePayment(userId, paymentDetails, expiryDate, modeOfPayment);
+					System.out.println("Enter gym id");
+					int gymId = in.nextInt();
+					System.out.println("Enter booking date");
+					String temp3 = in.nextLine();
+					String bookingDate = in.nextLine();
+					System.out.println("Enter booking time slot");
+					String bookingTimeSlot = in.nextLine();
+					String bookingType = "Confirmed";
+					int bookingAmount = 100;
+					bookingService.createBooking(userId, gymId, transactionId, bookingDate, bookingTimeSlot, bookingType, bookingAmount);
+>>>>>>> Stashed changes
 					break;
 				case 6:
 					bookingService.viewBookings();
