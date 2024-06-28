@@ -21,8 +21,9 @@ public class BookingGymService implements BookingGymInterface {
         System.out.println("All bookings are viewed");
     }
 
-    public void cancelBookings(){
-        System.out.println("Slot is cancelled");
+    public void cancelBookings(int bookingId){
+    	bookingGymDAO.cancelBookings(bookingId);
+        System.out.println("Booking is cancelled");
     }
 
     public void makePayment(int userId) {
