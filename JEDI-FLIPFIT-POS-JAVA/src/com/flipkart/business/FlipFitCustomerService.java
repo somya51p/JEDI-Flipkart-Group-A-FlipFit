@@ -1,8 +1,5 @@
 package com.flipkart.business;
 
-import com.flipkart.bean.FlipFitCustomer;
-import com.flipkart.bean.Roles;
-import com.flipkart.bean.Users;
 import com.flipkart.dao.FlipFitCustomerDAOImpl;
 import com.flipkart.dao.FlipFitCustomerDAOInterface;
 import com.flipkart.exceptions.UserNotFoundException;

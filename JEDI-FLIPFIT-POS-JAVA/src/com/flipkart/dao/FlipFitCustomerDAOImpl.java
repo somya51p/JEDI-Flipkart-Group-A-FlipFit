@@ -37,7 +37,7 @@ public class FlipFitCustomerDAOImpl implements FlipFitCustomerDAOInterface {
             stmtCustomer.setInt(4, userId);
 
             int customerInsertCount = stmtCustomer.executeUpdate();
-            System.out.println(customerInsertCount + " owner records inserted");
+            System.out.println(customerInsertCount + " customer records inserted");
 
             con.commit(); // Commit transaction
         } catch (Exception e) {

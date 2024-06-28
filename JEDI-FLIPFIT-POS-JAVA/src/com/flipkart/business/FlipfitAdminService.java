@@ -1,9 +1,6 @@
 package com.flipkart.business;
-import com.flipkart.bean.FlipFitAdmin;
-import com.flipkart.bean.Roles;
+import com.flipkart.bean    .FlipFitAdmin;
 import com.flipkart.bean.Users;
-import com.flipkart.dao.FlipFitCustomerDAOImpl;
-import com.flipkart.dao.FlipFitCustomerDAOInterface;
 import com.flipkart.dao.FlipfitAdminDAOImpl;
 import com.flipkart.dao.FlipfitAdminDAOInterface;
 
