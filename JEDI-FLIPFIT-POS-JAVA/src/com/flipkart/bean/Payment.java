@@ -2,9 +2,16 @@ package com.flipkart.bean;
 
 public class Payment {
     private int transactionId;
-    private int cardNumber;
+    private String paymentDetails;
     private String expiryDate;
     private String modeOfPayment;
+
+    public Payment(int transactionId, int cardNumber, String expiryDate, String modeOfPayment) {
+        this.transactionId = transactionId;
+        this.cardNumber = cardNumber;
+        this.expiryDate = expiryDate;
+        this.modeOfPayment = modeOfPayment;
+    }
 
     public int getTransactionId() {
         return transactionId;
@@ -14,12 +21,12 @@ public class Payment {
         this.transactionId = transactionId;
     }
 
-    public int getCardNumber() {
-        return cardNumber;
+    public String getPaymentDetails() {
+        return paymentDetails;
     }
 
-    public void setCardNumber(int cardNumber) {
-        this.cardNumber = cardNumber;
+    public void setPaymentDetails(String paymentDetails) {
+        this.paymentDetails = paymentDetails;
     }
 
     public String getExpiryDate() {

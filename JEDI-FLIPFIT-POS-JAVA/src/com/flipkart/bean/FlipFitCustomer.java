@@ -8,6 +8,13 @@ public class FlipFitCustomer {
     private String customerAddress;
     private int userId;
 
+    public FlipFitCustomer(int customerId, String customerName, String customerPhone, String customerAddress, int userId) {
+        this.customerId = customerId;
+        this.customerName = customerName;
+        this.customerPhone = customerPhone;
+        this.customerAddress = customerAddress;
+        this.userId = userId;
+    }
     public int getCustomerId() {
         return customerId;
     }

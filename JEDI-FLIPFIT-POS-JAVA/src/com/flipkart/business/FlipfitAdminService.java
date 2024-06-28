@@ -4,24 +4,22 @@ import com.flipkart.bean.Users;
 import com.flipkart.dao.FlipfitAdminDAOImpl;
 import com.flipkart.dao.FlipfitAdminDAOInterface;
 
+import java.util.ArrayList;
+
 
 public class FlipfitAdminService implements FlipfitAdminInterface{
-        FlipFitAdmin flipfitadmin = new FlipFitAdmin();
-        Users user= new Users();
 
         FlipfitAdminDAOInterface adminDAO = new FlipfitAdminDAOImpl();
 
         public void createAdmin(int adminId, int userId, String userEmail, String userPass){
-
-            flipfitadmin.setUserId(userId);
-            user.setUserEmail(userEmail);
-            user.setUserPassword(userPass);
-
-            user.setRoleId(3);
-            flipfitadmin.setAdminId(adminId);
-            user.setUserId(userId);
-
             System.out.println("Admin created");
+        }
+
+        public void viewAllGymOwners(){
+            ArrayList<String> Output = adminDAO.viewAllGymOwners();
+            for(String s : Output){
+                System.out.println(s);
+            }
         }
 
         public boolean viewGymOwnerDetails(int ownerId){

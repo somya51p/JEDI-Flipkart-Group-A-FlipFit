@@ -35,6 +35,8 @@ public class GymFlipFitCustomerMenu {
 
 			Scanner in = new Scanner(System.in);
 			int i = in.nextInt();
+			int gymId;
+			String date;
 
 			switch (i) {
 				case 1:
@@ -57,15 +59,32 @@ public class GymFlipFitCustomerMenu {
 					customerService.filterSlots();
 					break;
 				case 5:
-
-					bookingService.bookSlots(userId);
-					bookingService.makePayment(userId);
+					String temp2 = in.nextLine();
+					System.out.println("Enter your payment mode");
+					String modeOfPayment = in.nextLine();
+					System.out.println("Enter your payment details");
+					String paymentDetails = in.nextLine();
+					System.out.println("Enter your payment date");
+					String expiryDate = in.nextLine();
+					int transactionId = bookingService.makePayment(userId, paymentDetails, expiryDate, modeOfPayment);
+					System.out.println("Enter gym id");
+					int gymId = in.nextInt();
+					System.out.println("Enter booking date");
+					String temp3 = in.nextLine();
+					String bookingDate = in.nextLine();
+					System.out.println("Enter booking time slot");
+					String bookingTimeSlot = in.nextLine();
+					String bookingType = "Confirmed";
+					int bookingAmount = 100;
+					bookingService.createBooking(userId, gymId, transactionId, bookingDate, bookingTimeSlot, bookingType, bookingAmount);
 					break;
 				case 6:
 					bookingService.viewBookings(userId);
 					break;
 				case 7:
-					bookingService.cancelBookings();
+					System.out.println("Enter the bookingId");
+					 int bookingId = in.nextInt();
+					bookingService.cancelBookings(bookingId);
 					break;
 				case 8:
 					System.out.println("Thank you for using FlipFit App");

@@ -1,11 +1,13 @@
 package com.flipkart.business;
 
+import com.flipkart.bean.*;
 import com.flipkart.dao.FlipFitCustomerDAOImpl;
 import com.flipkart.dao.FlipFitCustomerDAOInterface;
 import com.flipkart.exceptions.UserNotFoundException;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
 
 public class FlipFitCustomerService implements FlipFitCustomerInterface {
 
@@ -28,7 +30,14 @@ public class FlipFitCustomerService implements FlipFitCustomerInterface {
     }
 
     public void viewGyms(){
-        System.out.println("All gyms are viewed");
+        List<FlipFitGym> gyms = customerDAO.viewGyms();
+        // print the list
+        for (FlipFitGym gym : gyms) {
+            System.out.println("\nGym Id: " + gym.getGymId());
+            System.out.println("Gym: " + gym.getGymName());
+            System.out.println("Location: " + gym.getGymLocation());
+        }
+        System.out.println("All gyms viewed");
     }
 
     public void viewSlots(){
@@ -41,10 +50,11 @@ public class FlipFitCustomerService implements FlipFitCustomerInterface {
         for (Map.Entry<String, Integer> entry : AvailableSlots.entrySet()) {
             System.out.println("Slot Time: " + entry.getKey() + ", Available Slots: " + entry.getValue());
         }
-        }
+    }
 
     public void filterSlots(){
-        System.out.println("All slots are filtered");
+
+        System.out.println("All slots filtered");
     }
 
 }
