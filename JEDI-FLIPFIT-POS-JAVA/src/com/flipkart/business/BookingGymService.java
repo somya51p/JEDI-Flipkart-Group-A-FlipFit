@@ -8,12 +8,12 @@ public class BookingGymService implements BookingGymInterface {
 
     BookingGymDAOInterface bookingGymDAO = new BookingGymDAOImpl();
 
-    public void createBooking(int bookingId, int customerId, int gymId, int transactionId, String bookingDate, String bookingTimeSlot, String bookingType, int bookingAmount) {
-//        bookingGymDAO.createBooking();
+    public void createBooking(int userId, int gymId, int transactionId, String bookingDate, String bookingTimeSlot, String bookingType, int bookingAmount) {
+        bookingGymDAO.createBooking(userId, gymId, transactionId, bookingDate, bookingTimeSlot, bookingType, bookingAmount);
         System.out.println("Booking is Done!!");
     }
 
-    public void bookSlots(int userId){
+    public void bookSlots(){
         System.out.println("Slot is booked");
     }
 
@@ -26,8 +26,9 @@ public class BookingGymService implements BookingGymInterface {
         System.out.println("Booking is cancelled");
     }
 
-    public void makePayment(int userId) {
+    public int makePayment(int userId, String paymentDetails, String expiryDate, String modeOfPayment) {
         System.out.println("Payment Successful!");
+        return bookingGymDAO.makePayment(userId, paymentDetails, expiryDate, modeOfPayment);
     }
 
 }
