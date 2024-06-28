@@ -1,35 +1,16 @@
 package com.flipkart.business;
-
-import com.flipkart.bean.FlipFitGymOwner;
-import com.flipkart.bean.Roles;
-import com.flipkart.bean.Users;
+import com.flipkart.dao.FlipFitGymOwnerDAOImpl;
+import com.flipkart.dao.FlipFitGymOwnerDAOInterface;
 
 public class FlipFitGymOwnerService implements FlipFitGymOwnerInterface {
 
-    FlipFitGymOwner gymOwner = new FlipFitGymOwner();
-    Users user = new Users();
-
-
-    public void createGymOwner(int gymOwnerId, int userId, String name, String phone, String address, String pan_no, String gst_no, String userEmail , String userPass) {
-
-
-        gymOwner.setOwnerName(name);
-        gymOwner.setOwnerPanNum(pan_no);
-        gymOwner.setOwnerPhone(phone);
-        gymOwner.setOwnerAddress(address);
-        gymOwner.setOwnerGstNum(gst_no);
-        gymOwner.setApprovalStatus("false");
-        user.setUserEmail(userEmail);
-        user.setUserPassword(userPass);
-
-        gymOwner.setOwnerId(gymOwnerId);
-        user.setUserId(userId);
-        user.setRoleId(2);
-
-        System.out.println("gym owner details added");
+    FlipFitGymOwnerDAOInterface ownerDAO = new FlipFitGymOwnerDAOImpl();
+    public void createGymOwner(int userId, String name, String phone, String address, String pan_no, String gst_no) {
+        ownerDAO.createGymOwner(userId, name, phone, address, pan_no, gst_no);
+        System.out.println("Customer Details are added!");
     }
 
-    public void editProfile(int id, String name, String email, String phone, String password, String address, String pan_no, String gst_no) {
+    public void editProfile(int ownerId, String name, String email, String phone, String password, String address, String pan_no, String gst_no) {
         System.out.println("edited gym owner details");
     }
 

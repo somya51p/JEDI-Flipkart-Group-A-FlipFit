@@ -1,28 +1,23 @@
 package com.flipkart.business;
 
 import com.flipkart.bean.Booking;
+import com.flipkart.dao.BookingGymDAOImpl;
+import com.flipkart.dao.BookingGymDAOInterface;
 
 public class BookingGymService implements BookingGymInterface {
 
-    Booking booking = new Booking();
+    BookingGymDAOInterface bookingGymDAO = new BookingGymDAOImpl();
 
     public void createBooking(int bookingId, int customerId, int gymId, int transactionId, String bookingDate, String bookingTimeSlot, String bookingType, int bookingAmount) {
-        booking.setBookingId(bookingId);
-        booking.setCustomerId(customerId);
-        booking.setGymId(gymId);
-        booking.setTransactionId(transactionId);
-        booking.setBookingDate(bookingDate);
-        booking.setBookingTimeSlot(bookingTimeSlot);
-        booking.setBookingType(bookingType);
-        booking.setBookingAmount(bookingAmount);
+//        bookingGymDAO.createBooking();
         System.out.println("Booking is Done!!");
     }
 
-    public void bookSlots(){
+    public void bookSlots(int userId){
         System.out.println("Slot is booked");
     }
 
-    public void viewBookings(){
+    public void viewBookings(int userId){
         System.out.println("All bookings are viewed");
     }
 
@@ -30,7 +25,7 @@ public class BookingGymService implements BookingGymInterface {
         System.out.println("Slot is cancelled");
     }
 
-    public void makePayment() {
+    public void makePayment(int userId) {
         System.out.println("Payment Successful!");
     }
 

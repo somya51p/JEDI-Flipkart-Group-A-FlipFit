@@ -2,10 +2,27 @@ package com.flipkart.client;
 
 import com.flipkart.business.FlipfitAdminInterface ;
 import com.flipkart.business.FlipfitAdminService;
+import com.flipkart.business.FlipFitUserInterface;
+import com.flipkart.business.FlipFitUserService;
 
 import java.util.Scanner;
 
 public class GymFlipFitAdminMenu {
+
+	public static void login(String email, String password)
+	{
+		FlipFitUserInterface user = new FlipFitUserService();
+
+		if(user.authenticateUser(email, password, 3) > 0)
+		{
+			System.out.println("Logged in as Admin");
+			displayAdminOptions();
+		}
+		else{
+			System.out.println("Invalid credentials");
+		}
+	}
+
 	public static void displayAdminOptions() {
 		FlipfitAdminInterface adminService = new FlipfitAdminService() ;
 		boolean flag= true ;

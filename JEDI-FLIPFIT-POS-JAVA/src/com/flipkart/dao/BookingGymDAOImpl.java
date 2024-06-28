@@ -22,6 +22,7 @@ public class BookingGymDAOImpl implements BookingGymDAOInterface {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
             con = DriverManager.getConnection(
+
                     "jdbc:mysql://localhost:3306/FlipFit", "root", "mysqliswow");
 
             String query = "INSERT INTO booking (bookingId, customerId, gymId, transactionId, bookingDate, bookingTimeSlot, bookingType, bookingAmount) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
