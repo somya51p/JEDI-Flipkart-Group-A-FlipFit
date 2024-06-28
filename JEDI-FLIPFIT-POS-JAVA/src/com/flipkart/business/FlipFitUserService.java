@@ -9,8 +9,12 @@ public class FlipFitUserService implements FlipFitUserInterface{
     FlipFitUserDAOInterface userDAO = new FlipFitUserDAOImpl();
 
     public int authenticateUser(String email, String password, int roleId) {
-
-        return userDAO.authenticateUser(email, password, roleId);
+        try {
+        return userDAO.authenticateUser(email, password, roleId);}
+        catch(Exception e){
+        	System.out.println(e);
+        	return 0;
+        }
     }
 
     public int createUser(String email, String password, int roleId) {

@@ -2,6 +2,8 @@ package com.flipkart.client;
 
 import com.flipkart.business.FlipfitAdminInterface ;
 import com.flipkart.business.FlipfitAdminService;
+import com.flipkart.exceptions.InvalidChoiceException;
+import com.flipkart.exceptions.WrongCredentialsException;
 import com.flipkart.business.FlipFitUserInterface;
 import com.flipkart.business.FlipFitUserService;
 
@@ -9,21 +11,26 @@ import java.util.Scanner;
 
 public class GymFlipFitAdminMenu {
 
-	public static void login(String email, String password)
+	public static void login(String email, String password) throws WrongCredentialsException
 	{
 		FlipFitUserInterface user = new FlipFitUserService();
 
 		if(user.authenticateUser(email, password, 3) > 0)
 		{
 			System.out.println("Logged in as Admin");
-			displayAdminOptions();
+			try {
+				displayAdminOptions();
+			} catch (InvalidChoiceException e) {
+				System.out.println("Error: "+e.getMessage());
+			}
 		}
 		else{
-			System.out.println("Invalid credentials");
+			throw new WrongCredentialsException();
 		}
+		
 	}
 
-	public static void displayAdminOptions() {
+	public static void displayAdminOptions() throws InvalidChoiceException {
 		FlipfitAdminInterface adminService = new FlipfitAdminService() ;
 		boolean flag= true ;
 		do {
@@ -52,7 +59,9 @@ public class GymFlipFitAdminMenu {
 					flag= false ;
 					break;
 				default:
-					System.out.println("invalid option");
+					throw new InvalidChoiceException("Invalid option - " + option);
+					
+					
 			}
 		}while(flag);
 

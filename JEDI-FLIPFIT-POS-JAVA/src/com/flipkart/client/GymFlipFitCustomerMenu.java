@@ -5,26 +5,32 @@ import com.flipkart.business.FlipFitCustomerInterface;
 import com.flipkart.business.FlipFitCustomerService;
 import com.flipkart.business.FlipFitUserInterface;
 import com.flipkart.business.FlipFitUserService;
+import com.flipkart.exceptions.InvalidChoiceException;
 import com.flipkart.exceptions.UserNotFoundException;
+import com.flipkart.exceptions.WrongCredentialsException;
 
 import java.util.*;
 
 public class GymFlipFitCustomerMenu {
 
-	public static void login(String email, String password) throws UserNotFoundException {
+	public static void login(String email, String password) throws UserNotFoundException,WrongCredentialsException {
 		FlipFitUserInterface user = new FlipFitUserService();
 		int userId = user.authenticateUser(email, password, 1);
 		if(userId > 0)
 		{
 			System.out.println("Logged in as Customer");
-			displayCustomerOptions(userId);
+			try {
+			displayCustomerOptions(userId);}
+			catch(InvalidChoiceException e){
+				System.out.println("Error:"+e.getMessage());
+			}
 		}
 		else{
-			System.out.println("Invalid credentials");
+			throw new WrongCredentialsException();
 		}
 	}
    
-	public static void displayCustomerOptions(int userId) throws UserNotFoundException {
+	public static void displayCustomerOptions(int userId) throws UserNotFoundException, InvalidChoiceException {
 		FlipFitCustomerInterface customerService = new FlipFitCustomerService();
 		BookingGymInterface bookingService = new BookingGymService();
 
@@ -91,7 +97,7 @@ public class GymFlipFitCustomerMenu {
 					flag = false;
 					break;
 				default:
-					System.out.println("Invalid option");
+					throw new InvalidChoiceException("Invalid option - " + i);
 			}
 		} while(flag);
 		
