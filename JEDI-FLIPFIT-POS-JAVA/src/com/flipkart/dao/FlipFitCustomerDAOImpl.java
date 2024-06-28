@@ -22,7 +22,7 @@ public class FlipFitCustomerDAOImpl implements FlipFitCustomerDAOInterface {
             Class.forName("com.mysql.jdbc.Driver");
 
             con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/flipfit_schema", "root", "Fk!@#%215020");
+                    "jdbc:mysql://localhost:3306/FlipFit", "root", "mysqliswow");
 
             con.setAutoCommit(false); // Start transaction
 
@@ -64,7 +64,7 @@ public class FlipFitCustomerDAOImpl implements FlipFitCustomerDAOInterface {
                 Class.forName("com.mysql.jdbc.Driver");
 
                 // Establish a connection to the database
-                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/flipfit_schema", "root", "Fk!@#%215020");
+                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/FlipFit", "root", "mysqliswow");
 
                 // Update the Customer table
                 PreparedStatement customerStmt = con.prepareStatement("UPDATE flipfitCustomer SET customerName=?, customerPhone=?, customerAddress=? WHERE customerId=?");
@@ -96,7 +96,7 @@ public class FlipFitCustomerDAOImpl implements FlipFitCustomerDAOInterface {
             Class.forName("com.mysql.jdbc.Driver");
 
             con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/flipfit", "root", "mysqliswow");
+                    "jdbc:mysql://localhost:3306/FlipFit", "root", "mysqliswow");
 
 
             String query = "SELECT * FROM flipfitGym";
@@ -143,7 +143,7 @@ public class FlipFitCustomerDAOImpl implements FlipFitCustomerDAOInterface {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
             con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/flipfit", "root", "mysqliswow");
+                    "jdbc:mysql://localhost:3306/FlipFit", "root", "mysqliswow");
 
             // Step 1: Retrieve all slots for the given gymId
             String querySlots = "SELECT * FROM slot WHERE gymId = ?";

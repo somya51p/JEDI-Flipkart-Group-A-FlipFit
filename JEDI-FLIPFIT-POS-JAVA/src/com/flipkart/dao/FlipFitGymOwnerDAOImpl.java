@@ -2,15 +2,15 @@ package com.flipkart.dao;
 
 import java.sql.*;
 
-public class FlipFitGymOwnerDAOImpl implements FlipFitGymOwnerDAOInterface{
+public class FlipFitGymOwnerDAOImpl implements FlipFitGymOwnerDAOInterface {
 
-        public static void main(String[] args) {
+    public static void main(String[] args) {
         FlipFitGymOwnerDAOInterface dao = new FlipFitGymOwnerDAOImpl();
 //        //dao.createGymOwner(1, 2, "John Doe", "1111111111", "abc", "6y4r874ybddjik", "hdsuw3yd636","gdwy","bhwj");
 //        //dao.registerGym(2,"bdwh","sg");
 //        dao.editGym(2,"gegw","hduywg");
-          dao.addSlot(1, 2, "4", 7);
-  }
+        dao.addSlot(1, 2, "4", 7);
+    }
 
 
     @Override
@@ -21,7 +21,7 @@ public class FlipFitGymOwnerDAOImpl implements FlipFitGymOwnerDAOInterface{
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
-                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/flipfit_schema", "root", "Fk!@#%215020");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/FlipFit", "root", "mysqliswow");
             con.setAutoCommit(false);
 
             String queryUser = "INSERT INTO users (userId, userEmail, userPassword, roleId) VALUES (?, ?, ?, ?)";
@@ -50,7 +50,7 @@ public class FlipFitGymOwnerDAOImpl implements FlipFitGymOwnerDAOInterface{
 
             con.commit();
 
-        }catch(Exception e) {
+        } catch (Exception e) {
             System.out.println(e);
 
 
@@ -58,13 +58,13 @@ public class FlipFitGymOwnerDAOImpl implements FlipFitGymOwnerDAOInterface{
     }
 
     @Override
-        public void editProfile(int ownerId, String ownerName, String ownerPhone, String ownerAddress, String ownerGstNum, String ownerPanNum, String approvalStatus) {
+    public void editProfile(int ownerId, String ownerName, String ownerPhone, String ownerAddress, String ownerGstNum, String ownerPanNum, String approvalStatus) {
         try {
             // Load MySQL JDBC driver
             Class.forName("com.mysql.jdbc.Driver");
 
             // Establish a connection to the database
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/flipfit_schema", "root", "Fk!@#%215020");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/FlipFit", "root", "mysqliswow");
 
             // Prepare the SQL statement for updating the gym owner
             PreparedStatement ownerStmt = con.prepareStatement(
@@ -97,9 +97,9 @@ public class FlipFitGymOwnerDAOImpl implements FlipFitGymOwnerDAOInterface{
         Connection con = null;
         PreparedStatement stmtGym = null;
 
-        try{
+        try {
             Class.forName("com.mysql.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/flipfit_schema", "root", "Fk!@#%215020");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/FlipFit", "root", "mysqliswow");
             con.setAutoCommit(false);
 
             String queryGym = "INSERT INTO flipfitGym (gymId, gymOwnerId, gymName, gymLocation) VALUES (?, ?, ?, ?)";
@@ -114,35 +114,35 @@ public class FlipFitGymOwnerDAOImpl implements FlipFitGymOwnerDAOInterface{
 
             con.commit();
 
-        }catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e);
 
         }
     }
 
     @Override
-        public void editGym(int gymId, String gymName, String gymLocation) {
-            try {
-                Class.forName("com.mysql.jdbc.Driver");
+    public void editGym(int gymId, String gymName, String gymLocation) {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
 
-                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/flipfit_schema", "root", "Fk!@#%215020");
-                PreparedStatement gymStmt = con.prepareStatement(
-                        "UPDATE flipfitGym SET gymName=?, gymLocation=? WHERE gymId=?"
-                );
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/FlipFit", "root", "mysqliswow");
+            PreparedStatement gymStmt = con.prepareStatement(
+                    "UPDATE flipfitGym SET gymName=?, gymLocation=? WHERE gymId=?"
+            );
 
-                gymStmt.setString(1, gymName);
-                gymStmt.setString(2, gymLocation);
-                gymStmt.setInt(3, gymId);
+            gymStmt.setString(1, gymName);
+            gymStmt.setString(2, gymLocation);
+            gymStmt.setInt(3, gymId);
 
-                int gymUpdateCount = gymStmt.executeUpdate();
-                System.out.println(gymUpdateCount + " gym record(s) updated");
+            int gymUpdateCount = gymStmt.executeUpdate();
+            System.out.println(gymUpdateCount + " gym record(s) updated");
 
-                con.close();
+            con.close();
 
-            } catch (Exception e) {
-                System.out.println(e);
-            }
+        } catch (Exception e) {
+            System.out.println(e);
         }
+    }
 
     @Override
     public void removeGym(int gymId) {
@@ -155,7 +155,7 @@ public class FlipFitGymOwnerDAOImpl implements FlipFitGymOwnerDAOInterface{
             Class.forName("com.mysql.cj.jdbc.Driver");
 
             con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/flipfit_schema", "root", "Fk!@#%215038");
+                    "jdbc:mysql://localhost:3306/FlipFit", "root", "mysqliswow");
 
 
             String query = "DELETE FROM flipfitGym WHERE gymId = ?";
@@ -200,7 +200,7 @@ public class FlipFitGymOwnerDAOImpl implements FlipFitGymOwnerDAOInterface{
             Class.forName("com.mysql.jdbc.Driver");
 
             con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/flipfit_schema", "root", "Fk!@#%215038");
+                    "jdbc:mysql://localhost:3306/FlipFit", "root", "mysqliswow");
 
 
             String query = "SELECT * FROM flipfitGym WHERE gymOwnerId = ?";
@@ -251,7 +251,7 @@ public class FlipFitGymOwnerDAOImpl implements FlipFitGymOwnerDAOInterface{
             Class.forName("com.mysql.jdbc.Driver");
 
             con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/flipfit_schema", "root", "Fk!@#%215038");
+                    "jdbc:mysql://localhost:3306/FlipFit", "root", "mysqliswow");
 
             String query = "SELECT * FROM booking b JOIN flipfitGym g ON b.gymId = g.gymId JOIN flipfitGymOwner go ON g.gymOwnerId = go.ownerId WHERE go.ownerId = ?";
 
@@ -309,7 +309,7 @@ public class FlipFitGymOwnerDAOImpl implements FlipFitGymOwnerDAOInterface{
             Class.forName("com.mysql.jdbc.Driver");
 
             con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/flipfit_schema", "root", "Fk!@#%215038");
+                    "jdbc:mysql://localhost:3306/FlipFit", "root", "mysqliswow");
 
             String query = "SELECT * FROM booking WHERE gymId = ?";
 
@@ -365,7 +365,7 @@ public class FlipFitGymOwnerDAOImpl implements FlipFitGymOwnerDAOInterface{
     public void addSlot(int gymId, int slotId, String slotTime, int slotCapacity) {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/flipfit_schema", "root", "Fk!@#%215020");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/FlipFit", "root", "mysqliswow");
             PreparedStatement slotStmt = con.prepareStatement(
                     "INSERT INTO slot (slotId, gymId, slotTime, slotCapacity) VALUES (?, ?, ?, ?)"
             );
@@ -383,6 +383,7 @@ public class FlipFitGymOwnerDAOImpl implements FlipFitGymOwnerDAOInterface{
             System.out.println(e);
         }
     }
+
     @Override
     public void removeSlot(int slotId) {
         Connection con = null;
@@ -393,7 +394,7 @@ public class FlipFitGymOwnerDAOImpl implements FlipFitGymOwnerDAOInterface{
             Class.forName("com.mysql.cj.jdbc.Driver");
 
             con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/flipfit_schema", "root", "Fk!@#%215038");
+                    "jdbc:mysql://localhost:3306/FlipFit", "root", "mysqliswow");
 
 
             String query = "DELETE FROM Slot WHERE slotId = ?";

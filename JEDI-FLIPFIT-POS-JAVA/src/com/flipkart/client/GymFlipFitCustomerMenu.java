@@ -3,12 +3,13 @@ import com.flipkart.business.BookingGymInterface;
 import com.flipkart.business.BookingGymService;
 import com.flipkart.business.FlipFitCustomerInterface;
 import com.flipkart.business.FlipFitCustomerService;
+import com.flipkart.exceptions.BookingFailedException;
 
 import java.util.*;
 
 public class GymFlipFitCustomerMenu {
    
-	public static void displayCustomerOptions(){
+	public static void displayCustomerOptions() throws BookingFailedException {
 		FlipFitCustomerInterface userService = new FlipFitCustomerService();
 		BookingGymInterface bookingService = new BookingGymService();
 
