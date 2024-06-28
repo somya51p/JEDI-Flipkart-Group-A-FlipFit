@@ -10,63 +10,48 @@ public class FlipFitCustomerDAOImpl implements FlipFitCustomerDAOInterface {
 //        dao.editProfile(1, "Sarthak Doe", "1111111111", "abc");
 //        dao.viewGyms();
 //        dao.viewSlots(1, "12-12-12");
-        try {
-            dao.editProfile(11, null, null, null);
-        } catch (UserNotFoundException e) {
-            System.out.println("Error: " + e.getMessage());
-        }
-    }
+//            try {
+            dao.editProfile(12, null, null,null);
+
+        
+}
 
     @Override
     public void createCustomer(int userId, String name, String phoneNumber, String address) {
-        Connection con = null;
-        PreparedStatement stmtCustomer = null;
+    	  Connection con = null;
+          PreparedStatement stmtCustomer = null;
 
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            con = DriverManager.getConnection(
+          try {
+              Class.forName("com.mysql.jdbc.Driver");
+              con = DriverManager.getConnection(
+                      "jdbc:mysql://localhost:3306/FlipFit", "root", "mysqliswow");
+              con.setAutoCommit(false);
 
-                    "jdbc:mysql://localhost:3306/FlipFit", "root", "mysqliswow");
+              String queryCustomer = "INSERT INTO flipfitCustomer (customerName, customerPhone, customerAddress, userId) VALUES (?, ?, ?, ?)";
+              stmtCustomer = con.prepareStatement(queryCustomer);
 
-            con.setAutoCommit(false); // Start transaction
+              stmtCustomer.setString(1, name);
+              stmtCustomer.setString(2, phoneNumber);
+              stmtCustomer.setString(3, address);
+              stmtCustomer.setInt(4, userId);
 
-            // Insert into users table first
-            String queryUser = "INSERT INTO users (userId, userEmail, userPassword, roleId) VALUES (?, ?, ?, ?)";
-            stmtUser = con.prepareStatement(queryUser);
+              int customerInsertCount = stmtCustomer.executeUpdate();
+              System.out.println(customerInsertCount + " owner records inserted");
 
-            stmtUser.setInt(1, userId);
-            stmtUser.setString(2, userEmail);
-            stmtUser.setString(3, userPass);
-            stmtUser.setInt(4, 1);
-
-            int userInsertCount = stmtUser.executeUpdate();
-            System.out.println(userInsertCount + " user records inserted");
-
-            String queryCustomer = "INSERT INTO flipfitCustomer (customerName, customerPhone, customerAddress, userId) VALUES (?, ?, ?, ?)";
-            stmtCustomer = con.prepareStatement(queryCustomer);
-
-            stmtCustomer.setString(1, name);
-            stmtCustomer.setString(2, phoneNumber);
-            stmtCustomer.setString(3, address);
-            stmtCustomer.setInt(4, userId);
-
-            int customerInsertCount = stmtCustomer.executeUpdate();
-            System.out.println(customerInsertCount + " owner records inserted");
-
-            con.commit(); // Commit transaction
-        } catch (Exception e) {
-            System.out.println(e);
-        }
+              con.commit(); // Commit transaction
+          } catch (Exception e) {
+              System.out.println(e);
+          }
     }
 
     @Override
-        public void editProfile (int customerId, String customerName, String customerPhone, String customerAddress) throws UserNotFoundException{
+        public void editProfile (int customerId, String customerName, String customerPhone, String customerAddress){
             try {
                 // Load MySQL JDBC driver
                 Class.forName("com.mysql.jdbc.Driver");
 
                 // Establish a connection to the database
-                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/FlipFit", "root", "mysqliswow");
+                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/flipfit_schema", "root", "mysqliswow");
 
                 // Update the Customer table
                 PreparedStatement customerStmt = con.prepareStatement("UPDATE flipfitCustomer SET customerName=?, customerPhone=?, customerAddress=? WHERE customerId=?");
@@ -88,9 +73,13 @@ public class FlipFitCustomerDAOImpl implements FlipFitCustomerDAOInterface {
                 // Close the connection
                 con.close();
 
-            } catch (Exception e) {
-                System.out.println(e);
             }
+
+            catch(Exception e) {
+            
+            	System.out.println(e);
+            }
+            
         }
 
     @Override
