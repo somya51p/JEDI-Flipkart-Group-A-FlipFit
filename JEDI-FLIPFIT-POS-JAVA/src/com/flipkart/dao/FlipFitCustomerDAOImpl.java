@@ -1,6 +1,7 @@
 package com.flipkart.dao;
 import com.flipkart.exceptions.UserNotFoundException;
 import java.sql.*;
+import java.util.HashMap;
 
 public class FlipFitCustomerDAOImpl implements FlipFitCustomerDAOInterface {
 
@@ -117,13 +118,13 @@ public class FlipFitCustomerDAOImpl implements FlipFitCustomerDAOInterface {
     }
 
     @Override
-    public void viewSlots(int gymId, String date) {
-        // TODO: not complete implementation
+    public HashMap<String, Integer> viewSlots(int gymId, String date) {
         Connection con = null;
         PreparedStatement stmtSlots = null;
         PreparedStatement stmtBookings = null;
         ResultSet rsSlots = null;
         ResultSet rsBookings = null;
+        HashMap<String, Integer> slotAvailability = new HashMap<>();
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -139,6 +140,7 @@ public class FlipFitCustomerDAOImpl implements FlipFitCustomerDAOInterface {
             while (rsSlots.next()) {
                 int slotId = rsSlots.getInt("slotId");
                 String slotTime = rsSlots.getString("slotTime");
+                int slotCapacity = rsSlots.getInt("slotCapacity");
 
                 String queryBookings = "SELECT COUNT(*) as bookedCount FROM Booking WHERE gymId = ? AND bookingDate = ? AND bookingTimeSlot = ?";
                 stmtBookings = con.prepareStatement(queryBookings);
@@ -152,10 +154,9 @@ public class FlipFitCustomerDAOImpl implements FlipFitCustomerDAOInterface {
                     bookedCount = rsBookings.getInt("bookedCount");
                 }
 
-                System.out.println("Slot ID: " + slotId);
-                System.out.println("Slot Time: " + slotTime);
-                System.out.println("Booked Count: " + bookedCount);
-                System.out.println("=================================");
+                int availableSeats = slotCapacity - bookedCount;
+
+                slotAvailability.put(slotTime,availableSeats);
             }
 
         } catch (Exception e) {
@@ -171,7 +172,10 @@ public class FlipFitCustomerDAOImpl implements FlipFitCustomerDAOInterface {
                 System.out.println("Error closing resources: " + e.getMessage());
             }
         }
+
+        return slotAvailability;
     }
+
 
     @Override
     public void filterSlots() {

@@ -12,10 +12,10 @@ import java.util.List;
 
 public class BookingGymService implements BookingGymInterface {
 
-        public static void main(String[] args) {
-        BookingGymInterface bookingGymService = new BookingGymService();
-        bookingGymService.viewBookings(1);
-    }
+//        public static void main(String[] args) {
+//        BookingGymInterface bookingGymService = new BookingGymService();
+//        bookingGymService.viewBookings(1);
+//    }
 
     BookingGymDAOInterface bookingGymDAO = new BookingGymDAOImpl();
 
