@@ -1,10 +1,54 @@
 package com.flipkart.dao;
 
-import java.sql.*; 
+import java.sql.*;
+import java.util.ArrayList;
+
 public class FlipfitAdminDAOImpl implements FlipfitAdminDAOInterface{
 
     @Override
-    public void createAdmin(int adminId, String adminEmail, String adminPassword) {};
+    public void createAdmin(int adminId, String adminEmail, String adminPassword) {}
+
+    @Override
+    public ArrayList viewAllGymOwners() {
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        ArrayList<String> Output= new ArrayList<>();
+
+        try {
+
+            Class.forName("com.mysql.jdbc.Driver");
+
+            con = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/FlipFit", "root", "mysqliswow");
+
+            String query = "SELECT * FROM flipfitGymOwner";
+
+            stmt = con.prepareStatement(query);
+            rs = stmt.executeQuery();
+
+            System.out.println("All Registered GymOwners");
+
+            while (rs.next()) {
+                int ownerId = rs.getInt("ownerId");
+                String ownerName = rs.getString("ownerName");
+                Output.add("Owner ID: " + ownerId + "--->" + "Owner Name: " + ownerName);
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (stmt != null) stmt.close();
+                if (con != null) con.close();
+            } catch (Exception e) {
+                System.out.println("Error closing resources: " + e.getMessage());
+            }
+        }
+
+        return Output;
+    }
 
     @Override
     public boolean viewGymOwnerDetails(int ownerId) {
