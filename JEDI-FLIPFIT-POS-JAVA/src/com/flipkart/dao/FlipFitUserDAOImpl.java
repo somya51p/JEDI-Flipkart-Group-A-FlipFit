@@ -13,7 +13,7 @@ public class FlipFitUserDAOImpl implements FlipFitUserDAOInterface{
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/FlipFit", "root", "Fk!@#%215023");
+                    "jdbc:mysql://localhost:3306/FlipFit", "root", "mysqliswow");
             String query = "SELECT userPassword, userId FROM users WHERE userEmail = ? and roleId = ?";
 
             stmt = con.prepareStatement(query);
@@ -52,7 +52,7 @@ public class FlipFitUserDAOImpl implements FlipFitUserDAOInterface{
         try {
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/FlipFit", "root", "Fk!@#%215023");
+                    "jdbc:mysql://localhost:3306/FlipFit", "root", "mysqliswow");
 
             con.setAutoCommit(false);
             String queryUser = "INSERT INTO users (userEmail, userPassword, roleId) VALUES (?, ?, ?)";

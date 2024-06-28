@@ -87,7 +87,7 @@ public class FlipFitCustomerDAOImpl implements FlipFitCustomerDAOInterface {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/flipfit", "root", "mysqliswow");
+                    "jdbc:mysql://localhost:3306/FlipFit", "root", "mysqliswow");
 
             String query = "SELECT * FROM flipfitGym";
             stmt = con.prepareStatement(query);
@@ -130,7 +130,7 @@ public class FlipFitCustomerDAOImpl implements FlipFitCustomerDAOInterface {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
             con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/flipfit", "root", "mysqliswow");
+                    "jdbc:mysql://localhost:3306/FlipFit", "root", "mysqliswow");
 
             String querySlots = "SELECT * FROM slot WHERE gymId = ?";
             stmtSlots = con.prepareStatement(querySlots);
