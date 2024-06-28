@@ -1,5 +1,5 @@
 package com.flipkart.dao;
-
+import com.flipkart.exceptions.UserNotFoundException;
 import java.sql.*;
 
 public class FlipFitCustomerDAOImpl implements FlipFitCustomerDAOInterface {
@@ -9,7 +9,12 @@ public class FlipFitCustomerDAOImpl implements FlipFitCustomerDAOInterface {
         //dao.createCustomer(1, 1, "John Doe", "1111111111", "abc", "john.doe@example.com", "somya");
 //        dao.editProfile(1, "Sarthak Doe", "1111111111", "abc");
 //        dao.viewGyms();
-        dao.viewSlots(1, "12-12-12");
+//        dao.viewSlots(1, "12-12-12");
+        try {
+            dao.editProfile(11, null, null, null);
+        } catch (UserNotFoundException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
     }
 
     @Override
@@ -58,14 +63,14 @@ public class FlipFitCustomerDAOImpl implements FlipFitCustomerDAOInterface {
     }
 
     @Override
-        public void editProfile(int customerId, String customerName, String customerPhone, String customerAddress) {
+        public void editProfile (int customerId, String customerName, String customerPhone, String customerAddress) throws UserNotFoundException{
             try {
                 // Load MySQL JDBC driver
                 Class.forName("com.mysql.jdbc.Driver");
 
                 // Establish a connection to the database
-                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/flipfit_schema", "root", "Fk!@#%215020");
-
+                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/flipfit_schema", "root", "Fk!@#%215038");
+                
                 // Update the Customer table
                 PreparedStatement customerStmt = con.prepareStatement("UPDATE flipfitCustomer SET customerName=?, customerPhone=?, customerAddress=? WHERE customerId=?");
                 customerStmt.setString(1, customerName);
@@ -75,6 +80,12 @@ public class FlipFitCustomerDAOImpl implements FlipFitCustomerDAOInterface {
 
                 // Execute the customer update
                 int customerUpdateCount = customerStmt.executeUpdate();
+               
+
+                // If no rows are updated, throw a custom exception
+                if (customerUpdateCount == 0) {
+                    throw new UserNotFoundException("Customer with customerId "+customerId+" does not exist");
+                }
                 System.out.println(customerUpdateCount + " customer record(s) updated");
 
                 // Close the connection
