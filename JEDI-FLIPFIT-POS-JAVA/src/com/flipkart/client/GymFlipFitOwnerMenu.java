@@ -82,8 +82,10 @@ public class GymFlipFitOwnerMenu {
 					gymOwnerService.removeSlot(gymId, slotId);
 					break;
 				case 6:
+					in.nextLine();
 					System.out.println("Enter gym id ");
 					gymId = in.nextInt();
+					in.nextLine();
 					System.out.println("Enter the date of the slot");
 					String date = in.nextLine();
 					gymOwnerService.viewAvailableSlots(gymId,date);

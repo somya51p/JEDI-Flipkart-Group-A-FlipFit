@@ -56,6 +56,7 @@ public class GymFlipFitCustomerMenu {
 					String temp_ = in.nextLine();
 					System.out.println("Enter the id of the gym for which you want to view the available slots");
 					 gymId = in.nextInt();
+					in.nextLine();
 					System.out.println("Enter the date of the slot");
 					 date = in.nextLine();
 					customerService.viewSlots(gymId,date);

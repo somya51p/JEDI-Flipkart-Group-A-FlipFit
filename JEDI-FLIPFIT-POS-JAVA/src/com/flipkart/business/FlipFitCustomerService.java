@@ -41,12 +41,17 @@ public class FlipFitCustomerService implements FlipFitCustomerInterface {
     }
 
     public void viewSlots(int gymId, String date){
-        System.out.println("All slots are viewed");
-        // Print the map
-        HashMap<String,Integer>AvailableSlots=customerDAO.viewSlots(gymId,date);
-        // Print the available slots
-        for (Map.Entry<String, Integer> entry : AvailableSlots.entrySet()) {
-            System.out.println("Slot Time: " + entry.getKey() + ", Available Slots: " + entry.getValue());
+        try{
+            System.out.println("All slots are viewed");
+            // Print the map
+            HashMap<String,Integer>AvailableSlots=customerDAO.viewSlots(gymId,date);
+            // Print the available slots
+            for (Map.Entry<String, Integer> entry : AvailableSlots.entrySet()) {
+                System.out.println("Slot Time: " + entry.getKey() + ", Available Slots: " + entry.getValue());
+            }
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
         }
     }
 

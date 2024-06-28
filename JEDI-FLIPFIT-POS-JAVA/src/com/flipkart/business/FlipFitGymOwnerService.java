@@ -78,12 +78,17 @@ public class FlipFitGymOwnerService implements FlipFitGymOwnerInterface {
     }
 
     public void viewAvailableSlots(int gymId,String date) {
-        System.out.println("viewed available slots for " + gymId);
-        // Print the map
-        HashMap<String,Integer> AvailableSlots=customerDAO.viewSlots(gymId,date);
-        // Print the available slots
-        for (Map.Entry<String, Integer> entry : AvailableSlots.entrySet()) {
-            System.out.println("Slot Time: " + entry.getKey() + ", Available Slots: " + entry.getValue());
+        try{
+            System.out.println("viewed available slots for " + gymId);
+            // Print the map
+            HashMap<String,Integer> AvailableSlots=customerDAO.viewSlots(gymId,date);
+            // Print the available slots
+            for (Map.Entry<String, Integer> entry : AvailableSlots.entrySet()) {
+                System.out.println("Slot Time: " + entry.getKey() + ", Available Slots: " + entry.getValue());
+            }
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
         }
     }
 
