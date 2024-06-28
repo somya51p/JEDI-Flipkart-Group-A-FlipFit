@@ -6,6 +6,13 @@ public class Payment {
     private String expiryDate;
     private String modeOfPayment;
 
+    public Payment(int transactionId, int cardNumber, String expiryDate, String modeOfPayment) {
+        this.transactionId = transactionId;
+        this.cardNumber = cardNumber;
+        this.expiryDate = expiryDate;
+        this.modeOfPayment = modeOfPayment;
+    }
+
     public int getTransactionId() {
         return transactionId;
     }

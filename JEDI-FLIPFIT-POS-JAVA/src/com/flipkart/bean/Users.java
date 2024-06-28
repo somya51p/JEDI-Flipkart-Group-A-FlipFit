@@ -7,6 +7,12 @@ public class Users {
     private String userPassword;
     private int roleId;
 
+    public Users(int userId, String userEmail, String userPassword, int roleId) {
+        this.userId = userId;
+        this.userEmail = userEmail;
+        this.userPassword = userPassword;
+        this.roleId = roleId;
+    }
     public int getUserId() {
         return userId;
     }

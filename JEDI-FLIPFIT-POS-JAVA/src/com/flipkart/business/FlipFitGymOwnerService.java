@@ -1,6 +1,12 @@
 package com.flipkart.business;
+import com.flipkart.bean.Booking;
+import com.flipkart.bean.FlipFitGym;
+import com.flipkart.bean.Slot;
 import com.flipkart.dao.FlipFitGymOwnerDAOImpl;
 import com.flipkart.dao.FlipFitGymOwnerDAOInterface;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class FlipFitGymOwnerService implements FlipFitGymOwnerInterface {
 
@@ -31,23 +37,49 @@ public class FlipFitGymOwnerService implements FlipFitGymOwnerInterface {
     }
 
     public void viewAllRegisteredGymCenters(int userId) {
-        ownerDAO.viewAllRegisteredGymCenters(userId);
+        List<FlipFitGym> gyms = ownerDAO.viewAllRegisteredGymCenters(userId);
+
+        for (FlipFitGym gym : gyms) {
+            System.out.println("\nGym Id: " + gym.getGymId());
+            System.out.println("Gym: " + gym.getGymName());
+            System.out.println("Location: " + gym.getGymLocation());
+        }
         System.out.println("view All Gym Centers");
     }
 
     public void viewAllBookings(int userId) {
-        ownerDAO.viewAllBookings(userId);
-        System.out.println("view all bookings");
+        List<Booking> bookings = ownerDAO.viewAllBookings(userId);
+        for (Booking booking : bookings) {
+            System.out.println("\nBooking Id: " + booking.getBookingId());
+            System.out.println("Customer Id: " + booking.getCustomerId());
+            System.out.println("Gym Id: " + booking.getGymId());
+            System.out.println("Booking Date: " + booking.getBookingDate());
+            System.out.println("Slot: " + booking.getBookingTimeSlot());
+            System.out.println("Transaction  Id: " + booking.getTransactionId());
+        }
+        System.out.println("viewed all bookings");
     }
 
     public void viewBookings(int gymId) {
-        ownerDAO.viewBookings(gymId);
-        System.out.println("view bookings for " + gymId);
+        List<Booking> bookings = ownerDAO.viewBookings(gymId);
+        for (Booking booking : bookings) {
+            System.out.println("\nBooking Id: " + booking.getBookingId());
+            System.out.println("Customer Id: " + booking.getCustomerId());
+            System.out.println("Booking Date: " + booking.getBookingDate());
+            System.out.println("Slot: " + booking.getBookingTimeSlot());
+            System.out.println("Transaction  Id: " + booking.getTransactionId());
+        }
+        System.out.println("viewed bookings for " + gymId);
     }
 
     public void viewAvailableSlots(int gymId) {
-        ownerDAO.viewAvailableSlots(gymId);
-        System.out.println("view available slots for " + gymId);
+        List<Slot> slots = ownerDAO.viewAvailableSlots(gymId);
+        for (Slot slot : slots) {
+            System.out.println("\nSlot Id: " + slot.getSlotId());
+            System.out.println("Gym Id: " + slot.getGymId());
+            System.out.println("Capacity: " + slot.getSlotCapacity());
+        }
+        System.out.println("viewed available slots for " + gymId);
     }
 
     public void addSlot(int gymId, int slotId, String slotTime, int slotCapacity) {

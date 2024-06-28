@@ -1,6 +1,12 @@
 package com.flipkart.dao;
 
+import com.flipkart.bean.Booking;
+import com.flipkart.bean.FlipFitGym;
+import com.flipkart.bean.Slot;
+
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FlipFitGymOwnerDAOImpl implements FlipFitGymOwnerDAOInterface{
 
@@ -174,13 +180,14 @@ public class FlipFitGymOwnerDAOImpl implements FlipFitGymOwnerDAOInterface{
     }
 
     @Override
-    public void viewAllRegisteredGymCenters(int userId) {
+    public List<FlipFitGym> viewAllRegisteredGymCenters(int userId) {
         Connection con = null;
         PreparedStatement stmt = null;
         PreparedStatement stmtowner = null;
         ResultSet rs = null;
         ResultSet rs1 = null;
         int gymOwnerId = 0; // need to work on this
+        List<FlipFitGym> gymList = new ArrayList<FlipFitGym>();
 
         try {
 
@@ -210,13 +217,10 @@ public class FlipFitGymOwnerDAOImpl implements FlipFitGymOwnerDAOInterface{
 
             while (rs.next()) {
                 int gymId = rs.getInt("gymId");
+                int ownerId = rs.getInt("ownerId");
                 String gymName = rs.getString("gymName");
                 String gymLocation = rs.getString("gymLocation");
-
-                System.out.println("Gym ID: " + gymId);
-                System.out.println("Name: " + gymName);
-                System.out.println("Location: " + gymLocation);
-                System.out.println("=================================");
+                gymList.add(new FlipFitGym(gymId, ownerId, gymName, gymLocation));
 
             }
 
@@ -232,16 +236,19 @@ public class FlipFitGymOwnerDAOImpl implements FlipFitGymOwnerDAOInterface{
             }
         }
 
+        return gymList;
+
     }
 
     @Override
-    public void viewAllBookings(int userId) {
+    public List<Booking> viewAllBookings(int userId) {
         Connection con = null;
         PreparedStatement stmt = null;
         PreparedStatement stmtowner = null;
         ResultSet rs = null;
         ResultSet rs1 = null;
         int gymOwnerId = 0; // need to work on this
+        List<Booking> bookings = new ArrayList<Booking>();
 
         try {
 
@@ -280,16 +287,7 @@ public class FlipFitGymOwnerDAOImpl implements FlipFitGymOwnerDAOInterface{
                 String status = rs.getString("bookingType");
                 int amount = rs.getInt("bookingAmount");
 
-                System.out.println("Booking ID: " + bookingId);
-                System.out.println("Customer ID: " + customerId);
-                System.out.println("Gym ID: " + gymId);
-                System.out.println("Transaction ID: " + transactionId);
-                System.out.println("Booking Date: " + date);
-                System.out.println("Booking Time Slot: " + slot);
-                System.out.println("Booking Type: " + status);
-                System.out.println("Booking Amount: " + amount);
-                System.out.println("=================================");
-
+                bookings.add(new Booking(bookingId, customerId, gymId, transactionId, date, slot, status, amount));
             }
 
         } catch (Exception e) {
@@ -303,14 +301,15 @@ public class FlipFitGymOwnerDAOImpl implements FlipFitGymOwnerDAOInterface{
                 System.out.println("Error closing resources: " + e.getMessage());
             }
         }
+        return bookings;
     }
 
     @Override
-    public void viewBookings(int gymId) {
+    public List<Booking> viewBookings(int gymId) {
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-
+        List<Booking> bookings = new ArrayList<Booking>();
         try {
 
             Class.forName("com.mysql.jdbc.Driver");
@@ -331,21 +330,14 @@ public class FlipFitGymOwnerDAOImpl implements FlipFitGymOwnerDAOInterface{
             while (rs.next()) {
                 int bookingId = rs.getInt("bookingId");
                 int customerId = rs.getInt("customerId");
+                gymId = rs.getInt("gymId");
                 int transactionId = rs.getInt("transactionId");
                 String date = rs.getString("bookingDate");
                 String slot = rs.getString("bookingTimeSlot");
                 String status = rs.getString("bookingType");
                 int amount = rs.getInt("bookingAmount");
 
-                System.out.println("Booking ID: " + bookingId);
-                System.out.println("Customer ID: " + customerId);
-                System.out.println("Transaction ID: " + transactionId);
-                System.out.println("Booking Date: " + date);
-                System.out.println("Booking Time Slot: " + slot);
-                System.out.println("Booking Type: " + status);
-                System.out.println("Booking Amount: " + amount);
-                System.out.println("=================================");
-
+                bookings.add(new Booking(bookingId, customerId, gymId, transactionId, date, slot, status, amount));
             }
 
         } catch (Exception e) {
@@ -359,12 +351,14 @@ public class FlipFitGymOwnerDAOImpl implements FlipFitGymOwnerDAOInterface{
                 System.out.println("Error closing resources: " + e.getMessage());
             }
         }
-
+        return bookings;
     }
 
     @Override
-    public void viewAvailableSlots(int gymId) {
+    public List<Slot> viewAvailableSlots(int gymId) {
+        List<Slot> slotList = new ArrayList<Slot>();
 
+        return slotList;
 
     }
 

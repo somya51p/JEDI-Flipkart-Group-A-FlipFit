@@ -1,11 +1,11 @@
 package com.flipkart.business;
 
-import com.flipkart.bean.FlipFitCustomer;
-import com.flipkart.bean.Roles;
-import com.flipkart.bean.Users;
+import com.flipkart.bean.*;
 import com.flipkart.dao.FlipFitCustomerDAOImpl;
 import com.flipkart.dao.FlipFitCustomerDAOInterface;
 import com.flipkart.exceptions.UserNotFoundException;
+
+import java.util.List;
 
 public class FlipFitCustomerService implements FlipFitCustomerInterface {
 
@@ -23,16 +23,29 @@ public class FlipFitCustomerService implements FlipFitCustomerInterface {
     }
 
     public void viewGyms(){
-        customerDAO.viewGyms();
-        System.out.println("All gyms are viewed");
+        List<FlipFitGym> gyms = customerDAO.viewGyms();
+        // print the list
+        for (FlipFitGym gym : gyms) {
+            System.out.println("\nGym Id: " + gym.getGymId());
+            System.out.println("Gym: " + gym.getGymName());
+            System.out.println("Location: " + gym.getGymLocation());
+        }
+        System.out.println("All gyms viewed");
     }
 
-    public void viewSlots(){
-        System.out.println("All slots are viewed");
+    public void viewSlots(int gymId, String date){
+        List<Slot> slots = customerDAO.viewSlots(gymId, date);
+        for (Slot slot : slots) {
+            System.out.println("\nSlot Id: " + slot.getSlotId());
+            System.out.println("Gym Id: " + slot.getGymId());
+            System.out.println("Capacity: " + slot.getSlotCapacity());
+        }
+        System.out.println("All slots viewed");
     }
 
     public void filterSlots(){
-        System.out.println("All slots are filtered");
+
+        System.out.println("All slots filtered");
     }
 
 }

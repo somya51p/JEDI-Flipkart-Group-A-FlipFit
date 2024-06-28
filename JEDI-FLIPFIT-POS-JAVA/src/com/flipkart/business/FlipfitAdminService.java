@@ -9,21 +9,10 @@ import com.flipkart.dao.FlipfitAdminDAOInterface;
 
 
 public class FlipfitAdminService implements FlipfitAdminInterface{
-        FlipFitAdmin flipfitadmin = new FlipFitAdmin();
-        Users user= new Users();
 
         FlipfitAdminDAOInterface adminDAO = new FlipfitAdminDAOImpl();
 
         public void createAdmin(int adminId, int userId, String userEmail, String userPass){
-
-            flipfitadmin.setUserId(userId);
-            user.setUserEmail(userEmail);
-            user.setUserPassword(userPass);
-
-            user.setRoleId(3);
-            flipfitadmin.setAdminId(adminId);
-            user.setUserId(userId);
-
             System.out.println("Admin created");
         }
 
