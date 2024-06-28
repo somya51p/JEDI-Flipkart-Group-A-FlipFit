@@ -122,15 +122,7 @@ public class BookingGymDAOImpl implements BookingGymDAOInterface {
                 String bookingType = rs.getString("bookingType");
                 int bookingAmount = rs.getInt("bookingAmount");
 
-                Booking booking = new Booking();
-                booking.setBookingId(bookingId);
-                booking.setCustomerId(customerId);
-                booking.setGymId(gymId);
-                booking.setTransactionId(transactionId);
-                booking.setBookingDate(bookingDate);
-                booking.setBookingTimeSlot(bookingTimeSlot);
-                booking.setBookingType(bookingType);
-                booking.setBookingAmount(bookingAmount);
+                Booking booking = new Booking(bookingId, customerId, gymId, transactionId, bookingDate, bookingTimeSlot, bookingType, bookingAmount);
 
                 bookings.add(booking);
             }
