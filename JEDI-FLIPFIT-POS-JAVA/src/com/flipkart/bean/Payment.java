@@ -2,7 +2,7 @@ package com.flipkart.bean;
 
 public class Payment {
     private int transactionId;
-    private int cardNumber;
+    private String paymentDetails;
     private String expiryDate;
     private String modeOfPayment;
 
@@ -14,12 +14,12 @@ public class Payment {
         this.transactionId = transactionId;
     }
 
-    public int getCardNumber() {
-        return cardNumber;
+    public String getPaymentDetails() {
+        return paymentDetails;
     }
 
-    public void setCardNumber(int cardNumber) {
-        this.cardNumber = cardNumber;
+    public void setPaymentDetails(String paymentDetails) {
+        this.paymentDetails = paymentDetails;
     }
 
     public String getExpiryDate() {
