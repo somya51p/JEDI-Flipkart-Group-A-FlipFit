@@ -10,6 +10,16 @@ public class Booking {
     private String bookingType;
     private int bookingAmount;
 
+    public Booking(int bookingId, int customerId, int gymId, int transactionId, String bookingDate, String bookingTimeSlot, String bookingType, int bookingAmount) {
+        this.bookingId = bookingId;
+        this.customerId = customerId;
+        this.gymId = gymId;
+        this.transactionId = transactionId;
+        this.bookingDate = bookingDate;
+        this.bookingTimeSlot = bookingTimeSlot;
+        this.bookingType = bookingType;
+        this.bookingAmount = bookingAmount;
+    }
     public int getBookingId() {
         return bookingId;
     }

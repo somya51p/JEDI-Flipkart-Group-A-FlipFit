@@ -6,6 +6,12 @@ public class FlipFitGym {
     private String gymName;
     private String gymLocation;
 
+    public FlipFitGym(int gymId, int gymOwnerId, String gymName, String gymLocation) {
+        this.gymId = gymId;
+        this.gymOwnerId = gymOwnerId;
+        this.gymName = gymName;
+        this.gymLocation = gymLocation;
+    }
     public int getGymId() {
         return gymId;
     }
