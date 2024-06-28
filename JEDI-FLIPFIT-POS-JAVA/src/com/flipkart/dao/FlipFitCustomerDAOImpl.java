@@ -25,22 +25,8 @@ public class FlipFitCustomerDAOImpl implements FlipFitCustomerDAOInterface {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection(
-
                     "jdbc:mysql://localhost:3306/FlipFit", "root", "mysqliswow");
-
-            con.setAutoCommit(false); // Start transaction
-
-            // Insert into users table first
-            String queryUser = "INSERT INTO users (userId, userEmail, userPassword, roleId) VALUES (?, ?, ?, ?)";
-            stmtUser = con.prepareStatement(queryUser);
-
-            stmtUser.setInt(1, userId);
-            stmtUser.setString(2, userEmail);
-            stmtUser.setString(3, userPass);
-            stmtUser.setInt(4, 1);
-
-            int userInsertCount = stmtUser.executeUpdate();
-            System.out.println(userInsertCount + " user records inserted");
+            con.setAutoCommit(false);
 
             String queryCustomer = "INSERT INTO flipfitCustomer (customerName, customerPhone, customerAddress, userId) VALUES (?, ?, ?, ?)";
             stmtCustomer = con.prepareStatement(queryCustomer);
