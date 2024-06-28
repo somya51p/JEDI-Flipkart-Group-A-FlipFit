@@ -25,7 +25,7 @@ public class GymFlipFitCustomerMenu {
 	}
    
 	public static void displayCustomerOptions(int userId) throws UserNotFoundException {
-		FlipFitCustomerInterface userService = new FlipFitCustomerService();
+		FlipFitCustomerInterface customerService = new FlipFitCustomerService();
 		BookingGymInterface bookingService = new BookingGymService();
 
 		boolean flag = true;
@@ -47,20 +47,16 @@ public class GymFlipFitCustomerMenu {
 					String phoneNumber = in.nextLine();
 					System.out.println("Enter your address");
 					String address = in.nextLine();
-					userService.editProfile(userId, name, phoneNumber, address);
+					customerService.editProfile(userId, name, phoneNumber, address);
 					break;
 				case 2:
-					userService.viewGyms();
+					customerService.viewGyms();
 					break;
 				case 3:
-					System.out.println("Enter gymId");
-					gymId = in.nextInt();
-					System.out.println("Enter date");
-					date = in.nextLine();
-					userService.viewSlots(gymId,date);
+					customerService.viewSlots();
 					break;
 				case 4:
-					userService.filterSlots();
+					customerService.filterSlots();
 					break;
 				case 5:
 					String temp2 = in.nextLine();

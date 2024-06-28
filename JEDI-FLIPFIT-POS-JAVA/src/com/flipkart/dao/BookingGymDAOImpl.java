@@ -1,8 +1,11 @@
 package com.flipkart.dao;
 
+import com.flipkart.bean.Booking;
 import com.flipkart.business.BookingGymInterface;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BookingGymDAOImpl implements BookingGymDAOInterface {
 
@@ -75,25 +78,43 @@ public class BookingGymDAOImpl implements BookingGymDAOInterface {
     }
 
     @Override
-    public void viewBookings() {
+    public List<Booking> viewBookings(int userId){
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
+        List<Booking> bookings = new ArrayList<>();
 
         try {
-
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
 
             con = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/FlipFit", "root", "mysqliswow");
 
-            String query = "SELECT * FROM booking";
-            stmt = con.prepareStatement(query);
+            // First, get the customerId from the userId
+            String customerQuery = "SELECT customerId FROM flipfitCustomer WHERE userId = ?";
+            stmt = con.prepareStatement(customerQuery);
+            stmt.setInt(1, userId);
+            rs = stmt.executeQuery();
+
+            int customerId = -1;
+            if (rs.next()) {
+                customerId = rs.getInt("customerId");
+            } else {
+                System.out.println("No customer found with userId: " + userId);
+                return bookings; // return empty list if no customer found
+            }
+
+            rs.close();
+            stmt.close();
+
+            // Now, get all bookings for the customerId
+            String bookingQuery = "SELECT * FROM booking WHERE customerId = ?";
+            stmt = con.prepareStatement(bookingQuery);
+            stmt.setInt(1, customerId);
             rs = stmt.executeQuery();
 
             while (rs.next()) {
                 int bookingId = rs.getInt("bookingId");
-                int customerId = rs.getInt("customerId");
                 int gymId = rs.getInt("gymId");
                 int transactionId = rs.getInt("transactionId");
                 String bookingDate = rs.getString("bookingDate");
@@ -101,15 +122,17 @@ public class BookingGymDAOImpl implements BookingGymDAOInterface {
                 String bookingType = rs.getString("bookingType");
                 int bookingAmount = rs.getInt("bookingAmount");
 
-                System.out.println("Booking ID: " + bookingId);
-                System.out.println("Customer ID: " + customerId);
-                System.out.println("Gym ID: " + gymId);
-                System.out.println("Transaction ID: " + transactionId);
-                System.out.println("Booking Date: " + bookingDate);
-                System.out.println("Booking TimeSlot: " + bookingTimeSlot);
-                System.out.println("Booking Type: " + bookingType);
-                System.out.println("Booking Amount: " + bookingAmount);
-                System.out.println("=================================");
+                Booking booking = new Booking();
+                booking.setBookingId(bookingId);
+                booking.setCustomerId(customerId);
+                booking.setGymId(gymId);
+                booking.setTransactionId(transactionId);
+                booking.setBookingDate(bookingDate);
+                booking.setBookingTimeSlot(bookingTimeSlot);
+                booking.setBookingType(bookingType);
+                booking.setBookingAmount(bookingAmount);
+
+                bookings.add(booking);
             }
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
@@ -122,6 +145,8 @@ public class BookingGymDAOImpl implements BookingGymDAOInterface {
                 System.out.println("Error closing resources: " + e.getMessage());
             }
         }
+
+        return bookings;
     }
 
     @Override

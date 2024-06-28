@@ -5,11 +5,18 @@ import com.flipkart.dao.FlipFitCustomerDAOImpl;
 import com.flipkart.dao.FlipFitCustomerDAOInterface;
 import com.flipkart.exceptions.UserNotFoundException;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.List;
 
 public class FlipFitCustomerService implements FlipFitCustomerInterface {
 
     FlipFitCustomerDAOInterface customerDAO = new FlipFitCustomerDAOImpl();
+
+    public static void main(String[] args) {
+        FlipFitCustomerInterface customerService = new FlipFitCustomerService();
+        customerService.viewSlots();
+    }
 
     public void createCustomer(int userId, String name, String phoneNumber, String address) {
         customerDAO.createCustomer(userId, name, phoneNumber, address);
@@ -33,14 +40,16 @@ public class FlipFitCustomerService implements FlipFitCustomerInterface {
         System.out.println("All gyms viewed");
     }
 
-    public void viewSlots(int gymId, String date){
-        List<Slot> slots = customerDAO.viewSlots(gymId, date);
-        for (Slot slot : slots) {
-            System.out.println("\nSlot Id: " + slot.getSlotId());
-            System.out.println("Gym Id: " + slot.getGymId());
-            System.out.println("Capacity: " + slot.getSlotCapacity());
+    public void viewSlots(){
+        int gymId=1;
+        String date="228/06/2024";
+        System.out.println("All slots are viewed");
+        // Print the map
+        HashMap<String,Integer>AvailableSlots=customerDAO.viewSlots(gymId,date);
+        // Print the available slots
+        for (Map.Entry<String, Integer> entry : AvailableSlots.entrySet()) {
+            System.out.println("Slot Time: " + entry.getKey() + ", Available Slots: " + entry.getValue());
         }
-        System.out.println("All slots viewed");
     }
 
     public void filterSlots(){

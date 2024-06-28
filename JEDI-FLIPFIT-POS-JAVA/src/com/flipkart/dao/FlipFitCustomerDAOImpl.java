@@ -3,6 +3,8 @@ import com.flipkart.bean.FlipFitGym;
 import com.flipkart.bean.Slot;
 import com.flipkart.exceptions.UserNotFoundException;
 import java.sql.*;
+
+import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,7 +43,7 @@ public class FlipFitCustomerDAOImpl implements FlipFitCustomerDAOInterface {
             stmtCustomer.setInt(4, userId);
 
             int customerInsertCount = stmtCustomer.executeUpdate();
-            System.out.println(customerInsertCount + " owner records inserted");
+            System.out.println(customerInsertCount + " customer records inserted");
 
             con.commit(); // Commit transaction
         } catch (Exception e) {
@@ -118,14 +120,14 @@ public class FlipFitCustomerDAOImpl implements FlipFitCustomerDAOInterface {
     }
 
     @Override
-    public List<Slot> viewSlots(int gymId, String date) {
-        // TODO: not complete implementation
+    public HashMap<String, Integer> viewSlots(int gymId, String date) {
         Connection con = null;
         PreparedStatement stmtSlots = null;
         PreparedStatement stmtBookings = null;
         ResultSet rsSlots = null;
         ResultSet rsBookings = null;
-        List<Slot> slotList = new ArrayList<Slot>();
+        HashMap<String, Integer> slotAvailability = new HashMap<>();
+
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
@@ -140,6 +142,7 @@ public class FlipFitCustomerDAOImpl implements FlipFitCustomerDAOInterface {
             while (rsSlots.next()) {
                 int slotId = rsSlots.getInt("slotId");
                 String slotTime = rsSlots.getString("slotTime");
+                int slotCapacity = rsSlots.getInt("slotCapacity");
 
                 String queryBookings = "SELECT COUNT(*) as bookedCount FROM Booking WHERE gymId = ? AND bookingDate = ? AND bookingTimeSlot = ?";
                 stmtBookings = con.prepareStatement(queryBookings);
@@ -152,10 +155,8 @@ public class FlipFitCustomerDAOImpl implements FlipFitCustomerDAOInterface {
                 if (rsBookings.next()) {
                     bookedCount = rsBookings.getInt("bookedCount");
                 }
-                System.out.println("Slot ID: " + slotId);
-                System.out.println("Slot Time: " + slotTime);
-                System.out.println("Booked Count: " + bookedCount);
-                System.out.println("=================================");
+                int availableSeats = slotCapacity - bookedCount;
+                slotAvailability.put(slotTime,availableSeats);
             }
 
 
@@ -172,8 +173,10 @@ public class FlipFitCustomerDAOImpl implements FlipFitCustomerDAOInterface {
                 System.out.println("Error closing resources: " + e.getMessage());
             }
         }
-        return slotList;
+
+        return slotAvailability;
     }
+
 
     @Override
     public void filterSlots() {
