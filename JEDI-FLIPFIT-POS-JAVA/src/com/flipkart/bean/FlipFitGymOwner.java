@@ -11,6 +11,17 @@ public class FlipFitGymOwner {
     private String approvalStatus;
     private int userId;
 
+    public FlipFitGymOwner(int ownerId, String ownerName, String ownerPhone, String ownerAddress, String ownerGstNum, String ownerPanNum, String approvalStatus, int userId ) {
+        this.ownerId = ownerId;
+        this.ownerName = ownerName;
+        this.ownerPhone = ownerPhone;
+        this.ownerAddress = ownerAddress;
+        this.ownerGstNum = ownerGstNum;
+        this.ownerPanNum = ownerPanNum;
+        this.approvalStatus = approvalStatus;
+        this.userId = userId;
+    }
+
     public int getOwnerId() {
         return ownerId;
     }

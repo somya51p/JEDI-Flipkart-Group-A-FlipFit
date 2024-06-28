@@ -1,5 +1,6 @@
 package com.flipkart.business;
 import com.flipkart.bean.FlipFitAdmin;
+import com.flipkart.bean.FlipFitGymOwner;
 import com.flipkart.bean.Roles;
 import com.flipkart.bean.Users;
 import com.flipkart.dao.FlipFitCustomerDAOImpl;
@@ -8,6 +9,7 @@ import com.flipkart.dao.FlipfitAdminDAOImpl;
 import com.flipkart.dao.FlipfitAdminDAOInterface;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class FlipfitAdminService implements FlipfitAdminInterface{
@@ -17,7 +19,6 @@ public class FlipfitAdminService implements FlipfitAdminInterface{
         FlipfitAdminDAOInterface adminDAO = new FlipfitAdminDAOImpl();
 
         public void createAdmin(int adminId, int userId, String userEmail, String userPass){
-
             flipfitadmin.setUserId(userId);
             user.setUserEmail(userEmail);
             user.setUserPassword(userPass);
@@ -30,21 +31,40 @@ public class FlipfitAdminService implements FlipfitAdminInterface{
         }
 
         public void viewAllGymOwners(){
-            ArrayList<String> Output = adminDAO.viewAllGymOwners();
-            for(String s : Output){
-                System.out.println(s);
+            List<FlipFitGymOwner> Output = adminDAO.viewAllGymOwners();
+            for(FlipFitGymOwner s: Output){
+                System.out.println("Owner ID: " + s.getOwnerId() + " ---> " + "Owner Name: " + s.getOwnerName());
             }
         }
 
-        public boolean viewGymOwnerDetails(int ownerId){
-            adminDAO.viewGymOwnerDetails(ownerId);
+        public void viewGymOwnerDetails(int ownerId){
+            List<FlipFitGymOwner> Output = adminDAO.viewGymOwnerDetails(ownerId);
             System.out.println("View All the approved gym owner details");
-            return true;
+            for(FlipFitGymOwner s : Output){
+                System.out.println("ID: " + s.getOwnerId());
+                System.out.println("Name: " + s.getOwnerName());
+                System.out.println("Phone: " + s.getOwnerId());
+                System.out.println("Address: " + s.getOwnerAddress());
+                System.out.println("GST Number: " + s.getOwnerGstNum());
+                System.out.println("PAN Number: " + s.getOwnerPanNum());
+                System.out.println("Approval Status: " + s.getApprovalStatus());
+                System.out.println("=================================");
+            }
         }
-        public boolean viewGymOwnerRequests(){
-            adminDAO.viewGymOwnerRequests();
+
+        public void viewGymOwnerRequests(){
+            List<FlipFitGymOwner> Output = adminDAO.viewGymOwnerRequests();
             System.out.println("View all the gym owner pending requests");
-            return true;
+            for(FlipFitGymOwner s : Output){
+                System.out.println("ID: " + s.getOwnerId());
+                System.out.println("Name: " + s.getOwnerName());
+                System.out.println("Phone: " + s.getOwnerId());
+                System.out.println("Address: " + s.getOwnerAddress());
+                System.out.println("GST Number: " + s.getOwnerGstNum());
+                System.out.println("PAN Number: " + s.getOwnerPanNum());
+                System.out.println("Approval Status: " + s.getApprovalStatus());
+                System.out.println("=================================");
+            }
         }
         public boolean approveGymOwnerRequests(int ownerId){
             adminDAO.approveGymOwnerRequests(ownerId);

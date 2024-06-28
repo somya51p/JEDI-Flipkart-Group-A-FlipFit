@@ -1,7 +1,11 @@
 package com.flipkart.dao;
 
+import com.flipkart.bean.FlipFitAdmin;
+import com.flipkart.bean.FlipFitGymOwner;
+
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class FlipfitAdminDAOImpl implements FlipfitAdminDAOInterface{
 
@@ -9,11 +13,13 @@ public class FlipfitAdminDAOImpl implements FlipfitAdminDAOInterface{
     public void createAdmin(int adminId, String adminEmail, String adminPassword) {}
 
     @Override
-    public ArrayList viewAllGymOwners() {
+    public List<FlipFitGymOwner> viewAllGymOwners() {
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         ArrayList<String> Output= new ArrayList<>();
+
+        List<FlipFitGymOwner> gymOwnerList = new ArrayList<FlipFitGymOwner>();
 
         try {
 
@@ -30,9 +36,15 @@ public class FlipfitAdminDAOImpl implements FlipfitAdminDAOInterface{
             System.out.println("All Registered GymOwners");
 
             while (rs.next()) {
-                int ownerId = rs.getInt("ownerId");
-                String ownerName = rs.getString("ownerName");
-                Output.add("Owner ID: " + ownerId + "--->" + "Owner Name: " + ownerName);
+                int gymOwnerId = rs.getInt("gymOwnerId");
+                String name = rs.getString("ownerName");
+                String phone = rs.getString("ownerPhone");
+                String address = rs.getString("ownerAddress");
+                String gstNum = rs.getString("ownerGstNum");
+                String panNum = rs.getString("ownerPanNum");
+                String approvalStatus = rs.getString("approvalStatus");
+                int userId = rs.getInt("userId");
+                gymOwnerList.add(new FlipFitGymOwner(gymOwnerId, name, phone, address, gstNum, panNum, approvalStatus, userId));
             }
 
         } catch (Exception e) {
@@ -47,14 +59,16 @@ public class FlipfitAdminDAOImpl implements FlipfitAdminDAOInterface{
             }
         }
 
-        return Output;
+        return gymOwnerList;
     }
 
     @Override
-    public boolean viewGymOwnerDetails(int ownerId) {
+    public List<FlipFitGymOwner> viewGymOwnerDetails(int ownerId) {
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
+
+        List<FlipFitGymOwner> gymOwnerList = new ArrayList<FlipFitGymOwner>();
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -68,33 +82,28 @@ public class FlipfitAdminDAOImpl implements FlipfitAdminDAOInterface{
 
             rs = stmt.executeQuery();
 
+            System.out.println("All Details of GymOwner: " + ownerId);
+
             if (rs.next()) {
                 // Retrieve and display the gym owner details
+
+                int gymOwnerId = rs.getInt("gymOwnerId");
                 String name = rs.getString("ownerName");
                 String phone = rs.getString("ownerPhone");
                 String address = rs.getString("ownerAddress");
                 String gstNum = rs.getString("ownerGstNum");
                 String panNum = rs.getString("ownerPanNum");
                 String approvalStatus = rs.getString("approvalStatus");
+                int userId = rs.getInt("userId");
 
-                System.out.println("Gym Owner Details:");
-                System.out.println("ID: " + ownerId);
-                System.out.println("Name: " + name);
-                System.out.println("Phone: " + phone);
-                System.out.println("Address: " + address);
-                System.out.println("GST Number: " + gstNum);
-                System.out.println("PAN Number: " + panNum);
-                System.out.println("Approval Status: " + approvalStatus);
-                System.out.println("=================================");
+                gymOwnerList.add(new FlipFitGymOwner(gymOwnerId, name, phone, address, gstNum, panNum, approvalStatus, userId));
 
-                return true;
+                return gymOwnerList;
             } else {
                 System.out.println("No gym owner found with ID " + ownerId);
-                return false;
             }
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
-            return false;
         } finally {
             try {
                 if (rs != null) rs.close();
@@ -104,13 +113,16 @@ public class FlipfitAdminDAOImpl implements FlipfitAdminDAOInterface{
                 System.out.println("Error closing resources: " + e.getMessage());
             }
         }
+        return gymOwnerList;
     }
 
     @Override
-    public boolean viewGymOwnerRequests() {
+    public List<FlipFitGymOwner> viewGymOwnerRequests() {
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
+
+        List<FlipFitGymOwner> gymOwnerList = new ArrayList<FlipFitGymOwner>();
 
         try {
         
@@ -131,30 +143,28 @@ public class FlipfitAdminDAOImpl implements FlipfitAdminDAOInterface{
             System.out.println("Pending Gym Owner Requests:");
 
             while (rs.next()) {
-                int id = rs.getInt("ownerId");
+                int gymOwnerId = rs.getInt("ownerId");
                 String name = rs.getString("ownerName");
                 String phone = rs.getString("ownerPhone");
                 String address = rs.getString("ownerAddress");
                 String gstNum = rs.getString("ownerGstNum");
                 String panNum = rs.getString("ownerPanNum");
                 String approvalStatus = rs.getString("approvalStatus");
+                int userId = rs.getInt("userId");
 
-                System.out.println("ID: " + id);
-                System.out.println("Name: " + name);
-                System.out.println("Phone: " + phone);
-                System.out.println("Address: " + address);
-                System.out.println("GST Number: " + gstNum);
-                System.out.println("PAN Number: " + panNum);
-                System.out.println("Approval Status: " + approvalStatus);
-                System.out.println("=================================");
+                gymOwnerList.add(new FlipFitGymOwner(gymOwnerId, name, phone, address, gstNum, panNum, approvalStatus, userId));
 
-                hasRequests = true;
+//                System.out.println("ID: " + id);
+//                System.out.println("Name: " + name);
+//                System.out.println("Phone: " + phone);
+//                System.out.println("Address: " + address);
+//                System.out.println("GST Number: " + gstNum);
+//                System.out.println("PAN Number: " + panNum);
+//                System.out.println("Approval Status: " + approvalStatus);
+//                System.out.println("=================================");
             }
-
-                        return hasRequests;
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
-            return false; 
         } finally {
             try {
                 if (rs != null) rs.close();
@@ -164,6 +174,7 @@ public class FlipfitAdminDAOImpl implements FlipfitAdminDAOInterface{
                 System.out.println("Error closing resources: " + e.getMessage());
             }
         }
+        return gymOwnerList;
     }
 
 
