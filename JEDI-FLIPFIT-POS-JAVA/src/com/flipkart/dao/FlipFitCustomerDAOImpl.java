@@ -1,8 +1,21 @@
 package com.flipkart.dao;
-
+import com.flipkart.exceptions.UserNotFoundException;
 import java.sql.*;
 
 public class FlipFitCustomerDAOImpl implements FlipFitCustomerDAOInterface {
+
+    public static void main(String[] args) {
+        FlipFitCustomerDAOInterface dao = new FlipFitCustomerDAOImpl();
+        //dao.createCustomer(1, 1, "John Doe", "1111111111", "abc", "john.doe@example.com", "somya");
+//        dao.editProfile(1, "Sarthak Doe", "1111111111", "abc");
+//        dao.viewGyms();
+//        dao.viewSlots(1, "12-12-12");
+        try {
+            dao.editProfile(11, null, null, null);
+        } catch (UserNotFoundException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
 
     @Override
     public void createCustomer(int userId, String name, String phoneNumber, String address) {
@@ -12,8 +25,22 @@ public class FlipFitCustomerDAOImpl implements FlipFitCustomerDAOInterface {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/FlipFit", "root", "Fk!@#%215023");
-            con.setAutoCommit(false);
+
+                    "jdbc:mysql://localhost:3306/FlipFit", "root", "mysqliswow");
+
+            con.setAutoCommit(false); // Start transaction
+
+            // Insert into users table first
+            String queryUser = "INSERT INTO users (userId, userEmail, userPassword, roleId) VALUES (?, ?, ?, ?)";
+            stmtUser = con.prepareStatement(queryUser);
+
+            stmtUser.setInt(1, userId);
+            stmtUser.setString(2, userEmail);
+            stmtUser.setString(3, userPass);
+            stmtUser.setInt(4, 1);
+
+            int userInsertCount = stmtUser.executeUpdate();
+            System.out.println(userInsertCount + " user records inserted");
 
             String queryCustomer = "INSERT INTO flipfitCustomer (customerName, customerPhone, customerAddress, userId) VALUES (?, ?, ?, ?)";
             stmtCustomer = con.prepareStatement(queryCustomer);
@@ -33,13 +60,13 @@ public class FlipFitCustomerDAOImpl implements FlipFitCustomerDAOInterface {
     }
 
     @Override
-        public void editProfile(int customerId, String customerName, String customerPhone, String customerAddress) {
+        public void editProfile (int customerId, String customerName, String customerPhone, String customerAddress) throws UserNotFoundException{
             try {
                 // Load MySQL JDBC driver
                 Class.forName("com.mysql.jdbc.Driver");
 
                 // Establish a connection to the database
-                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/FlipFit", "root", "Fk!@#%215023");
+                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/FlipFit", "root", "mysqliswow");
 
                 // Update the Customer table
                 PreparedStatement customerStmt = con.prepareStatement("UPDATE flipfitCustomer SET customerName=?, customerPhone=?, customerAddress=? WHERE customerId=?");
@@ -50,6 +77,12 @@ public class FlipFitCustomerDAOImpl implements FlipFitCustomerDAOInterface {
 
                 // Execute the customer update
                 int customerUpdateCount = customerStmt.executeUpdate();
+               
+
+                // If no rows are updated, throw a custom exception
+                if (customerUpdateCount == 0) {
+                    throw new UserNotFoundException("Customer with customerId "+customerId+" does not exist");
+                }
                 System.out.println(customerUpdateCount + " customer record(s) updated");
 
                 // Close the connection
@@ -113,7 +146,6 @@ public class FlipFitCustomerDAOImpl implements FlipFitCustomerDAOInterface {
             con = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/flipfit", "root", "mysqliswow");
 
-            // Step 1: Retrieve all slots for the given gymId
             String querySlots = "SELECT * FROM slot WHERE gymId = ?";
             stmtSlots = con.prepareStatement(querySlots);
             stmtSlots.setInt(1, gymId);
@@ -123,7 +155,6 @@ public class FlipFitCustomerDAOImpl implements FlipFitCustomerDAOInterface {
                 int slotId = rsSlots.getInt("slotId");
                 String slotTime = rsSlots.getString("slotTime");
 
-                // Step 2: Count how many slots are already booked for the given gymId and date
                 String queryBookings = "SELECT COUNT(*) as bookedCount FROM Booking WHERE gymId = ? AND bookingDate = ? AND bookingTimeSlot = ?";
                 stmtBookings = con.prepareStatement(queryBookings);
                 stmtBookings.setInt(1, gymId);
