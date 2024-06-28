@@ -1,15 +1,30 @@
 package com.flipkart.bean;
 
+/**
+ * Represents a booking in the system.
+ */
 public class Booking {
-    private int bookingId;
-    private int customerId;
-    private int gymId;
-    private int transactionId;
-    private String bookingDate;
-    private String bookingTimeSlot;
-    private String bookingType;
-    private int bookingAmount;
+    private int bookingId;           // Unique identifier for the booking
+    private int customerId;          // Identifier for the customer making the booking
+    private int gymId;               // Identifier for the gym where the booking is made
+    private int transactionId;       // Identifier for the transaction associated with the booking
+    private String bookingDate;      // Date of the booking
+    private String bookingTimeSlot;  // Time slot of the booking
+    private String bookingType;      // Type of the booking (e.g., online, in-person)
+    private int bookingAmount;       // Amount charged for the booking
 
+    /**
+     * Constructs a Booking object with the given details.
+     *
+     * @param bookingId       The unique identifier for the booking.
+     * @param customerId      The identifier of the customer making the booking.
+     * @param gymId           The identifier of the gym where the booking is made.
+     * @param transactionId   The identifier of the transaction associated with the booking.
+     * @param bookingDate     The date of the booking.
+     * @param bookingTimeSlot The time slot of the booking.
+     * @param bookingType     The type of the booking.
+     * @param bookingAmount   The amount charged for the booking.
+     */
     public Booking(int bookingId, int customerId, int gymId, int transactionId, String bookingDate, String bookingTimeSlot, String bookingType, int bookingAmount) {
         this.bookingId = bookingId;
         this.customerId = customerId;
@@ -20,6 +35,9 @@ public class Booking {
         this.bookingType = bookingType;
         this.bookingAmount = bookingAmount;
     }
+
+    // Getters and setters for each field
+
     public int getBookingId() {
         return bookingId;
     }
