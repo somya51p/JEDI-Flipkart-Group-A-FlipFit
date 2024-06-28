@@ -1,12 +1,13 @@
 package com.flipkart.client;
 import com.flipkart.business.*;
+import com.flipkart.exceptions.UserNotFoundException;
 
 import java.util.*;
 
 public class GymFlipFitApplication {
 
 
-    public static void login(){
+    public static void login() throws UserNotFoundException {
 
         Scanner in = new Scanner(System.in);
         System.out.println("------- Login ------ ");
@@ -28,7 +29,7 @@ public class GymFlipFitApplication {
         }
     }
 
-    public static void registerCustomer(){
+    public static void registerCustomer() throws UserNotFoundException {
 
         FlipFitCustomerInterface customerService = new FlipFitCustomerService();
         FlipFitUserInterface userService = new FlipFitUserService();
@@ -62,7 +63,7 @@ public class GymFlipFitApplication {
         }
     }
 
-    public static void registerGymOwner(){
+    public static void registerGymOwner() throws UserNotFoundException {
 
         FlipFitGymOwnerInterface gymOwnerService = new FlipFitGymOwnerService();
         FlipFitUserInterface userService = new FlipFitUserService();
@@ -102,7 +103,7 @@ public class GymFlipFitApplication {
     }
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws UserNotFoundException {
 
         System.out.println("--------Welcome to FlipFit Application--------");
         System.out.println("Enter preferred choices: \n1. Login\n2. Register as Customer\n3. Register as Gym owner\n4. Exit");

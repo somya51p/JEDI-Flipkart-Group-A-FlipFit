@@ -46,38 +46,37 @@ public class FlipFitCustomerDAOImpl implements FlipFitCustomerDAOInterface {
     }
 
     @Override
-        public void editProfile (int customerId, String customerName, String customerPhone, String customerAddress) throws UserNotFoundException{
-            try {
-                // Load MySQL JDBC driver
-                Class.forName("com.mysql.jdbc.Driver");
+    public void editProfile(int userId, String name, String phoneNumber, String address) throws UserNotFoundException{
+        try {
+            // Load MySQL JDBC driver
+            Class.forName("com.mysql.jdbc.Driver");
 
-                // Establish a connection to the database
-                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/FlipFit", "root", "mysqliswow");
+            // Establish a connection to the database
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/FlipFit", "root", "mysqliswow");
 
-                // Update the Customer table
-                PreparedStatement customerStmt = con.prepareStatement("UPDATE flipfitCustomer SET customerName=?, customerPhone=?, customerAddress=? WHERE customerId=?");
-                customerStmt.setString(1, customerName);
-                customerStmt.setString(2, customerPhone);
-                customerStmt.setString(3, customerAddress);
-                customerStmt.setInt(4, customerId);
+            // Update the Customer table
+            PreparedStatement customerStmt = con.prepareStatement("UPDATE flipfitCustomer SET customerName=?, customerPhone=?, customerAddress=? WHERE userId=?");
+            customerStmt.setString(1, name);
+            customerStmt.setString(2, phoneNumber);
+            customerStmt.setString(3, address);
+            customerStmt.setInt(4, userId);
 
-                // Execute the customer update
-                int customerUpdateCount = customerStmt.executeUpdate();
-               
+            // Execute the customer update
+            int customerUpdateCount = customerStmt.executeUpdate();
 
-                // If no rows are updated, throw a custom exception
-                if (customerUpdateCount == 0) {
-                    throw new UserNotFoundException("Customer with customerId "+customerId+" does not exist");
-                }
-                System.out.println(customerUpdateCount + " customer record(s) updated");
-
-                // Close the connection
-                con.close();
-
-            } catch (Exception e) {
-                System.out.println(e);
+            // If no rows are updated, throw a custom exception
+            if (customerUpdateCount == 0) {
+                throw new UserNotFoundException("Customer with user id "+userId+" does not exist");
             }
+            System.out.println(customerUpdateCount + " customer record(s) updated");
+
+            // Close the connection
+            con.close();
+
+        } catch (Exception e) {
+            System.out.println(e);
         }
+    }
 
     @Override
     public void viewGyms() {

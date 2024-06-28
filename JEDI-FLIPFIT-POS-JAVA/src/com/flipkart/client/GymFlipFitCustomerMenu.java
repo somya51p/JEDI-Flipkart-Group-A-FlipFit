@@ -5,13 +5,13 @@ import com.flipkart.business.FlipFitCustomerInterface;
 import com.flipkart.business.FlipFitCustomerService;
 import com.flipkart.business.FlipFitUserInterface;
 import com.flipkart.business.FlipFitUserService;
+import com.flipkart.exceptions.UserNotFoundException;
 
 import java.util.*;
 
 public class GymFlipFitCustomerMenu {
 
-	public static void login(String email, String password)
-	{
+	public static void login(String email, String password) throws UserNotFoundException {
 		FlipFitUserInterface user = new FlipFitUserService();
 		int userId = user.authenticateUser(email, password, 1);
 		if(userId > 0)
@@ -24,7 +24,7 @@ public class GymFlipFitCustomerMenu {
 		}
 	}
    
-	public static void displayCustomerOptions(int userId){
+	public static void displayCustomerOptions(int userId) throws UserNotFoundException {
 		FlipFitCustomerInterface userService = new FlipFitCustomerService();
 		BookingGymInterface bookingService = new BookingGymService();
 
@@ -38,7 +38,14 @@ public class GymFlipFitCustomerMenu {
 
 			switch (i) {
 				case 1:
-					userService.editProfile();
+					String temp = in.nextLine();
+					System.out.println("Enter your name");
+					String name = in.nextLine();
+					System.out.println("Enter your phone number");
+					String phoneNumber = in.nextLine();
+					System.out.println("Enter your address");
+					String address = in.nextLine();
+					userService.editProfile(userId, name, phoneNumber, address);
 					break;
 				case 2:
 					userService.viewGyms();
