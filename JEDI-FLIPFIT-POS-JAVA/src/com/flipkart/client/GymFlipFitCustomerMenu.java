@@ -72,7 +72,7 @@ public class GymFlipFitCustomerMenu {
 					String expiryDate = in.nextLine();
 					int transactionId = bookingService.makePayment(userId, paymentDetails, expiryDate, modeOfPayment);
 					System.out.println("Enter gym id");
-					int gymId = in.nextInt();
+					int gymBookingId = in.nextInt();
 					System.out.println("Enter booking date");
 					String temp3 = in.nextLine();
 					String bookingDate = in.nextLine();
@@ -80,7 +80,7 @@ public class GymFlipFitCustomerMenu {
 					String bookingTimeSlot = in.nextLine();
 					String bookingType = "Confirmed";
 					int bookingAmount = 100;
-					bookingService.createBooking(userId, gymId, transactionId, bookingDate, bookingTimeSlot, bookingType, bookingAmount);
+					bookingService.createBooking(userId, gymBookingId, transactionId, bookingDate, bookingTimeSlot, bookingType, bookingAmount);
 					break;
 				case 6:
 					bookingService.viewBookings(userId);
