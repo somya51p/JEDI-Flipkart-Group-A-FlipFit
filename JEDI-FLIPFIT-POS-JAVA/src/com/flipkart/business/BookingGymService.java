@@ -5,6 +5,7 @@ import com.flipkart.dao.BookingGymDAOImpl;
 import com.flipkart.dao.BookingGymDAOInterface;
 import com.flipkart.dao.FlipFitCustomerDAOImpl;
 import com.flipkart.dao.FlipFitCustomerDAOInterface;
+import com.flipkart.exceptions.BookingFailedException;
 
 import java.util.List;
 
@@ -12,23 +13,18 @@ import java.util.List;
 
 public class BookingGymService implements BookingGymInterface {
 
-//        public static void main(String[] args) {
-//        BookingGymInterface bookingGymService = new BookingGymService();
-//        bookingGymService.viewBookings(1);
-//    }
-
     BookingGymDAOInterface bookingGymDAO = new BookingGymDAOImpl();
 
-    public void createBooking(int userId, int gymId, int transactionId, String bookingDate, String bookingTimeSlot, String bookingType, int bookingAmount) {
+    public void createBooking(int userId, int gymId, int transactionId, String bookingDate, String bookingTimeSlot, String bookingType, int bookingAmount) throws BookingFailedException {
         bookingGymDAO.createBooking(userId, gymId, transactionId, bookingDate, bookingTimeSlot, bookingType, bookingAmount);
         System.out.println("Booking is Done!!");
     }
 
-    public void bookSlots(){
+    public void bookSlots() throws BookingFailedException{
         System.out.println("Slot is booked");
     }
 
-    public void viewBookings(int userId) {
+    public void viewBookings(int userId) throws BookingFailedException {
         List<Booking> bookings = bookingGymDAO.viewBookings(userId);
 
         if (bookings.isEmpty()) {
@@ -49,12 +45,12 @@ public class BookingGymService implements BookingGymInterface {
         }
     }
 
-    public void cancelBookings(int bookingId){
+    public void cancelBookings(int bookingId) throws BookingFailedException{
     	  bookingGymDAO.cancelBookings(bookingId);
         System.out.println("Booking is cancelled");
     }
 
-    public int makePayment(int userId, String paymentDetails, String expiryDate, String modeOfPayment) {
+    public int makePayment(int userId, String paymentDetails, String expiryDate, String modeOfPayment) throws BookingFailedException{
         System.out.println("Payment Successful!");
         return bookingGymDAO.makePayment(userId, paymentDetails, expiryDate, modeOfPayment);
     }

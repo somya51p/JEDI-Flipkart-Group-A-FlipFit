@@ -84,7 +84,9 @@ public class GymFlipFitOwnerMenu {
 				case 6:
 					System.out.println("Enter gym id ");
 					gymId = in.nextInt();
-					gymOwnerService.viewAvailableSlots(gymId);
+					System.out.println("Enter the date of the slot");
+					String date = in.nextLine();
+					gymOwnerService.viewAvailableSlots(gymId,date);
 					break;
 				case 7:
 					gymOwnerService.viewAllBookings(userId);

@@ -10,7 +10,7 @@ public interface FlipFitGymOwnerInterface {
     public void viewAllRegisteredGymCenters(int userId);
     public void viewAllBookings(int userId);
     public void viewBookings(int gymId);
-    public void viewAvailableSlots(int gymId);
+    public void viewAvailableSlots(int gymId,String date);
     public void addSlot(int gymId, int slotId, String slotTime, int slotCapacity);
     public void removeSlot( int gymId, int slotId);
 }
