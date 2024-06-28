@@ -64,7 +64,9 @@ public class GymFlipFitCustomerMenu {
 					bookingService.viewBookings(userId);
 					break;
 				case 7:
-					bookingService.cancelBookings();
+					System.out.println("Enter the bookingId");
+					 int bookingId = in.nextInt();
+					bookingService.cancelBookings(bookingId);
 					break;
 				case 8:
 					System.out.println("Thank you for using FlipFit App");
