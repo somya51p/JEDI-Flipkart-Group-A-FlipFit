@@ -1,6 +1,10 @@
 package com.flipkart.dao;
+import com.flipkart.bean.FlipFitGym;
+import com.flipkart.bean.Slot;
 import com.flipkart.exceptions.UserNotFoundException;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FlipFitCustomerDAOImpl implements FlipFitCustomerDAOInterface {
 
@@ -79,10 +83,11 @@ public class FlipFitCustomerDAOImpl implements FlipFitCustomerDAOInterface {
     }
 
     @Override
-    public void viewGyms() {
+    public List<FlipFitGym> viewGyms() {
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
+        List<FlipFitGym> gymList = new ArrayList<FlipFitGym>();
         try {
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection(
@@ -92,16 +97,11 @@ public class FlipFitCustomerDAOImpl implements FlipFitCustomerDAOInterface {
             stmt = con.prepareStatement(query);
             rs = stmt.executeQuery();
             while (rs.next()) {
-                int id = rs.getInt("gymId");
+                int gymId = rs.getInt("gymId");
                 int ownerId = rs.getInt("gymOwnerId");
                 String gymName = rs.getString("gymName");
                 String gymLocation = rs.getString("gymLocation");
-
-                System.out.println("ID: " + id);
-                System.out.println("Gym Owner Id: " + ownerId);
-                System.out.println("Gym Name: " + gymName);
-                System.out.println("Gym Location: " + gymLocation);
-                System.out.println("=================================");
+                gymList.add(new FlipFitGym(gymId, ownerId, gymName, gymLocation));
             }
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
@@ -114,17 +114,18 @@ public class FlipFitCustomerDAOImpl implements FlipFitCustomerDAOInterface {
                 System.out.println("Error closing resources: " + e.getMessage());
             }
         }
+        return gymList;
     }
 
     @Override
-    public void viewSlots(int gymId, String date) {
+    public List<Slot> viewSlots(int gymId, String date) {
         // TODO: not complete implementation
         Connection con = null;
         PreparedStatement stmtSlots = null;
         PreparedStatement stmtBookings = null;
         ResultSet rsSlots = null;
         ResultSet rsBookings = null;
-
+        List<Slot> slotList = new ArrayList<Slot>();
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
@@ -151,12 +152,12 @@ public class FlipFitCustomerDAOImpl implements FlipFitCustomerDAOInterface {
                 if (rsBookings.next()) {
                     bookedCount = rsBookings.getInt("bookedCount");
                 }
-
                 System.out.println("Slot ID: " + slotId);
                 System.out.println("Slot Time: " + slotTime);
                 System.out.println("Booked Count: " + bookedCount);
                 System.out.println("=================================");
             }
+
 
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
@@ -171,6 +172,7 @@ public class FlipFitCustomerDAOImpl implements FlipFitCustomerDAOInterface {
                 System.out.println("Error closing resources: " + e.getMessage());
             }
         }
+        return slotList;
     }
 
     @Override

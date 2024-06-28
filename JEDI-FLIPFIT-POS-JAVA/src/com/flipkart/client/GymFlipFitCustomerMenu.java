@@ -35,6 +35,8 @@ public class GymFlipFitCustomerMenu {
 
 			Scanner in = new Scanner(System.in);
 			int i = in.nextInt();
+			int gymId;
+			String date;
 
 			switch (i) {
 				case 1:
@@ -51,7 +53,11 @@ public class GymFlipFitCustomerMenu {
 					userService.viewGyms();
 					break;
 				case 3:
-					userService.viewSlots();
+					System.out.println("Enter gymId");
+					gymId = in.nextInt();
+					System.out.println("Enter date");
+					date = in.nextLine();
+					userService.viewSlots(gymId,date);
 					break;
 				case 4:
 					userService.filterSlots();
