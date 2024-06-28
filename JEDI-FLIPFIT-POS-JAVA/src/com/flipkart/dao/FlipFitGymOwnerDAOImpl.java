@@ -34,7 +34,7 @@ public class FlipFitGymOwnerDAOImpl implements FlipFitGymOwnerDAOInterface{
     }
 
     @Override
-    public void editProfile(int ownerId, String ownerName, String ownerPhone, String ownerAddress, String ownerGstNum, String ownerPanNum, String approvalStatus) {
+    public void editProfile(int userId, String ownerName, String ownerPhone, String ownerAddress, String ownerGstNum, String ownerPanNum) {
         try {
             // Load MySQL JDBC driver
             Class.forName("com.mysql.jdbc.Driver");
@@ -44,7 +44,7 @@ public class FlipFitGymOwnerDAOImpl implements FlipFitGymOwnerDAOInterface{
 
             // Prepare the SQL statement for updating the gym owner
             PreparedStatement ownerStmt = con.prepareStatement(
-                    "UPDATE flipfitGymOwner SET ownerName=?, ownerPhone=?, ownerAddress=?, ownerGstNum=?, ownerPanNum=?, approvalStatus=? WHERE ownerId=?"
+                    "UPDATE flipfitGymOwner SET ownerName=?, ownerPhone=?, ownerAddress=?, ownerGstNum=?, ownerPanNum=? WHERE userId=?"
             );
 
             // Set the parameters for the prepared statement
@@ -53,8 +53,7 @@ public class FlipFitGymOwnerDAOImpl implements FlipFitGymOwnerDAOInterface{
             ownerStmt.setString(3, ownerAddress);
             ownerStmt.setString(4, ownerGstNum);
             ownerStmt.setString(5, ownerPanNum);
-            ownerStmt.setString(6, approvalStatus);
-            ownerStmt.setInt(7, ownerId);
+            ownerStmt.setInt(6, userId);
 
             // Execute the update
             int ownerUpdateCount = ownerStmt.executeUpdate();
@@ -69,27 +68,37 @@ public class FlipFitGymOwnerDAOImpl implements FlipFitGymOwnerDAOInterface{
     }
 
     @Override
-    public void registerGym(int gymId, String name, String location) {
+    public void registerGym(int userId, String name, String location) {
         Connection con = null;
+        PreparedStatement stmt = null;
         PreparedStatement stmtGym = null;
+        ResultSet rs = null;
+        int gymOwnerId = 0;
 
         try{
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/FlipFit", "root", "mysqliswow");
             con.setAutoCommit(false);
 
-            String queryGym = "INSERT INTO flipfitGym (gymId, gymOwnerId, gymName, gymLocation) VALUES (?, ?, ?, ?)";
+            String query = "SELECT ownerId FROM flipfitGymOwner WHERE userId = ?";
+            stmt.setInt(1, userId);
+            stmt = con.prepareStatement(query);
+
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                gymOwnerId = rs.getInt("ownerId");
+
+            }
+            String queryGym = "INSERT INTO flipfitGym (gymOwnerId, gymName, gymLocation) VALUES ( ?, ?, ?)";
             stmtGym = con.prepareStatement(queryGym);
-            stmtGym.setInt(1, gymId);
-            stmtGym.setInt(2, 1);  //need to work
-            stmtGym.setString(3, name);
-            stmtGym.setString(4, location);
+            stmtGym.setInt(1, gymOwnerId);  //need to work
+            stmtGym.setString(2, name);
+            stmtGym.setString(3, location);
 
             int gymInsertCount = stmtGym.executeUpdate();
             System.out.println(gymInsertCount + " user records inserted");
-
             con.commit();
-
         }catch (Exception e) {
             System.out.println(e);
 
@@ -165,11 +174,13 @@ public class FlipFitGymOwnerDAOImpl implements FlipFitGymOwnerDAOInterface{
     }
 
     @Override
-    public void viewAllRegisteredGymCenters() {
+    public void viewAllRegisteredGymCenters(int userId) {
         Connection con = null;
         PreparedStatement stmt = null;
+        PreparedStatement stmtowner = null;
         ResultSet rs = null;
-        int ownerId = 101; // need to work on this
+        ResultSet rs1 = null;
+        int gymOwnerId = 0; // need to work on this
 
         try {
 
@@ -178,19 +189,27 @@ public class FlipFitGymOwnerDAOImpl implements FlipFitGymOwnerDAOInterface{
             con = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/FlipFit", "root", "mysqliswow");
 
+            String queryOwner = "SELECT ownerId FROM flipfitGymOwner WHERE userId = ?";
+            stmtowner.setInt(1, userId);
+            stmtowner = con.prepareStatement(queryOwner);
+
+            rs1 = stmtowner.executeQuery();
+
+            while (rs1.next()) {
+                gymOwnerId = rs1.getInt("ownerId");
+
+            }
 
             String query = "SELECT * FROM flipfitGym WHERE gymOwnerId = ?";
-            stmt.setInt(1, ownerId);
+            stmt.setInt(1, gymOwnerId);
             stmt = con.prepareStatement(query);
-
 
             rs = stmt.executeQuery();
 
-            System.out.println("Gyms Registered to Owner " + ownerId);
+            System.out.println("Gyms Registered to Owner " + gymOwnerId);
 
             while (rs.next()) {
                 int gymId = rs.getInt("gymId");
-                int gymOwnerId = rs.getInt("gymOwnerId");
                 String gymName = rs.getString("gymName");
                 String gymLocation = rs.getString("gymLocation");
 
@@ -216,11 +235,13 @@ public class FlipFitGymOwnerDAOImpl implements FlipFitGymOwnerDAOInterface{
     }
 
     @Override
-    public void viewAllBookings() {
+    public void viewAllBookings(int userId) {
         Connection con = null;
         PreparedStatement stmt = null;
+        PreparedStatement stmtowner = null;
         ResultSet rs = null;
-        int ownerId = 101; // need to work on this
+        ResultSet rs1 = null;
+        int gymOwnerId = 0; // need to work on this
 
         try {
 
@@ -229,15 +250,25 @@ public class FlipFitGymOwnerDAOImpl implements FlipFitGymOwnerDAOInterface{
             con = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/FlipFit", "root", "mysqliswow");
 
+            String queryOwner = "SELECT ownerId FROM flipfitGymOwner WHERE userId = ?";
+            stmtowner.setInt(1, userId);
+            stmtowner = con.prepareStatement(queryOwner);
+
+            rs1 = stmtowner.executeQuery();
+
+            while (rs1.next()) {
+                gymOwnerId = rs1.getInt("ownerId");
+
+            }
             String query = "SELECT * FROM booking b JOIN flipfitGym g ON b.gymId = g.gymId JOIN flipfitGymOwner go ON g.gymOwnerId = go.ownerId WHERE go.ownerId = ?";
 
-            stmt.setInt(1, ownerId);
+            stmt.setInt(1, gymOwnerId);
             stmt = con.prepareStatement(query);
 
 
             rs = stmt.executeQuery();
 
-            System.out.println("All Bookings of Gyms Registered to Owner " + ownerId);
+            System.out.println("All Bookings of Gyms Registered to Owner " + gymOwnerId);
 
             while (rs.next()) {
                 int bookingId = rs.getInt("bookingId");
@@ -360,7 +391,7 @@ public class FlipFitGymOwnerDAOImpl implements FlipFitGymOwnerDAOInterface{
         }
     }
     @Override
-    public void removeSlot(int slotId) {
+    public void removeSlot(int gymId, int slotId) {
         Connection con = null;
         PreparedStatement stmt = null;
 
@@ -372,10 +403,12 @@ public class FlipFitGymOwnerDAOImpl implements FlipFitGymOwnerDAOInterface{
                     "jdbc:mysql://localhost:3306/FlipFit", "root", "mysqliswow");
 
 
-            String query = "DELETE FROM Slot WHERE slotId = ?";
+            String query = "DELETE FROM Slot WHERE slotId = ? and gymId = ?";
 
             stmt = con.prepareStatement(query);
             stmt.setInt(1, slotId);
+            stmt.setInt(2, gymId);
+
 
             int rowsAffected = stmt.executeUpdate();
 
