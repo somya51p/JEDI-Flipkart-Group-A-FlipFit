@@ -43,19 +43,31 @@ public class GymFlipFitAdminMenu {
 					adminService.viewAllGymOwners();
 					break;
 				case 2:
-					adminService.viewGymOwnerDetails(1);
+					String temp = sc.nextLine();
+					System.out.println("Enter Gym Owner ID : ");
+					int gymOwnerId = sc.nextInt();
+					adminService.viewGymOwnerDetails(gymOwnerId);
 					break;
 				case 3:
 					adminService.viewGymOwnerRequests();
 					break;
 				case 4:
-					adminService.approveGymOwnerRequests(1);
+					String temp_ = sc.nextLine();
+					System.out.println("Enter Gym Owner ID : ");
+					int gymOwnerId_ = sc.nextInt();
+					adminService.viewGymOwnerDetails(gymOwnerId_);
 					break;
 				case 5:
-					adminService.removeGymOwner(101);
+					String _temp = sc.nextLine();
+					System.out.println("Enter Gym Owner ID : ");
+					int _gymOwnerId = sc.nextInt();
+					adminService.viewGymOwnerDetails(_gymOwnerId);
 					break;
 				case 6:
-					adminService.cancelRequest(101);
+					String _temp_ = sc.nextLine();
+					System.out.println("Enter Gym Owner ID : ");
+					int _gymOwnerId_ = sc.nextInt();
+					adminService.viewGymOwnerDetails(_gymOwnerId_);
 					break;
 				case 7:
 					System.out.println("Thank you for using FlipFit App");
