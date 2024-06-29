@@ -2,6 +2,7 @@ package com.flipkart.dao;
 
 import com.flipkart.bean.Users;
 
+
 import java.sql.*;
 
 public class FlipFitUserDAOImpl implements FlipFitUserDAOInterface{
@@ -26,11 +27,16 @@ public class FlipFitUserDAOImpl implements FlipFitUserDAOInterface{
                 if (password.equals(storedPassword)){
                     return rs.getInt("userId");
                 }
-                else return 0;
+                else {
+                	return 0;
+                	}
             } else {
-                return 0;
+            	
+            	return 0;
+                
             }
-        } catch (Exception e) {
+        } 
+        catch (Exception e) {
 
             System.out.println("Error: " + e.getMessage());
         } finally {

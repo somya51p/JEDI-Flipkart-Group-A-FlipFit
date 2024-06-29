@@ -2,13 +2,14 @@
 package com.flipkart.client;
 import com.flipkart.business.*;
 import com.flipkart.exceptions.UserNotFoundException;
+import com.flipkart.exceptions.WrongCredentialsException;
 
 import java.util.*;
 
 public class GymFlipFitApplication {
 
 
-    public static void login() throws UserNotFoundException {
+    public static void login() {
 
         Scanner in = new Scanner(System.in);
         System.out.println("------- Login ------ ");
@@ -20,11 +21,23 @@ public class GymFlipFitApplication {
         int role = in.nextInt();
 
         if(role == 1) {
-            GymFlipFitCustomerMenu.login(email, password);
+            try {
+				GymFlipFitCustomerMenu.login(email, password);
+			} catch (Exception e) {
+			     System.out.println("Error:"+e.getMessage());
+			} 
         } else if(role == 2) {
-            GymFlipFitOwnerMenu.login(email, password);
+            try {
+				GymFlipFitOwnerMenu.login(email, password);
+			} catch (Exception e) {
+				 System.out.println("Error:"+e.getMessage());
+			}
         } else if(role == 3) {
-            GymFlipFitAdminMenu.login(email, password);
+        	try {
+            GymFlipFitAdminMenu.login(email, password);}
+        	catch(Exception e) {
+        		 System.out.println("Error:"+e.getMessage());
+        	}
         }  else {
             System.out.println("Invalid role choice");
         }

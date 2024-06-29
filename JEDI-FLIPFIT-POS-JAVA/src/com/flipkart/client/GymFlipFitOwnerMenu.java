@@ -4,11 +4,14 @@ import com.flipkart.business.FlipFitGymOwnerInterface;
 import com.flipkart.business.FlipFitGymOwnerService;
 import com.flipkart.business.FlipFitUserInterface;
 import com.flipkart.business.FlipFitUserService;
+import com.flipkart.exceptions.InvalidChoiceException;
+import com.flipkart.exceptions.WrongCredentialsException;
+
 import java.util.*;
 
 public class GymFlipFitOwnerMenu {
 
-	public static void login(String email, String password)
+	public static void login(String email, String password) throws WrongCredentialsException
 	{
 		FlipFitUserInterface user = new FlipFitUserService();
 		int userId = user.authenticateUser(email, password, 2);
@@ -16,14 +19,18 @@ public class GymFlipFitOwnerMenu {
 		if(userId >0)
 		{
 			System.out.println("Logged in as Gym Owner");
-			displayGymOwnerOptions(userId);
+			try {
+				displayGymOwnerOptions(userId);
+			} catch (InvalidChoiceException e) {
+				System.out.println(e.getMessage());
+			}
 		}
 		else{
-			System.out.println("Invalid credentials");
+			throw new WrongCredentialsException();
 		}
 	}
 
-	public static void displayGymOwnerOptions(int userId) {
+	public static void displayGymOwnerOptions(int userId) throws InvalidChoiceException {
 
 		FlipFitGymOwnerInterface gymOwnerService = new FlipFitGymOwnerService();
 		 boolean flag = true;
@@ -120,7 +127,7 @@ public class GymFlipFitOwnerMenu {
 					flag = false;
 					break;
 				default:
-					System.out.println("Invalid option");
+					throw new InvalidChoiceException("Invalid option - " + i);
 			}
 
 		} while(flag);
