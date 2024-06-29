@@ -1,4 +1,4 @@
-package com.flipkart.business;
+package main.java.com.flipkart.business;
 
 import com.flipkart.bean.Booking;
 import com.flipkart.exceptions.BookingFailedException;
