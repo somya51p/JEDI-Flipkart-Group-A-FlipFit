@@ -35,7 +35,7 @@ public class FlipfitAdminDAOImpl implements FlipfitAdminDAOInterface{
             System.out.println("All Registered GymOwners");
 
             while (rs.next()) {
-                int gymOwnerId = rs.getInt("gymOwnerId");
+                int gymOwnerId = rs.getInt("ownerId");
                 String name = rs.getString("ownerName");
                 String phone = rs.getString("ownerPhone");
                 String address = rs.getString("ownerAddress");
@@ -86,7 +86,7 @@ public class FlipfitAdminDAOImpl implements FlipfitAdminDAOInterface{
             if (rs.next()) {
                 // Retrieve and display the gym owner details
 
-                int gymOwnerId = rs.getInt("gymOwnerId");
+                int gymOwnerId = rs.getInt("ownerId");
                 String name = rs.getString("ownerName");
                 String phone = rs.getString("ownerPhone");
                 String address = rs.getString("ownerAddress");
@@ -153,14 +153,6 @@ public class FlipfitAdminDAOImpl implements FlipfitAdminDAOInterface{
 
                 gymOwnerList.add(new FlipFitGymOwner(gymOwnerId, name, phone, address, gstNum, panNum, approvalStatus, userId));
 
-//                System.out.println("ID: " + id);
-//                System.out.println("Name: " + name);
-//                System.out.println("Phone: " + phone);
-//                System.out.println("Address: " + address);
-//                System.out.println("GST Number: " + gstNum);
-//                System.out.println("PAN Number: " + panNum);
-//                System.out.println("Approval Status: " + approvalStatus);
-//                System.out.println("=================================");
             }
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());

@@ -35,33 +35,46 @@ public class GymFlipFitAdminMenu {
 		boolean flag= true ;
 		do {
 			System.out.println("Welcome to admin page :");
-			System.out.println("1. View all details of gym owner : \n2. View requests of gym owners : \n3. Approval of gym owner requests : \n4. Remove any gym owner : \n 5. Cancel any pending request : \n6. Exit");
+			System.out.println("1. View all Gym Owners : \n2. View all details of gym owner : \n3. View requests of gym owners : \n4. Approval of gym owner requests : \n5. Remove any gym owner : \n6. Cancel any pending request : \n7. Exit");
 			Scanner sc = new Scanner(System.in);
 			int option = sc.nextInt();
 			switch (option) {
 				case 1:
-					adminService.viewGymOwnerDetails(101);
+					adminService.viewAllGymOwners();
 					break;
 				case 2:
-					adminService.viewGymOwnerRequests();
+					String temp = sc.nextLine();
+					System.out.println("Enter Gym Owner ID : ");
+					int gymOwnerId = sc.nextInt();
+					adminService.viewGymOwnerDetails(gymOwnerId);
 					break;
 				case 3:
-					adminService.approveGymOwnerRequests(101);
+					adminService.viewGymOwnerRequests();
 					break;
 				case 4:
-					adminService.removeGymOwner(101);
+					String temp_ = sc.nextLine();
+					System.out.println("Enter Gym Owner ID : ");
+					int gymOwnerId_ = sc.nextInt();
+					adminService.viewGymOwnerDetails(gymOwnerId_);
 					break;
 				case 5:
-					adminService.cancelRequest(101);
+					String _temp = sc.nextLine();
+					System.out.println("Enter Gym Owner ID : ");
+					int _gymOwnerId = sc.nextInt();
+					adminService.viewGymOwnerDetails(_gymOwnerId);
 					break;
 				case 6:
+					String _temp_ = sc.nextLine();
+					System.out.println("Enter Gym Owner ID : ");
+					int _gymOwnerId_ = sc.nextInt();
+					adminService.viewGymOwnerDetails(_gymOwnerId_);
+					break;
+				case 7:
 					System.out.println("Thank you for using FlipFit App");
 					flag= false ;
 					break;
 				default:
-					throw new InvalidChoiceException("Invalid option - " + option);
-					
-					
+					System.out.println("invalid option");
 			}
 		}while(flag);
 
