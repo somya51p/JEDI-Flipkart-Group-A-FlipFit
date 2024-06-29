@@ -1,6 +1,7 @@
 package com.flipkart.dao;
 import com.flipkart.bean.FlipFitGym;
 import com.flipkart.bean.Slot;
+import com.flipkart.exceptions.GymNotFoundException;
 import com.flipkart.exceptions.UserNotFoundException;
 import java.sql.*;
 
@@ -120,7 +121,7 @@ public class FlipFitCustomerDAOImpl implements FlipFitCustomerDAOInterface {
     }
 
     @Override
-    public HashMap<String, Integer> viewSlots(int gymId, String date) {
+    public HashMap<String, Integer> viewSlots(int gymId, String date) throws GymNotFoundException {
         Connection con = null;
         PreparedStatement stmtSlots = null;
         PreparedStatement stmtBookings = null;
@@ -138,6 +139,10 @@ public class FlipFitCustomerDAOImpl implements FlipFitCustomerDAOInterface {
             stmtSlots = con.prepareStatement(querySlots);
             stmtSlots.setInt(1, gymId);
             rsSlots = stmtSlots.executeQuery();
+
+            if (!rsSlots.isBeforeFirst()) {
+                throw new GymNotFoundException(gymId);
+            }
 
             while (rsSlots.next()) {
                 int slotId = rsSlots.getInt("slotId");

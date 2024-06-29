@@ -2,6 +2,7 @@ package com.flipkart.dao;
 
 import com.flipkart.bean.Booking;
 import com.flipkart.business.BookingGymInterface;
+import com.flipkart.exceptions.BookingFailedException;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ public class BookingGymDAOImpl implements BookingGymDAOInterface {
     }
 
     @Override
-    public void createBooking(int userId, int gymId, int transactionId, String bookingDate, String bookingTimeSlot, String bookingType, int bookingAmount) {
+    public void createBooking(int userId, int gymId, int transactionId, String bookingDate, String bookingTimeSlot, String bookingType, int bookingAmount) throws BookingFailedException {
         Connection con = null;
         PreparedStatement stmt = null;
         PreparedStatement stmtcustomer = null;
@@ -57,10 +58,10 @@ public class BookingGymDAOImpl implements BookingGymDAOInterface {
             if (rowsAffected > 0) {
                 System.out.println("Booking created successfully");
             } else {
-                System.out.println("Failed to create booking");
+                throw new BookingFailedException("Failed to create booking");
             }
         } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+            throw new BookingFailedException(e.getMessage());
         } finally {
             try {
                 if (stmt != null) stmt.close();
@@ -203,7 +204,7 @@ public class BookingGymDAOImpl implements BookingGymDAOInterface {
     }
 
     @Override
-    public int makePayment(int userId, String paymentDetails, String expiryDate, String modeOfPayment) {
+    public int makePayment(int userId, String paymentDetails, String expiryDate, String modeOfPayment) throws BookingFailedException {
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -232,7 +233,7 @@ public class BookingGymDAOImpl implements BookingGymDAOInterface {
                 }
                 System.out.println("Payment successfully recorded.");
             } else {
-                System.out.println("Failed to record payment.");
+                throw new BookingFailedException("Failed to record payment.");
             }
 
         } catch (Exception e) {
