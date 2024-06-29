@@ -29,29 +29,17 @@ public class FlipFitCustomerService implements FlipFitCustomerInterface {
         System.out.println("Customer details are updated!");
     }
 
-    public void viewGyms(){
-        List<FlipFitGym> gyms = customerDAO.viewGyms();
-        // print the list
-        for (FlipFitGym gym : gyms) {
-            System.out.println("\nGym Id: " + gym.getGymId());
-            System.out.println("Gym: " + gym.getGymName());
-            System.out.println("Location: " + gym.getGymLocation());
-        }
-        System.out.println("All gyms viewed");
+    public List<FlipFitGym> viewGyms(){
+        return customerDAO.viewGyms();
     }
 
-    public void viewSlots(int gymId, String date){
+    public HashMap<String,Integer> viewSlots(int gymId, String date){
         try{
-            System.out.println("All slots are viewed");
-            // Print the map
-            HashMap<String,Integer>AvailableSlots=customerDAO.viewSlots(gymId,date);
-            // Print the available slots
-            for (Map.Entry<String, Integer> entry : AvailableSlots.entrySet()) {
-                System.out.println("Slot Time: " + entry.getKey() + ", Available Slots: " + entry.getValue());
-            }
+            return customerDAO.viewSlots(gymId,date);
         }
         catch(Exception e){
             System.out.println(e.getMessage());
+            return null;
         }
     }
 

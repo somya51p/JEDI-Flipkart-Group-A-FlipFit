@@ -41,54 +41,26 @@ public class FlipFitGymOwnerService implements FlipFitGymOwnerInterface {
         System.out.println("gym " + gymId + "removed successfully");
     }
 
-    public void viewAllRegisteredGymCenters(int userId) {
-        List<FlipFitGym> gyms = ownerDAO.viewAllRegisteredGymCenters(userId);
-
-        for (FlipFitGym gym : gyms) {
-            System.out.println("\nGym Id: " + gym.getGymId());
-            System.out.println("Gym: " + gym.getGymName());
-            System.out.println("Location: " + gym.getGymLocation());
-        }
-        System.out.println("view All Gym Centers");
+    public List<FlipFitGym> viewAllRegisteredGymCenters(int userId) {
+        return ownerDAO.viewAllRegisteredGymCenters(userId);
     }
 
-    public void viewAllBookings(int userId) {
-        List<Booking> bookings = ownerDAO.viewAllBookings(userId);
-        for (Booking booking : bookings) {
-            System.out.println("\nBooking Id: " + booking.getBookingId());
-            System.out.println("Customer Id: " + booking.getCustomerId());
-            System.out.println("Gym Id: " + booking.getGymId());
-            System.out.println("Booking Date: " + booking.getBookingDate());
-            System.out.println("Slot: " + booking.getBookingTimeSlot());
-            System.out.println("Transaction  Id: " + booking.getTransactionId());
-        }
-        System.out.println("viewed all bookings");
+    public List<Booking> viewAllBookings(int userId) {
+        return ownerDAO.viewAllBookings(userId);
     }
 
-    public void viewBookings(int gymId) {
-        List<Booking> bookings = ownerDAO.viewBookings(gymId);
-        for (Booking booking : bookings) {
-            System.out.println("\nBooking Id: " + booking.getBookingId());
-            System.out.println("Customer Id: " + booking.getCustomerId());
-            System.out.println("Booking Date: " + booking.getBookingDate());
-            System.out.println("Slot: " + booking.getBookingTimeSlot());
-            System.out.println("Transaction  Id: " + booking.getTransactionId());
-        }
-        System.out.println("viewed bookings for " + gymId);
+    public List<Booking> viewBookings(int gymId) {
+        return ownerDAO.viewBookings(gymId);
+
     }
 
-    public void viewAvailableSlots(int gymId,String date) {
+    public HashMap<String,Integer> viewAvailableSlots(int gymId,String date) {
         try{
-            System.out.println("viewed available slots for " + gymId);
-            // Print the map
-            HashMap<String,Integer> AvailableSlots=customerDAO.viewSlots(gymId,date);
-            // Print the available slots
-            for (Map.Entry<String, Integer> entry : AvailableSlots.entrySet()) {
-                System.out.println("Slot Time: " + entry.getKey() + ", Available Slots: " + entry.getValue());
-            }
+            return customerDAO.viewSlots(gymId,date);
         }
         catch(Exception e){
             System.out.println(e.getMessage());
+            return null;
         }
     }
 

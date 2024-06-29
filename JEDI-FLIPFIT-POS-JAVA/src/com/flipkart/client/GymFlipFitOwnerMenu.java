@@ -1,5 +1,7 @@
 package com.flipkart.client;
 
+import com.flipkart.bean.Booking;
+import com.flipkart.bean.FlipFitGym;
 import com.flipkart.business.FlipFitGymOwnerInterface;
 import com.flipkart.business.FlipFitGymOwnerService;
 import com.flipkart.business.FlipFitUserInterface;
@@ -44,6 +46,7 @@ public class GymFlipFitOwnerMenu {
 			int i = in.nextInt();
 			String name, location, temp, slotTime, panNum, gstNum, phoneNumber, address;
 			int gymId,slotId,slotCapacity;
+			List<Booking> bookings;
 
 			switch(i){
 				case 1:
@@ -95,18 +98,50 @@ public class GymFlipFitOwnerMenu {
 					in.nextLine();
 					System.out.println("Enter the date of the slot");
 					String date = in.nextLine();
-					gymOwnerService.viewAvailableSlots(gymId,date);
+
+					HashMap<String,Integer> AvailableSlots = gymOwnerService.viewAvailableSlots(gymId,date);
+					// Print the available slots
+					for (Map.Entry<String, Integer> entry : AvailableSlots.entrySet()) {
+						System.out.println("Slot Time: " + entry.getKey() + ", Available Slots: " + entry.getValue());
+					}
+					System.out.println("viewed available slots for " + gymId);
 					break;
 				case 7:
-					gymOwnerService.viewAllBookings(userId);
+
+					bookings = gymOwnerService.viewAllBookings(userId);
+					for (Booking booking : bookings) {
+						System.out.println("\nBooking Id: " + booking.getBookingId());
+						System.out.println("Customer Id: " + booking.getCustomerId());
+						System.out.println("Gym Id: " + booking.getGymId());
+						System.out.println("Booking Date: " + booking.getBookingDate());
+						System.out.println("Slot: " + booking.getBookingTimeSlot());
+						System.out.println("Transaction  Id: " + booking.getTransactionId());
+					}
+					System.out.println("viewed all bookings");
 					break;
 				case 8:
 					System.out.println("Enter gym id ");
 					gymId = in.nextInt();
-					gymOwnerService.viewBookings(gymId);
+
+					bookings = gymOwnerService.viewBookings(gymId);
+					for (Booking booking : bookings) {
+						System.out.println("\nBooking Id: " + booking.getBookingId());
+						System.out.println("Customer Id: " + booking.getCustomerId());
+						System.out.println("Booking Date: " + booking.getBookingDate());
+						System.out.println("Slot: " + booking.getBookingTimeSlot());
+						System.out.println("Transaction  Id: " + booking.getTransactionId());
+					}
+					System.out.println("viewed bookings for " + gymId);
 					break;
 				case 9:
-					gymOwnerService.viewAllRegisteredGymCenters(userId);
+
+					List<FlipFitGym> gyms = gymOwnerService.viewAllRegisteredGymCenters(userId);
+					for (FlipFitGym gym : gyms) {
+						System.out.println("\nGym Id: " + gym.getGymId());
+						System.out.println("Gym: " + gym.getGymName());
+						System.out.println("Location: " + gym.getGymLocation());
+					}
+					System.out.println("view All Gym Centers");
 					break;
 				case 10:
 					 temp = in.nextLine();

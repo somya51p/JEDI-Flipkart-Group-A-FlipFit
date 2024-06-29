@@ -1,4 +1,6 @@
 package com.flipkart.client;
+import com.flipkart.bean.Booking;
+import com.flipkart.bean.FlipFitGym;
 import com.flipkart.business.BookingGymInterface;
 import com.flipkart.business.BookingGymService;
 import com.flipkart.business.FlipFitCustomerInterface;
@@ -53,10 +55,18 @@ public class GymFlipFitCustomerMenu {
 					String phoneNumber = in.nextLine();
 					System.out.println("Enter your address");
 					String address = in.nextLine();
+
 					customerService.editProfile(userId, name, phoneNumber, address);
 					break;
 				case 2:
-					customerService.viewGyms();
+
+					List<FlipFitGym> gyms = customerService.viewGyms();
+					for (FlipFitGym gym : gyms) {
+						System.out.println("\nGym Id: " + gym.getGymId());
+						System.out.println("Gym: " + gym.getGymName());
+						System.out.println("Location: " + gym.getGymLocation());
+					}
+					System.out.println("All gyms viewed");
 					break;
 				case 3:
 					String temp_ = in.nextLine();
@@ -65,9 +75,17 @@ public class GymFlipFitCustomerMenu {
 					in.nextLine();
 					System.out.println("Enter the date of the slot");
 					 date = in.nextLine();
-					customerService.viewSlots(gymId,date);
+
+
+					HashMap<String,Integer>AvailableSlots = customerService.viewSlots(gymId,date);
+					// Print the available slots
+					for (Map.Entry<String, Integer> entry : AvailableSlots.entrySet()) {
+						System.out.println("Slot Time: " + entry.getKey() + ", Available Slots: " + entry.getValue());
+					}
+					System.out.println("All slots are viewed");
 					break;
 				case 4:
+
 					customerService.filterSlots();
 					break;
 				case 5:
@@ -104,7 +122,24 @@ public class GymFlipFitCustomerMenu {
 					break;
 				case 6:
 					try{
-						bookingService.viewBookings(userId);
+						List<Booking> bookings = bookingService.viewBookings(userId);
+
+						if (bookings.isEmpty()) {
+							System.out.println("No bookings found for userId: " + userId);
+						} else {
+							System.out.println("Bookings for userId: " + userId);
+							for (Booking booking : bookings) {
+								System.out.println("Booking ID: " + booking.getBookingId());
+								System.out.println("Customer ID: " + booking.getCustomerId());
+								System.out.println("Gym ID: " + booking.getGymId());
+								System.out.println("Transaction ID: " + booking.getTransactionId());
+								System.out.println("Booking Date: " + booking.getBookingDate());
+								System.out.println("Booking TimeSlot: " + booking.getBookingTimeSlot());
+								System.out.println("Booking Type: " + booking.getBookingType());
+								System.out.println("Booking Amount: " + booking.getBookingAmount());
+								System.out.println("=================================");
+							}
+						}
 					}
 					catch (Exception e)
 					{

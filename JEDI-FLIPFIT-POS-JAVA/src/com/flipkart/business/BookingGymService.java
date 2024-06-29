@@ -29,25 +29,8 @@ public class BookingGymService implements BookingGymInterface {
         System.out.println("Slot is booked");
     }
 
-    public void viewBookings(int userId){
-        List<Booking> bookings = bookingGymDAO.viewBookings(userId);
-
-        if (bookings.isEmpty()) {
-            System.out.println("No bookings found for userId: " + userId);
-        } else {
-            System.out.println("Bookings for userId: " + userId);
-            for (Booking booking : bookings) {
-                System.out.println("Booking ID: " + booking.getBookingId());
-                System.out.println("Customer ID: " + booking.getCustomerId());
-                System.out.println("Gym ID: " + booking.getGymId());
-                System.out.println("Transaction ID: " + booking.getTransactionId());
-                System.out.println("Booking Date: " + booking.getBookingDate());
-                System.out.println("Booking TimeSlot: " + booking.getBookingTimeSlot());
-                System.out.println("Booking Type: " + booking.getBookingType());
-                System.out.println("Booking Amount: " + booking.getBookingAmount());
-                System.out.println("=================================");
-            }
-        }
+    public List<Booking> viewBookings(int userId){
+        return bookingGymDAO.viewBookings(userId);
     }
 
     public void cancelBookings(int bookingId){
