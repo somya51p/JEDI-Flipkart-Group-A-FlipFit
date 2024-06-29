@@ -2,15 +2,20 @@ package com.flipkart.business;
 import com.flipkart.bean.Booking;
 import com.flipkart.bean.FlipFitGym;
 import com.flipkart.bean.Slot;
+import com.flipkart.dao.FlipFitCustomerDAOImpl;
+import com.flipkart.dao.FlipFitCustomerDAOInterface;
 import com.flipkart.dao.FlipFitGymOwnerDAOImpl;
 import com.flipkart.dao.FlipFitGymOwnerDAOInterface;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class FlipFitGymOwnerService implements FlipFitGymOwnerInterface {
 
     FlipFitGymOwnerDAOInterface ownerDAO = new FlipFitGymOwnerDAOImpl();
+    FlipFitCustomerDAOInterface customerDAO = new FlipFitCustomerDAOImpl();
+
     public void createGymOwner(int userId, String name, String phone, String address, String pan_no, String gst_no) {
         ownerDAO.createGymOwner(userId, name, phone, address, pan_no, gst_no);
         System.out.println("Customer Details are added!");
@@ -72,14 +77,19 @@ public class FlipFitGymOwnerService implements FlipFitGymOwnerInterface {
         System.out.println("viewed bookings for " + gymId);
     }
 
-    public void viewAvailableSlots(int gymId) {
-        List<Slot> slots = ownerDAO.viewAvailableSlots(gymId);
-        for (Slot slot : slots) {
-            System.out.println("\nSlot Id: " + slot.getSlotId());
-            System.out.println("Gym Id: " + slot.getGymId());
-            System.out.println("Capacity: " + slot.getSlotCapacity());
+    public void viewAvailableSlots(int gymId,String date) {
+        try{
+            System.out.println("viewed available slots for " + gymId);
+            // Print the map
+            HashMap<String,Integer> AvailableSlots=customerDAO.viewSlots(gymId,date);
+            // Print the available slots
+            for (Map.Entry<String, Integer> entry : AvailableSlots.entrySet()) {
+                System.out.println("Slot Time: " + entry.getKey() + ", Available Slots: " + entry.getValue());
+            }
         }
-        System.out.println("viewed available slots for " + gymId);
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
     }
 
     public void addSlot(int gymId, int slotId, String slotTime, int slotCapacity) {

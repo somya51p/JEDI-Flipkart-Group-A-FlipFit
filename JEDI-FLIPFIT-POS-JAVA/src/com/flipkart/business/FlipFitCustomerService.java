@@ -13,10 +13,10 @@ public class FlipFitCustomerService implements FlipFitCustomerInterface {
 
     FlipFitCustomerDAOInterface customerDAO = new FlipFitCustomerDAOImpl();
 
-    public static void main(String[] args) {
-        FlipFitCustomerInterface customerService = new FlipFitCustomerService();
-        customerService.viewSlots();
-    }
+//    public static void main(String[] args) {
+//        FlipFitCustomerInterface customerService = new FlipFitCustomerService();
+//        customerService.viewSlots();
+//    }
 
     public void createCustomer(int userId, String name, String phoneNumber, String address) {
         customerDAO.createCustomer(userId, name, phoneNumber, address);
@@ -40,15 +40,18 @@ public class FlipFitCustomerService implements FlipFitCustomerInterface {
         System.out.println("All gyms viewed");
     }
 
-    public void viewSlots(){
-        int gymId=1;
-        String date="228/06/2024";
-        System.out.println("All slots are viewed");
-        // Print the map
-        HashMap<String,Integer>AvailableSlots=customerDAO.viewSlots(gymId,date);
-        // Print the available slots
-        for (Map.Entry<String, Integer> entry : AvailableSlots.entrySet()) {
-            System.out.println("Slot Time: " + entry.getKey() + ", Available Slots: " + entry.getValue());
+    public void viewSlots(int gymId, String date){
+        try{
+            System.out.println("All slots are viewed");
+            // Print the map
+            HashMap<String,Integer>AvailableSlots=customerDAO.viewSlots(gymId,date);
+            // Print the available slots
+            for (Map.Entry<String, Integer> entry : AvailableSlots.entrySet()) {
+                System.out.println("Slot Time: " + entry.getKey() + ", Available Slots: " + entry.getValue());
+            }
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
         }
     }
 
