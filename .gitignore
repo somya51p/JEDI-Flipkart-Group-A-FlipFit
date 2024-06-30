@@ -1,2 +1,6 @@
 .idea/
 .DS_Store
+
+out/
+classes/
+JEDI-FLIPFIT-GROUP-A-DROPWIZARD/target/
