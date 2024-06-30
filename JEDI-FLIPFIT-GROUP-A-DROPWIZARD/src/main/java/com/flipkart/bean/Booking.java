@@ -1,4 +1,4 @@
-package main.java.com.flipkart.bean;
+package com.flipkart.bean;
 
 /**
  * Represents a booking in the system.

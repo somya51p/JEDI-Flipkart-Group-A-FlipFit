@@ -1,4 +1,4 @@
-package main.java.com.flipkart.dao;
+package com.flipkart.dao;
 
 import com.flipkart.bean.Users;
 import com.flipkart.exceptions.WrongCredentialsException;
