@@ -22,8 +22,24 @@ public class GymFlipFitCustomerController {
     BookingGymInterface booking = new BookingGymService();
 
     int userId = -1;
-
-    //http://localhost:8080/customer/login?email=customer@example.com&password=password123
+    
+    //http://localhost:8080/customer/register?userEmail=customer@example.com&userPassword=password123&userName=xyz&userPhoneNo=12345&userAddress=xyz
+    @GET
+    @Path("/register")
+    public Response createCustomer(@QueryParam("userEmail") String userEmail, @QueryParam("userPassword") String userPassword, @QueryParam("userName") String userName,@QueryParam("userPhoneNo") String userPhoneNo,@QueryParam("userAddress") String userAddress ) {
+        try {
+        	 FlipFitCustomerInterface customerService = new FlipFitCustomerService();
+             FlipFitUserInterface userService = new FlipFitUserService();
+        	 int newUserId=userService.createUser(userEmail, userPassword, 1);
+           	 customerService.createCustomer(newUserId, userName, userPhoneNo, userAddress);
+             return Response.ok("Registered successfully as a customer").build();
+           
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
+        }
+    }
+    
+    // http://localhost:8080/customer/login?email=customer@example.com&password=password123
     @GET
     @Path("/login")
     public Response customerLogin(@QueryParam("email") String email, @QueryParam("password") String password) {
@@ -127,5 +143,16 @@ public class GymFlipFitCustomerController {
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
         }
+    }
+    
+    @GET
+    @Path("/logout")
+    public Response customerLogOut() {
+    	 if (userId <= 0) {
+             return Response.status(Response.Status.UNAUTHORIZED).entity("You are not an authorized user!").build();
+         }
+          userId=-1;
+          return Response.ok("Logged out successfully").build();
+        
     }
 }
