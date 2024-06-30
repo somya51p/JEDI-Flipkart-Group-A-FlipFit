@@ -1,5 +1,6 @@
 package com.flipkart.app;
 
+import com.flipkart.restcontroller.GymFlipFitAdminController;
 import com.flipkart.restcontroller.HelloController;
 import io.dropwizard.Application;
 import io.dropwizard.Configuration;
@@ -19,13 +20,9 @@ public class App extends Application<Configuration> {
     @Override
     public void run(Configuration c, Environment e) throws Exception {
         LOGGER.info("Registering REST resources");
-        //  e.jersey().register(new EmployeeRESTController(e.getValidator()));
 
-        System.out.println("HERE");
         e.jersey().register(new HelloController());
-//        e.jersey().register(new AdminController());
-//        e.jersey().register(new CustomerController());
-//        e.jersey().register(new GymOwnerController());
+        e.jersey().register(new GymFlipFitAdminController());
     }
 
     public static void main(String[] args) throws Exception {
