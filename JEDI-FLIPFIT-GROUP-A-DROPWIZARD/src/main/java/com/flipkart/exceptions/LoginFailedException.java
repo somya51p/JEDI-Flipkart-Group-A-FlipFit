@@ -1,4 +1,4 @@
-package main.java.com.flipkart.exceptions;
+package com.flipkart.exceptions;
 
 public class LoginFailedException extends RuntimeException {
 

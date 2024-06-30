@@ -1,4 +1,4 @@
-package main.java.com.flipkart.exceptions;
+package com.flipkart.exceptions;
 
 public class GymNotFoundException extends Exception{
     public GymNotFoundException(int gymId) {

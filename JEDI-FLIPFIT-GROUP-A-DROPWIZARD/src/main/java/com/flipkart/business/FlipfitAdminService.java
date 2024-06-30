@@ -1,4 +1,4 @@
-package main.java.com.flipkart.business;
+package com.flipkart.business;
 import com.flipkart.bean.FlipFitGymOwner;
 import com.flipkart.dao.FlipfitAdminDAOImpl;
 import com.flipkart.dao.FlipfitAdminDAOInterface;

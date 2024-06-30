@@ -1,4 +1,4 @@
-package main.java.com.flipkart.business;
+package com.flipkart.business;
 
 import com.flipkart.bean.Booking;
 import com.flipkart.bean.FlipFitGym;

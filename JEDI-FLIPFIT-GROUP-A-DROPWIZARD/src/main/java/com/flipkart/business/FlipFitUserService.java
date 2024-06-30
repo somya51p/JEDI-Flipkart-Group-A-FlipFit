@@ -1,4 +1,4 @@
-package main.java.com.flipkart.business;
+package com.flipkart.business;
 
 import com.flipkart.dao.FlipFitUserDAOImpl;
 import com.flipkart.bean.Users;

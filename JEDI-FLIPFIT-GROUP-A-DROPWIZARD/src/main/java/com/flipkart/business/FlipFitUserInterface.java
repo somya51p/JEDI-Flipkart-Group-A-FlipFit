@@ -1,4 +1,4 @@
-package main.java.com.flipkart.business;
+package com.flipkart.business;
 
 public interface FlipFitUserInterface {
     public int authenticateUser(String email, String password, int roleId);
