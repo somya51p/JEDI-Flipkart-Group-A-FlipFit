@@ -1,4 +1,4 @@
-package com.flipkart.rescontroller;
+package com.flipkart.restcontroller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.flipkart.bean.Booking;
@@ -17,7 +17,7 @@ import java.util.List;
 
 @Path("/customer")
 @Produces(MediaType.APPLICATION_JSON)
-public class CustomerController {
+public class GymFlipFitCustomerController {
     FlipFitCustomerInterface customerService = new FlipFitCustomerService();
     BookingGymInterface booking = new BookingGymService();
 
