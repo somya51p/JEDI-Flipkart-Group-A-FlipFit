@@ -1,40 +1,34 @@
 package com.flipkart.business;
-import com.flipkart.bean.FlipFitGymOwner;
-import com.flipkart.dao.FlipfitAdminDAOImpl;
-import com.flipkart.dao.FlipfitAdminDAOInterface;
+import com.flipkart.bean.FlipFitAdmin;
 
-import java.util.List;
+public class FlipfitAdminService {
+        FlipFitAdmin flipfitadmin = new FlipFitAdmin();
 
+        public void createAdmin(int adminId, String adminEmail, String adminPassword){
+              flipfitadmin.setAdminId(adminId);
+              flipfitadmin.setAdminEmail(adminEmail);
+              flipfitadmin.setAdminPassword(adminPassword);
+              System.out.println("Admin created");
+        }
 
-public class FlipfitAdminService implements FlipfitAdminInterface{
-    FlipfitAdminDAOInterface adminDAO = new FlipfitAdminDAOImpl();
-
-    public void createAdmin(int adminId, int userId, String userEmail, String userPass){
-        System.out.println("Admin created");
-    }
-
-    public List<FlipFitGymOwner> viewAllGymOwners(){
-        return adminDAO.viewAllGymOwners();
-    }
-
-    public List<FlipFitGymOwner> viewGymOwnerDetails(int ownerId){
-        return adminDAO.viewGymOwnerDetails(ownerId);
-    }
-
-    public List<FlipFitGymOwner> viewGymOwnerRequests(){
-        return adminDAO.viewGymOwnerRequests();
-
-    }
-    public void approveGymOwnerRequests(int ownerId){
-        adminDAO.approveGymOwnerRequests(ownerId);
-        System.out.println("Approved the gym owner requests with Id "+ ownerId);
-    }
-    public void removeGymOwner(int ownerId){
-        adminDAO.removeGymOwner(ownerId);
-        System.out.println("Removed the gym owner with Id "+ ownerId);
-    }
-    public void cancelRequest(int ownerId) {
-        adminDAO.cancelRequest(ownerId);
-        System.out.println("Cancelled the gym owner request with Id " + ownerId);
-    }
+        public boolean viewGymOwnerDetails(int ownerId){
+              System.out.println("View All the approved gym owner details");
+              return true;
+        }
+        public boolean viewGymOwnerRequests(){
+                System.out.println("View all the gym owner pending requests");
+                return true;
+        }
+        public boolean approveGymOwnerRequests(int ownerId){
+                System.out.println("Approve the gym owner requests with Id "+ ownerId);
+                return true;
+        }
+        public boolean removeGymOwner(int ownerId){
+                System.out.println("Remove the gym owner with Id "+ ownerId);
+                return true;
+        }
+        public boolean cancelRequest(int ownerId) {
+                System.out.println("Cancel the gym owner request with Id " + ownerId);
+                return true;
+        }
 }

@@ -1,51 +1,47 @@
 package com.flipkart.business;
 
-import com.flipkart.bean.*;
-import com.flipkart.dao.FlipFitCustomerDAOImpl;
-import com.flipkart.dao.FlipFitCustomerDAOInterface;
-import com.flipkart.exceptions.UserNotFoundException;
+import com.flipkart.bean.FlipFitCustomer;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.List;
+public class FlipFitCustomerService {
 
-public class FlipFitCustomerService implements FlipFitCustomerInterface {
+    FlipFitCustomer flipfitcustomer = new FlipFitCustomer();
 
-    FlipFitCustomerDAOInterface customerDAO = new FlipFitCustomerDAOImpl();
-
-//    public static void main(String[] args) {
-//        FlipFitCustomerInterface customerService = new FlipFitCustomerService();
-//        customerService.viewSlots();
-//    }
-
-    public void createCustomer(int userId, String name, String phoneNumber, String address) {
-        customerDAO.createCustomer(userId, name, phoneNumber, address);
-        System.out.println("Customer Details are added!");
-
+    public void createCustomer(int id, String name, String email, String phoneNumber, String address, String password) {
+        flipfitcustomer.setCustomerId(id);
+        flipfitcustomer.setCustomerName(name);
+        flipfitcustomer.setCustomerEmail(email);
+        flipfitcustomer.setCustomerPhone(phoneNumber);
+        flipfitcustomer.setCustomerAddress(address);
+        flipfitcustomer.setCustomerPassword(password);
+        System.out.println("Customer Details" + id + " are added!");
     }
 
-    public void editProfile(int userId, String name, String phoneNumber, String address) throws UserNotFoundException {
-        customerDAO.editProfile(userId, name, phoneNumber, address);
+    public void editProfile(){
         System.out.println("Customer details are updated!");
     }
 
-    public List<FlipFitGym> viewGyms(){
-        return customerDAO.viewGyms();
+    public void viewGyms(){
+        System.out.println("All gyms are viewed");
     }
 
-    public HashMap<String,Integer> viewSlots(int gymId, String date){
-        try{
-            return customerDAO.viewSlots(gymId,date);
-        }
-        catch(Exception e){
-            System.out.println(e.getMessage());
-            return null;
-        }
+    public void viewSlots(){
+        System.out.println("All slots are viewed");
     }
 
     public void filterSlots(){
+        System.out.println("All slots are filtered");
+    }
 
-        System.out.println("All slots filtered");
+    public void bookSlots(){
+        System.out.println("Slot is booked");
+    }
+
+    public void viewBookings(){
+        System.out.println("All bookings are viewed");
+    }
+
+    public void cancelBookings(){
+        System.out.println("Slot is cancelled");
     }
 
 }

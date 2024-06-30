@@ -7,12 +7,6 @@ public class Slot {
     private String slotTime;
     private int slotCapacity;
 
-    public Slot(int slotId, int gymId, String slotTime, int slotCapacity) {
-        this.slotId = slotId;
-        this.gymId = gymId;
-        this.slotTime = slotTime;
-        this.slotCapacity = slotCapacity;
-    }
     public int getSlotId() {
         return slotId;
     }
