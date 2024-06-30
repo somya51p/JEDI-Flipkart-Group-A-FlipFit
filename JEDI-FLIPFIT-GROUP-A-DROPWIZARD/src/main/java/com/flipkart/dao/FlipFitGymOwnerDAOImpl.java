@@ -156,7 +156,7 @@ public class FlipFitGymOwnerDAOImpl implements FlipFitGymOwnerDAOInterface{
     public void removeGym(int gymId) {
         Connection con = null;
         PreparedStatement stmt = null;
-        ResultSet rs = null;
+        int count;
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -164,19 +164,17 @@ public class FlipFitGymOwnerDAOImpl implements FlipFitGymOwnerDAOInterface{
             con = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/FlipFit", "root", "mysqliswow");
 
-            String gymQuery = "DELETE FROM flipfitGym WHERE WHERE gymId=?";
+            String gymQuery = "DELETE FROM flipfitGym WHERE gymId=?";
             stmt = con.prepareStatement(gymQuery);
             stmt.setInt(1, gymId);
-            rs = stmt.executeQuery();
+            count = stmt.executeUpdate();
 
-            rs.close();
             stmt.close();
 
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         } finally {
             try {
-                if (rs != null) rs.close();
                 if (stmt != null) stmt.close();
                 if (con != null) con.close();
             } catch (Exception e) {
