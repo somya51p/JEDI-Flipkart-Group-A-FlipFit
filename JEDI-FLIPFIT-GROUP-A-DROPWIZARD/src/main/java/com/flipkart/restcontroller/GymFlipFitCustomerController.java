@@ -22,23 +22,23 @@ public class GymFlipFitCustomerController {
     BookingGymInterface booking = new BookingGymService();
 
     int userId = -1;
-    
+
     //http://localhost:8080/customer/register?userEmail=customer@example.com&userPassword=password123&userName=xyz&userPhoneNo=12345&userAddress=xyz
     @GET
     @Path("/register")
-    public Response createCustomer(@QueryParam("userEmail") String userEmail, @QueryParam("userPassword") String userPassword, @QueryParam("userName") String userName,@QueryParam("userPhoneNo") String userPhoneNo,@QueryParam("userAddress") String userAddress ) {
+    public Response createCustomer(@QueryParam("userEmail") String userEmail, @QueryParam("userPassword") String userPassword, @QueryParam("userName") String userName, @QueryParam("userPhoneNo") String userPhoneNo, @QueryParam("userAddress") String userAddress) {
         try {
-        	 FlipFitCustomerInterface customerService = new FlipFitCustomerService();
-             FlipFitUserInterface userService = new FlipFitUserService();
-        	 int newUserId=userService.createUser(userEmail, userPassword, 1);
-           	 customerService.createCustomer(newUserId, userName, userPhoneNo, userAddress);
-             return Response.ok("Registered successfully as a customer").build();
-           
+            FlipFitCustomerInterface customerService = new FlipFitCustomerService();
+            FlipFitUserInterface userService = new FlipFitUserService();
+            int newUserId = userService.createUser(userEmail, userPassword, 1);
+            customerService.createCustomer(newUserId, userName, userPhoneNo, userAddress);
+            return Response.ok("Registered successfully as a customer").build();
+
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
         }
     }
-    
+
     // http://localhost:8080/customer/login?email=customer@example.com&password=password123
     @GET
     @Path("/login")
@@ -58,6 +58,8 @@ public class GymFlipFitCustomerController {
     @Path("/edit-profile")
     public Response editProfile(@QueryParam("name") String name, @QueryParam("phoneNumber") String phoneNumber, @QueryParam("address") String address) {
         try {
+            if (userId <= 0)
+                return Response.status(Response.Status.UNAUTHORIZED).entity("You are not an authorized user!").build();
             customerService.editProfile(userId, name, phoneNumber, address);
         } catch (UserNotFoundException e) {
             return Response.status(Response.Status.UNAUTHORIZED).entity(e.getMessage()).build();
@@ -144,15 +146,15 @@ public class GymFlipFitCustomerController {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
         }
     }
-    
+
     @GET
     @Path("/logout")
     public Response customerLogOut() {
-    	 if (userId <= 0) {
-             return Response.status(Response.Status.UNAUTHORIZED).entity("You are not an authorized user!").build();
-         }
-          userId=-1;
-          return Response.ok("Logged out successfully").build();
-        
+        if (userId <= 0) {
+            return Response.status(Response.Status.UNAUTHORIZED).entity("You are not an authorized user!").build();
+        }
+        userId = -1;
+        return Response.ok("Logged out successfully").build();
+
     }
 }
