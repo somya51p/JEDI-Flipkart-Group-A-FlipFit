@@ -110,7 +110,6 @@ public class GymFlipFitCustomerController {
             String json = mapper.writeValueAsString(bookingList);
             return Response.ok("All bookings are listed below:\n" + json).build();
         } catch (Exception e) {
-            e.printStackTrace();
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
         }
     }
