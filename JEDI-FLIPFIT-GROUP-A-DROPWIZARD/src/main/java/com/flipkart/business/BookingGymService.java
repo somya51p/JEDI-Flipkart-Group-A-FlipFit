@@ -15,14 +15,11 @@ public class BookingGymService implements BookingGymInterface {
 
     BookingGymDAOInterface bookingGymDAO = new BookingGymDAOImpl();
 
-    public void createBooking(int userId, int gymId, int transactionId, String bookingDate, String bookingTimeSlot, String bookingType, int bookingAmount) {
-        try{
+    public void createBooking(int userId, int gymId, int transactionId, String bookingDate, String bookingTimeSlot, String bookingType, int bookingAmount) throws Exception {
+        
             bookingGymDAO.createBooking(userId, gymId, transactionId, bookingDate, bookingTimeSlot, bookingType, bookingAmount);
             System.out.println("Booking is Done!!");
-        }
-        catch(BookingFailedException e){
-            System.out.println(e.getMessage());
-        }
+       
     }
 
     public void bookSlots() throws BookingFailedException{
@@ -33,7 +30,7 @@ public class BookingGymService implements BookingGymInterface {
         return bookingGymDAO.viewBookings(userId);
     }
 
-    public void cancelBookings(int bookingId){
+    public void cancelBookings(int bookingId) throws Exception{
     	  bookingGymDAO.cancelBookings(bookingId);
         System.out.println("Booking is cancelled");
     }

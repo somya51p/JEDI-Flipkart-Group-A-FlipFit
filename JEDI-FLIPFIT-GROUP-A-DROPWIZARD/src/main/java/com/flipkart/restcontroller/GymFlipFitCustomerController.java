@@ -5,6 +5,7 @@ import com.flipkart.bean.Booking;
 import com.flipkart.bean.FlipFitGym;
 import com.flipkart.business.*;
 import com.flipkart.exceptions.BookingFailedException;
+import com.flipkart.exceptions.BookingNotFoundException;
 import com.flipkart.exceptions.GymNotFoundException;
 import com.flipkart.exceptions.UserNotFoundException;
 
@@ -111,8 +112,8 @@ public class GymFlipFitCustomerController {
             int transactionId = booking.makePayment(userId, "Rs. 1000 paid Successfully", "10-05-2030", "Net-Banking");
             booking.createBooking(userId, gymId, transactionId, bookingDate, bookingTime, "Confirmed", 1000);
             return Response.ok("Successfully created booking").build();
-        } catch (BookingFailedException e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Failed to create booking").build();
         }
     }
 
@@ -142,7 +143,11 @@ public class GymFlipFitCustomerController {
             }
             booking.cancelBookings(bookingId);
             return Response.ok("Booking cancelled").build();
-        } catch (Exception e) {
+        } 
+        catch(BookingNotFoundException e) {
+        	return Response.ok(e.getMessage()).build();
+        }
+        catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
         }
     }
