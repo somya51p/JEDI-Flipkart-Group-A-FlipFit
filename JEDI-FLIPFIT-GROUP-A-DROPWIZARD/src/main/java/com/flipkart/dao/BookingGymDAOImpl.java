@@ -17,6 +17,19 @@ public class BookingGymDAOImpl implements BookingGymDAOInterface {
 //        dao.cancelBookings(2);
     }
 
+    /**
+     * Creates a booking in the database.
+     *
+     * @param userId          The ID of the user making the booking.
+     * @param gymId           The ID of the gym for which the booking is made.
+     * @param transactionId   The ID of the transaction associated with the booking.
+     * @param bookingDate     The date of the booking.
+     * @param bookingTimeSlot The time slot of the booking.
+     * @param bookingType     The type of booking.
+     * @param bookingAmount   The amount paid for the booking.
+     * @throws Exception If an error occurs during the booking creation process.
+     */
+
     @Override
     public void createBooking(int userId, int gymId, int transactionId, String bookingDate, String bookingTimeSlot, String bookingType, int bookingAmount) throws Exception {
         Connection con = null;
@@ -78,6 +91,12 @@ public class BookingGymDAOImpl implements BookingGymDAOInterface {
 
     }
 
+    /**
+     * Retrieves bookings made by a specific user.
+     *
+     * @param userId The ID of the user.
+     * @return A list of bookings made by the user.
+     */
     @Override
     public List<Booking> viewBookings(int userId){
         Connection con = null;
@@ -142,6 +161,12 @@ public class BookingGymDAOImpl implements BookingGymDAOInterface {
         return bookings;
     }
 
+    /**
+     * Cancels a booking based on the booking ID.
+     *
+     * @param bookingId The ID of the booking to cancel.
+     * @throws Exception If an error occurs during the cancellation process.
+     */
     @Override
     public void cancelBookings(int bookingId) throws Exception {
         Connection con = null;
@@ -204,6 +229,17 @@ public class BookingGymDAOImpl implements BookingGymDAOInterface {
             }
 //        }
     }
+
+    /**
+     * Records a payment for a user.
+     *
+     * @param userId        The ID of the user making the payment.
+     * @param paymentDetails The details of the payment.
+     * @param expiryDate    The expiry date of the payment method.
+     * @param modeOfPayment The mode of payment used (e.g., net banking).
+     * @return The transaction ID of the payment if successful.
+     * @throws BookingFailedException If the payment recording fails.
+     */
 
     @Override
     public int makePayment(int userId, String paymentDetails, String expiryDate, String modeOfPayment) throws BookingFailedException {
