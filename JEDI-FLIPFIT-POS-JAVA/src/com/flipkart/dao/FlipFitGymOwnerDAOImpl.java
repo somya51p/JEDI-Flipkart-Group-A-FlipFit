@@ -8,6 +8,10 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Implementation class for FlipFitGymOwnerDAOInterface.
+ * Handles operations related to gym owners in the FlipFit system.
+ */
 public class FlipFitGymOwnerDAOImpl implements FlipFitGymOwnerDAOInterface{
 
     @Override
@@ -16,10 +20,13 @@ public class FlipFitGymOwnerDAOImpl implements FlipFitGymOwnerDAOInterface{
         PreparedStatement stmtOwner = null;
 
         try {
+            // Load MySQL JDBC driver
             Class.forName("com.mysql.jdbc.Driver");
+            // Establish a connection to the database
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/FlipFit", "root", "mysqliswow");
             con.setAutoCommit(false);
 
+            // Prepare the SQL statement for creating a gym owner
             String queryOwner = "INSERT INTO flipfitGymOwner (ownerName, ownerPhone, ownerAddress, ownerGSTNum, ownerPANNum, approvalStatus, userId) VALUES (?, ?, ?, ?, ?, ?, ?)";
             stmtOwner = con.prepareStatement(queryOwner);
             stmtOwner.setString(1, name);
@@ -86,6 +93,7 @@ public class FlipFitGymOwnerDAOImpl implements FlipFitGymOwnerDAOInterface{
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/FlipFit", "root", "mysqliswow");
             con.setAutoCommit(false);
 
+            // Query to retrieve the gym owner ID based on user ID
             String query = "SELECT ownerId FROM flipfitGymOwner WHERE userId = ?";
             stmt.setInt(1, userId);
             stmt = con.prepareStatement(query);
@@ -96,6 +104,7 @@ public class FlipFitGymOwnerDAOImpl implements FlipFitGymOwnerDAOInterface{
                 gymOwnerId = rs.getInt("ownerId");
 
             }
+            // Prepare the SQL statement for registering a gym
             String queryGym = "INSERT INTO flipfitGym (gymOwnerId, gymName, gymLocation) VALUES ( ?, ?, ?)";
             stmtGym = con.prepareStatement(queryGym);
             stmtGym.setInt(1, gymOwnerId);  //need to work
@@ -148,7 +157,7 @@ public class FlipFitGymOwnerDAOImpl implements FlipFitGymOwnerDAOInterface{
             con = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/FlipFit", "root", "mysqliswow");
 
-
+            // Prepare the SQL statement for deleting a gym
             String query = "DELETE FROM flipfitGym WHERE gymId = ?";
 
             stmt = con.prepareStatement(query);
@@ -196,12 +205,13 @@ public class FlipFitGymOwnerDAOImpl implements FlipFitGymOwnerDAOInterface{
             con = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/FlipFit", "root", "mysqliswow");
 
+            // Query to retrieve the gym owner ID based on user ID
             String queryOwner = "SELECT ownerId FROM flipfitGymOwner WHERE userId = ?";
             stmtowner.setInt(1, userId);
             stmtowner = con.prepareStatement(queryOwner);
 
             rs1 = stmtowner.executeQuery();
-
+            // Retrieve the gym owner ID
             while (rs1.next()) {
                 gymOwnerId = rs1.getInt("ownerId");
 
@@ -257,6 +267,7 @@ public class FlipFitGymOwnerDAOImpl implements FlipFitGymOwnerDAOInterface{
             con = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/FlipFit", "root", "mysqliswow");
 
+            // Query to retrieve the gym owner ID based on user ID
             String queryOwner = "SELECT ownerId FROM flipfitGymOwner WHERE userId = ?";
             stmtowner.setInt(1, userId);
             stmtowner = con.prepareStatement(queryOwner);
@@ -267,6 +278,7 @@ public class FlipFitGymOwnerDAOImpl implements FlipFitGymOwnerDAOInterface{
                 gymOwnerId = rs1.getInt("ownerId");
 
             }
+            // Query to retrieve all bookings of gyms registered by the owner
             String query = "SELECT * FROM booking b JOIN flipfitGym g ON b.gymId = g.gymId JOIN flipfitGymOwner go ON g.gymOwnerId = go.ownerId WHERE go.ownerId = ?";
 
             stmt.setInt(1, gymOwnerId);
@@ -317,6 +329,7 @@ public class FlipFitGymOwnerDAOImpl implements FlipFitGymOwnerDAOInterface{
             con = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/FlipFit", "root", "mysqliswow");
 
+            // Query to retrieve all bookings of a specific gym
             String query = "SELECT * FROM booking WHERE gymId = ?";
 
             stmt.setInt(1, gymId);
@@ -367,6 +380,7 @@ public class FlipFitGymOwnerDAOImpl implements FlipFitGymOwnerDAOInterface{
         try {
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/FlipFit", "root", "mysqliswow");
+            // Prepare the SQL statement for adding a slot
             PreparedStatement slotStmt = con.prepareStatement(
                     "INSERT INTO slot (slotId, gymId, slotTime, slotCapacity) VALUES (?, ?, ?, ?)"
             );
@@ -396,7 +410,7 @@ public class FlipFitGymOwnerDAOImpl implements FlipFitGymOwnerDAOInterface{
             con = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/FlipFit", "root", "mysqliswow");
 
-
+            // Prepare the SQL statement for deleting a slot
             String query = "DELETE FROM Slot WHERE slotId = ? and gymId = ?";
 
             stmt = con.prepareStatement(query);

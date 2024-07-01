@@ -8,6 +8,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Implementation of BookingGymDAOInterface for handling gym booking operations in the database.
+ */
 public class BookingGymDAOImpl implements BookingGymDAOInterface {
 
     public static void main(String[] args) {
@@ -16,6 +19,18 @@ public class BookingGymDAOImpl implements BookingGymDAOInterface {
 //        dao.makePayment(2, 1111333333, "12/25", "net banking");
         dao.cancelBookings(2);
     }
+    /**
+     * Creates a new booking in the database.
+     *
+     * @param userId         ID of the user making the booking.
+     * @param gymId          ID of the gym being booked.
+     * @param transactionId  Transaction ID associated with the booking.
+     * @param bookingDate    Date of the booking.
+     * @param bookingTimeSlot Time slot for the booking.
+     * @param bookingType    Type of booking (e.g., confirmed, tentative).
+     * @param bookingAmount  Amount paid for the booking.
+     * @throws BookingFailedException If the booking creation fails.
+     */
 
     @Override
     public void createBooking(int userId, int gymId, int transactionId, String bookingDate, String bookingTimeSlot, String bookingType, int bookingAmount) throws BookingFailedException {
@@ -73,11 +88,19 @@ public class BookingGymDAOImpl implements BookingGymDAOInterface {
     }
 
 
+    /**
+     * Method placeholder for booking slots functionality (not implemented in this version).
+     */
     @Override
     public void bookSlots() {
-
+        // Method placeholder
     }
-
+    /**
+     * Retrieves all bookings made by a user.
+     *
+     * @param userId ID of the user whose bookings are to be retrieved.
+     * @return List of bookings made by the user.
+     */
     @Override
     public List<Booking> viewBookings(int userId){
         Connection con = null;
@@ -142,6 +165,11 @@ public class BookingGymDAOImpl implements BookingGymDAOInterface {
         return bookings;
     }
 
+    /**
+     * Cancels a booking and associated payment from the database.
+     *
+     * @param bookingId ID of the booking to be canceled.
+     */
     @Override
     public void cancelBookings(int bookingId) {
         Connection con = null;
@@ -203,6 +231,16 @@ public class BookingGymDAOImpl implements BookingGymDAOInterface {
         }
     }
 
+    /**
+     * Records a payment for a booking in the database.
+     *
+     * @param userId         ID of the user making the payment.
+     * @param paymentDetails Details of the payment.
+     * @param expiryDate     Expiry date of the payment method.
+     * @param modeOfPayment  Mode of payment (e.g., net banking, credit card).
+     * @return Transaction ID generated for the payment.
+     * @throws BookingFailedException If the payment recording fails.
+     */
     @Override
     public int makePayment(int userId, String paymentDetails, String expiryDate, String modeOfPayment) throws BookingFailedException {
         Connection con = null;
@@ -213,6 +251,7 @@ public class BookingGymDAOImpl implements BookingGymDAOInterface {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
+            // Establish database connection
             con = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/FlipFit", "root", "mysqliswow");
 
