@@ -92,7 +92,7 @@ public class GymFlipFitAdminController {
         }
         try {
             adminService.approveGymOwnerRequests(ownerId);
-            return Response.ok("Approved the gym owner requests with Id").build();
+            return Response.ok("Approved the gym owner requests with Id "+ownerId).build();
         } catch (Exception e) {
             return Response.status(Response.Status.UNAUTHORIZED).entity(e.getMessage()).build();
         }
@@ -108,7 +108,7 @@ public class GymFlipFitAdminController {
         }
         try {
             adminService.removeGymOwner(ownerId);
-            return Response.ok("Removed the gym owner with Id").build();
+            return Response.ok("Removed the gym owner with Id "+ownerId).build();
         } catch (Exception e) {
             return Response.status(Response.Status.UNAUTHORIZED).entity(e.getMessage()).build();
         }
