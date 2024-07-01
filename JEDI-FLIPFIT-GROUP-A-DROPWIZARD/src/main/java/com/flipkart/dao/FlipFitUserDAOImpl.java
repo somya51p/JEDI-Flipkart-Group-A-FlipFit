@@ -6,15 +6,6 @@ import com.flipkart.bean.Users;
 import java.sql.*;
 
 public class FlipFitUserDAOImpl implements FlipFitUserDAOInterface{
-
-    /**
-     * Authenticates a user based on email, password, and role ID.
-     *
-     * @param email The email of the user.
-     * @param password The password of the user.
-     * @param roleId The role ID of the user.
-     * @return The user ID if authentication succeeds, 0 otherwise.
-     */
     @Override
     public int authenticateUser(String email, String password, int roleId) {
         Connection con = null;
@@ -58,14 +49,6 @@ public class FlipFitUserDAOImpl implements FlipFitUserDAOInterface{
         }
         return 0;
     }
-    /**
-     * Creates a new user record in the database.
-     *
-     * @param email The email of the user.
-     * @param password The password of the user.
-     * @param roleId The role ID of the user.
-     * @return The generated user ID if user creation succeeds, 0 otherwise.
-     */
 
     public int createUser(String email, String password, int roleId){
         Connection con = null;
