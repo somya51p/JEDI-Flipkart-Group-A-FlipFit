@@ -117,7 +117,7 @@ public class GymFlipFitCustomerMenu {
 					String modeOfPayment = in.nextLine();
 					System.out.println("Enter your payment details");
 					String paymentDetails = in.nextLine();
-					System.out.println("Enter your payment date");
+					System.out.println("Enter your expiry date");
 					String expiryDate = in.nextLine();
 					int transactionId=1;
 					try{

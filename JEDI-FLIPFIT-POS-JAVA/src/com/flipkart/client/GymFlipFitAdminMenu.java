@@ -57,8 +57,8 @@ public class GymFlipFitAdminMenu {
 		int gymOwnerId;
 		List<FlipFitGymOwner> gymOwners;
 		do {
-			System.out.println("Welcome to admin page :");
-			System.out.println("1. View all Gym Owners : \n2. View all details of gym owner : \n3. View requests of gym owners : \n4. Approval of gym owner requests : \n5. Remove any gym owner : \n6. Cancel any pending request : \n7. Exit");
+			System.out.println("Welcome to admin page : ");
+			System.out.println("1. View all Gym Owners \n2. View all details of gym owner \n3. View requests of gym owners \n4. Approval of gym owner requests \n5. Remove any gym owner \n6. Cancel any pending request \n7. Exit");
 			Scanner sc = new Scanner(System.in);
 			int option = sc.nextInt();
 			switch (option) {

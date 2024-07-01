@@ -63,7 +63,7 @@ public class GymFlipFitOwnerMenu {
 			Scanner in = new Scanner(System.in);
 			int i = in.nextInt();
 			String name, location, temp, slotTime, panNum, gstNum, phoneNumber, address;
-			int gymId,slotId,slotCapacity;
+			int gymId,slotId,slotCapacity, slotPrice;
 			List<Booking> bookings;
 
 			switch(i){
@@ -100,7 +100,9 @@ public class GymFlipFitOwnerMenu {
 					slotTime = in.nextLine();
 					System.out.println("Enter slot capacity");
 					slotCapacity = in.nextInt();
-					gymOwnerService.addSlot(gymId, slotId, slotTime, slotCapacity);
+					System.out.println("Enter slot price");
+					slotPrice = in.nextInt();
+					gymOwnerService.addSlot(gymId, slotId, slotTime, slotCapacity, slotPrice);
 					break;
 				case 5:
 					System.out.println("Enter gym id ");
