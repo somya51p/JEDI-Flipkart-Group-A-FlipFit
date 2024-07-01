@@ -14,8 +14,21 @@ import com.flipkart.exceptions.WrongCredentialsException;
 import java.time.LocalDateTime;
 import java.util.*;
 
+/**
+ * Menu interface for FlipFit customers, providing various options like editing profile,
+ * viewing gyms, booking slots, viewing bookings, and canceling bookings.
+ */
+
 public class GymFlipFitCustomerMenu {
 
+	/**
+	 * Handles customer login and redirects to the main menu upon successful login.
+	 *
+	 * @param email    The email of the customer.
+	 * @param password The password of the customer.
+	 * @throws UserNotFoundException    If the user is not found during login.
+	 * @throws WrongCredentialsException If the login credentials are incorrect.
+	 */
 	public static void login(String email, String password) throws UserNotFoundException,WrongCredentialsException {
 		FlipFitUserInterface user = new FlipFitUserService();
 		int userId = user.authenticateUser(email, password, 1);
@@ -25,7 +38,7 @@ public class GymFlipFitCustomerMenu {
 			System.out.println("Logged in as Customer");
 			System.out.println("Login Time: " + loginTime);
 			try {
-			displayCustomerOptions(userId);}
+				displayCustomerOptions(userId);}
 			catch(InvalidChoiceException e){
 				System.out.println("Error:"+e.getMessage());
 			}
@@ -34,7 +47,14 @@ public class GymFlipFitCustomerMenu {
 			throw new WrongCredentialsException();
 		}
 	}
-   
+
+	/**
+	 * Displays various options for customers after successful login.
+	 *
+	 * @param userId The ID of the logged-in customer.
+	 * @throws UserNotFoundException    If the user is not found during operations.
+	 * @throws InvalidChoiceException   If an invalid menu choice is made.
+	 */
 	public static void displayCustomerOptions(int userId) throws UserNotFoundException, InvalidChoiceException {
 		FlipFitCustomerInterface customerService = new FlipFitCustomerService();
 		BookingGymInterface bookingService = new BookingGymService();
@@ -74,10 +94,10 @@ public class GymFlipFitCustomerMenu {
 				case 3:
 					String temp_ = in.nextLine();
 					System.out.println("Enter the id of the gym for which you want to view the available slots");
-					 gymId = in.nextInt();
+					gymId = in.nextInt();
 					in.nextLine();
 					System.out.println("Enter the date of the slot");
-					 date = in.nextLine();
+					date = in.nextLine();
 
 
 					HashMap<String,Integer>AvailableSlots = customerService.viewSlots(gymId,date);
@@ -151,12 +171,12 @@ public class GymFlipFitCustomerMenu {
 					break;
 				case 7:
 					System.out.println("Enter the bookingId");
-					 int bookingId = in.nextInt();
-					 try{
-						 bookingService.cancelBookings(bookingId);
-					 }catch(Exception e){
-						 System.out.println(e.getMessage());
-					 }
+					int bookingId = in.nextInt();
+					try{
+						bookingService.cancelBookings(bookingId);
+					}catch(Exception e){
+						System.out.println(e.getMessage());
+					}
 
 					break;
 				case 8:
@@ -167,6 +187,6 @@ public class GymFlipFitCustomerMenu {
 					throw new InvalidChoiceException("Invalid option - " + i);
 			}
 		} while(flag);
-		
-	  }
+
+	}
 }

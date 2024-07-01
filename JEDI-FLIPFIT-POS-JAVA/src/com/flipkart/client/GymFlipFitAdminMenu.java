@@ -12,7 +12,18 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * A client class that simulates an admin menu for managing gym owners in the FlipFit application.
+ */
 public class GymFlipFitAdminMenu {
+
+	/**
+	 * Authenticates the admin user based on the provided email, password, and role ID.
+	 *
+	 * @param email    The email of the admin user.
+	 * @param password The password of the admin user.
+	 * @throws WrongCredentialsException If the authentication fails due to incorrect credentials.
+	 */
 
 	public static void login(String email, String password) throws WrongCredentialsException
 	{
@@ -31,8 +42,14 @@ public class GymFlipFitAdminMenu {
 		else{
 			throw new WrongCredentialsException();
 		}
-		
+
 	}
+
+	/**
+	 * Displays the admin menu options and handles user input to execute corresponding actions.
+	 *
+	 * @throws InvalidChoiceException If an invalid menu choice is entered by the admin.
+	 */
 
 	public static void displayAdminOptions() throws InvalidChoiceException {
 		FlipfitAdminInterface adminService = new FlipfitAdminService() ;
