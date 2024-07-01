@@ -24,10 +24,6 @@ public class GymFlipFitCustomerController {
 
     int userId = -1;
 
-    /**
-     * Endpoint for customer registration.
-     * Example URL: http://localhost:8080/customer/register?userEmail=customer@example.com&userPassword=password123&userName=xyz&userPhoneNo=12345&userAddress=xyz
-     */
     //http://localhost:8080/customer/register?userEmail=customer@example.com&userPassword=password123&userName=xyz&userPhoneNo=12345&userAddress=xyz
     @GET
     @Path("/register")
@@ -44,10 +40,6 @@ public class GymFlipFitCustomerController {
         }
     }
 
-    /**
-     * Endpoint for customer login.
-     * Example URL: http://localhost:8080/customer/login?email=customer@example.com&password=password123
-     */
     // http://localhost:8080/customer/login?email=customer@example.com&password=password123
     @GET
     @Path("/login")
@@ -62,10 +54,6 @@ public class GymFlipFitCustomerController {
         }
     }
 
-    /**
-     * Endpoint for editing customer profile.
-     * Example URL: http://localhost:8080/customer/edit-profile?name=tgtdrsdrsyz&phoneNumber=4992302&address=dsqtgf
-     */
     //http://localhost:8080/customer/edit-profile?name=tgtdrsdrsyz&phoneNumber=4992302&address=dsqtgf
     @GET
     @Path("/edit-profile")
@@ -82,10 +70,6 @@ public class GymFlipFitCustomerController {
         return Response.ok("Successfully Editted the Profile").build();
     }
 
-    /**
-     * Endpoint for viewing all gyms.
-     * Example URL: http://localhost:8080/customer/view-gyms
-     */
     //http://localhost:8080/customer/view-gyms
     @GET
     @Path("/view-gyms")
@@ -102,10 +86,6 @@ public class GymFlipFitCustomerController {
         }
     }
 
-    /**
-     * Endpoint for viewing available slots of a gym on a specific date.
-     * Example URL: http://localhost:8080/customer/view-slots?gymId=1&date=20-07-2024
-     */
     //http://localhost:8080/customer/view-slots?gymId=1&date=20-07-2024
     @GET
     @Path("/view-slots")
@@ -122,10 +102,6 @@ public class GymFlipFitCustomerController {
         }
     }
 
-    /**
-     * Endpoint for creating a booking.
-     * Example URL: http://localhost:8080/customer/create-booking?gymId=1&bookingDate=01-07-2024&bookingTime=07:00
-     */
     //http://localhost:8080/customer/create-booking?gymId=1&bookingDate=01-07-2024&bookingTime=07:00
     @GET
     @Path("/create-booking")
@@ -141,10 +117,6 @@ public class GymFlipFitCustomerController {
         }
     }
 
-    /**
-     * Endpoint for viewing all bookings of the customer.
-     * Example URL: http://localhost:8080/customer/view-bookings
-     */
     //http://localhost:8080/customer/view-bookings
     @GET
     @Path("/view-bookings")
@@ -161,10 +133,6 @@ public class GymFlipFitCustomerController {
         }
     }
 
-    /**
-     * Endpoint for cancelling a booking.
-     * Example URL: http://localhost:8080/customer/cancel-booking?bookingId=1
-     */
     //http://localhost:8080/customer/cancel-booking?bookingId=1
     @GET
     @Path("/cancel-booking")
@@ -183,10 +151,6 @@ public class GymFlipFitCustomerController {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
         }
     }
-
-    /**
-     * Endpoint for customer logout.
-     */
 
     @GET
     @Path("/logout")

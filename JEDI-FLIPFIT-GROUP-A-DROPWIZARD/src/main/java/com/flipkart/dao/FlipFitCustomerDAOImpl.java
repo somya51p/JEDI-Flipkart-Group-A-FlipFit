@@ -24,14 +24,6 @@ public class FlipFitCustomerDAOImpl implements FlipFitCustomerDAOInterface {
         }
     }
 
-    /**
-     * Creates a new customer in the database.
-     * @param userId The ID of the customer.
-     * @param name The name of the customer.
-     * @param phoneNumber The phone number of the customer.
-     * @param address The address of the customer.
-     */
-
     @Override
     public void createCustomer(int userId, String name, String phoneNumber, String address) {
         Connection con = null;
@@ -60,14 +52,6 @@ public class FlipFitCustomerDAOImpl implements FlipFitCustomerDAOInterface {
         }
     }
 
-    /**
-     * Edits the profile of an existing customer in the database.
-     * @param userId The ID of the customer.
-     * @param name The updated name of the customer.
-     * @param phoneNumber The updated phone number of the customer.
-     * @param address The updated address of the customer.
-     * @throws UserNotFoundException If no customer with the specified userId is found.
-     */
     @Override
     public void editProfile(int userId, String name, String phoneNumber, String address) throws UserNotFoundException{
         try {
@@ -100,10 +84,7 @@ public class FlipFitCustomerDAOImpl implements FlipFitCustomerDAOInterface {
             System.out.println(e);
         }
     }
-    /**
-     * Retrieves a list of all gyms from the database.
-     * @return A list of FlipFitGym objects representing all gyms.
-     */
+
     @Override
     public List<FlipFitGym> viewGyms() {
         Connection con = null;
@@ -139,13 +120,6 @@ public class FlipFitCustomerDAOImpl implements FlipFitCustomerDAOInterface {
         return gymList;
     }
 
-    /**
-     * Retrieves slot availability for a specific gym on a given date.
-     * @param gymId The ID of the gym.
-     * @param date The date for which slot availability is queried.
-     * @return A HashMap where keys are slot times and values are available seats.
-     * @throws GymNotFoundException If no gym with the specified gymId is found.
-     */
     @Override
     public HashMap<String, Integer> viewSlots(int gymId, String date) throws GymNotFoundException {
         Connection con = null;
@@ -208,10 +182,7 @@ public class FlipFitCustomerDAOImpl implements FlipFitCustomerDAOInterface {
         return slotAvailability;
     }
 
-    /**
-     * Placeholder method for filtering slots based on specific criteria.
-     * Currently not implemented.
-     */
+
     @Override
     public void filterSlots() {
 
