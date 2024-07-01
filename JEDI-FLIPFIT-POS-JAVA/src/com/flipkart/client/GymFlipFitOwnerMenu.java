@@ -9,6 +9,7 @@ import com.flipkart.business.FlipFitUserService;
 import com.flipkart.exceptions.InvalidChoiceException;
 import com.flipkart.exceptions.WrongCredentialsException;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class GymFlipFitOwnerMenu {
@@ -17,10 +18,11 @@ public class GymFlipFitOwnerMenu {
 	{
 		FlipFitUserInterface user = new FlipFitUserService();
 		int userId = user.authenticateUser(email, password, 2);
-
+		LocalDateTime loginTime = LocalDateTime.now();
 		if(userId >0)
 		{
 			System.out.println("Logged in as Gym Owner");
+			System.out.println("Login Time: " + loginTime);
 			try {
 				displayGymOwnerOptions(userId);
 			} catch (InvalidChoiceException e) {

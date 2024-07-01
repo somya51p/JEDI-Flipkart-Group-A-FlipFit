@@ -4,6 +4,7 @@ import com.flipkart.business.*;
 import com.flipkart.exceptions.UserNotFoundException;
 import com.flipkart.exceptions.WrongCredentialsException;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class GymFlipFitApplication {
@@ -19,7 +20,6 @@ public class GymFlipFitApplication {
         String password = in.next();
         System.out.println("Enter your role: \n1. Customer\n2. Gym owner\n3. Admin");
         int role = in.nextInt();
-
         if(role == 1) {
             try {
 				GymFlipFitCustomerMenu.login(email, password);
@@ -63,11 +63,15 @@ public class GymFlipFitApplication {
         String userPassword = in.next();
         System.out.println("Enter your confirm password: ");
         String confirmUserPassword = in.next();
+
+        LocalDateTime loginTime = LocalDateTime.now();
+
         if(userPassword.equals(confirmUserPassword)) {
             int userId = userService.createUser(userEmail, userPassword, 1);
             if(userId > 0) {
                 customerService.createCustomer(userId, userName, userPhoneNumber, address);
                 System.out.println("You have successfully registered as Customer");
+                System.out.println("Login Time: " + loginTime);
                 System.out.println("*********************************************");
                 login();
             }
@@ -101,12 +105,16 @@ public class GymFlipFitApplication {
         String ownerPassword = in.next();
         System.out.println("Enter your confirm password: ");
         String confirmOwnerPassword = in.next();
+
+        LocalDateTime loginTime = LocalDateTime.now();
+
         if(ownerPassword.equals(confirmOwnerPassword)) {
             int userId = userService.createUser(ownerEmail, ownerPassword, 2);
             if(userId > 0) {
                 gymOwnerService.createGymOwner(userId, ownerName, ownerPhoneNumber,  ownerAddress,
                         panNumber, gstNumber);
                 System.out.println("You have successfully registered as Gym owner");
+                System.out.println("Login Time: " + loginTime);
                 System.out.println("*********************************************");
                 login();
             }
