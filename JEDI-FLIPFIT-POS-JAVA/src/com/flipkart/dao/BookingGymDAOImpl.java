@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Implementation of BookingGymDAOInterface for handling gym booking operations in the database.
+ * Implementation of the BookingGymDAOInterface that handles database operations related to gym bookings.
  */
 public class BookingGymDAOImpl implements BookingGymDAOInterface {
 
@@ -19,17 +19,18 @@ public class BookingGymDAOImpl implements BookingGymDAOInterface {
 //        dao.makePayment(2, 1111333333, "12/25", "net banking");
         dao.cancelBookings(2);
     }
+
     /**
      * Creates a new booking in the database.
      *
-     * @param userId         ID of the user making the booking.
-     * @param gymId          ID of the gym being booked.
-     * @param transactionId  Transaction ID associated with the booking.
-     * @param bookingDate    Date of the booking.
-     * @param bookingTimeSlot Time slot for the booking.
-     * @param bookingType    Type of booking (e.g., confirmed, tentative).
-     * @param bookingAmount  Amount paid for the booking.
-     * @throws BookingFailedException If the booking creation fails.
+     * @param userId        The ID of the user making the booking.
+     * @param gymId         The ID of the gym being booked.
+     * @param transactionId The ID of the transaction related to the booking.
+     * @param bookingDate   The date of the booking.
+     * @param bookingTimeSlot The time slot of the booking.
+     * @param bookingType   The type of booking (e.g., confirmed, pending).
+     * @param bookingAmount The amount paid for the booking.
+     * @throws BookingFailedException If booking creation fails.
      */
 
     @Override
@@ -88,17 +89,15 @@ public class BookingGymDAOImpl implements BookingGymDAOInterface {
     }
 
 
-    /**
-     * Method placeholder for booking slots functionality (not implemented in this version).
-     */
     @Override
     public void bookSlots() {
-        // Method placeholder
+
     }
+
     /**
-     * Retrieves all bookings made by a user.
+     * Retrieves all bookings for a given user ID.
      *
-     * @param userId ID of the user whose bookings are to be retrieved.
+     * @param userId The ID of the user for whom bookings are to be retrieved.
      * @return List of bookings made by the user.
      */
     @Override
@@ -168,7 +167,7 @@ public class BookingGymDAOImpl implements BookingGymDAOInterface {
     /**
      * Cancels a booking and associated payment from the database.
      *
-     * @param bookingId ID of the booking to be canceled.
+     * @param bookingId The ID of the booking to be canceled.
      */
     @Override
     public void cancelBookings(int bookingId) {
@@ -234,12 +233,12 @@ public class BookingGymDAOImpl implements BookingGymDAOInterface {
     /**
      * Records a payment for a booking in the database.
      *
-     * @param userId         ID of the user making the payment.
-     * @param paymentDetails Details of the payment.
-     * @param expiryDate     Expiry date of the payment method.
-     * @param modeOfPayment  Mode of payment (e.g., net banking, credit card).
-     * @return Transaction ID generated for the payment.
-     * @throws BookingFailedException If the payment recording fails.
+     * @param userId          The ID of the user making the payment.
+     * @param paymentDetails  Details of the payment (e.g., card number).
+     * @param expiryDate      Expiry date of the payment method.
+     * @param modeOfPayment   Mode of payment (e.g., credit card, net banking).
+     * @return The generated transaction ID.
+     * @throws BookingFailedException If payment recording fails.
      */
     @Override
     public int makePayment(int userId, String paymentDetails, String expiryDate, String modeOfPayment) throws BookingFailedException {
@@ -251,7 +250,6 @@ public class BookingGymDAOImpl implements BookingGymDAOInterface {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
-            // Establish database connection
             con = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/FlipFit", "root", "mysqliswow");
 

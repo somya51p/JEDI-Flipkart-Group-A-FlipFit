@@ -9,18 +9,19 @@ import java.util.List;
 public class FlipfitAdminDAOImpl implements FlipfitAdminDAOInterface{
 
     /**
-     * Creates a new admin with specified details.
+     * Creates a new admin entry in the database.
      *
-     * @param adminId       ID of the admin.
-     * @param adminEmail    Email of the admin.
-     * @param adminPassword Password of the admin.
+     * @param adminId      The ID of the admin.
+     * @param adminEmail   The email of the admin.
+     * @param adminPassword The password of the admin.
      */
     @Override
     public void createAdmin(int adminId, String adminEmail, String adminPassword) {}
+
     /**
-     * Retrieves a list of all registered gym owners.
+     * Retrieves details of all gym owners from the database.
      *
-     * @return List of FlipFitGymOwner objects representing all registered gym owners.
+     * @return List of FlipFitGymOwner objects representing all gym owners.
      */
     @Override
     public List<FlipFitGymOwner> viewAllGymOwners() {
@@ -73,12 +74,11 @@ public class FlipfitAdminDAOImpl implements FlipfitAdminDAOInterface{
     }
 
     /**
-     * Retrieves details of a specific gym owner identified by ownerId.
+     * Retrieves details of a specific gym owner from the database based on owner ID.
      *
-     * @param ownerId ID of the gym owner whose details are to be retrieved.
-     * @return List containing details of the gym owner identified by ownerId.
+     * @param ownerId The ID of the gym owner.
+     * @return List containing details of the gym owner with the specified ID.
      */
-
     @Override
     public List<FlipFitGymOwner> viewGymOwnerDetails(int ownerId) {
         Connection con = null;
@@ -134,9 +134,9 @@ public class FlipfitAdminDAOImpl implements FlipfitAdminDAOInterface{
     }
 
     /**
-     * Retrieves a list of gym owner requests pending for approval.
+     * Retrieves details of gym owners whose approval status is 'PENDING'.
      *
-     * @return List of FlipFitGymOwner objects representing pending gym owner requests.
+     * @return List of FlipFitGymOwner objects representing gym owners with pending approval.
      */
     @Override
     public List<FlipFitGymOwner> viewGymOwnerRequests() {
@@ -193,10 +193,10 @@ public class FlipfitAdminDAOImpl implements FlipfitAdminDAOInterface{
 
 
     /**
-     * Approves a pending gym owner request identified by ownerId.
+     * Approves a pending request of a gym owner based on owner ID.
      *
-     * @param ownerId ID of the gym owner whose request is to be approved.
-     * @return true if the request is approved successfully, false otherwise.
+     * @param ownerId The ID of the gym owner whose request is to be approved.
+     * @return true if the request is successfully approved, false otherwise.
      */
     @Override
     public boolean approveGymOwnerRequests(int ownerId) {
@@ -239,10 +239,11 @@ public class FlipfitAdminDAOImpl implements FlipfitAdminDAOInterface{
         }
     }
 
+
     /**
-     * Removes a gym owner identified by ownerId.
+     * Removes a gym owner from the database based on owner ID.
      *
-     * @param ownerId ID of the gym owner to be removed.
+     * @param ownerId The ID of the gym owner to be removed.
      * @return true if the gym owner is successfully removed, false otherwise.
      */
     @Override
@@ -289,10 +290,10 @@ public class FlipfitAdminDAOImpl implements FlipfitAdminDAOInterface{
     }
 
     /**
-     * Cancels a pending request for gym owner approval identified by ownerId.
+     * Removes a gym owner from the database based on owner ID.
      *
-     * @param ownerId ID of the gym owner whose request is to be canceled.
-     * @return true if the request is successfully canceled, false otherwise.
+     * @param ownerId The ID of the gym owner to be removed.
+     * @return true if the gym owner is successfully removed, false otherwise.
      */
     @Override
     public boolean cancelRequest(int ownerId) {
