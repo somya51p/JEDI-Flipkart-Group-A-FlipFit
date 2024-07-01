@@ -7,9 +7,7 @@ import com.flipkart.bean.Slot;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-/**
- * Implementation class for data access operations related to Gym Owners in FlipFit application.
- */
+
 public class FlipFitGymOwnerDAOImpl implements FlipFitGymOwnerDAOInterface{
 
     @Override
@@ -22,7 +20,6 @@ public class FlipFitGymOwnerDAOImpl implements FlipFitGymOwnerDAOInterface{
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/FlipFit", "root", "mysqliswow");
             con.setAutoCommit(false);
 
-            // SQL query to insert Gym Owner details
             String queryOwner = "INSERT INTO flipfitGymOwner (ownerName, ownerPhone, ownerAddress, ownerGSTNum, ownerPANNum, approvalStatus, userId) VALUES (?, ?, ?, ?, ?, ?, ?)";
             stmtOwner = con.prepareStatement(queryOwner);
             stmtOwner.setString(1, name);
