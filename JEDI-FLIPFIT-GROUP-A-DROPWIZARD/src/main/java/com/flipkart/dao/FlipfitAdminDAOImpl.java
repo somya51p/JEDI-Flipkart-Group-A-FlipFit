@@ -1,6 +1,7 @@
 package com.flipkart.dao;
 
 import com.flipkart.bean.FlipFitGymOwner;
+import com.flipkart.exceptions.GymOwnerNotFoundException;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -62,55 +63,49 @@ public class FlipfitAdminDAOImpl implements FlipfitAdminDAOInterface{
     }
 
     @Override
-    public List<FlipFitGymOwner> viewGymOwnerDetails(int ownerId) {
+    public List<FlipFitGymOwner> viewGymOwnerDetails(int ownerId) throws Exception {
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
         List<FlipFitGymOwner> gymOwnerList = new ArrayList<FlipFitGymOwner>();
 
+        Class.forName("com.mysql.cj.jdbc.Driver");
+
+        con = DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/FlipFit", "root", "mysqliswow");
+
+        String query = "SELECT * FROM flipfitGymOwner WHERE ownerId = ?";
+        stmt = con.prepareStatement(query);
+        stmt.setInt(1, ownerId);
+
+        rs = stmt.executeQuery();
+
+        System.out.println("All Details of GymOwner: " + ownerId);
+
+        if (rs.next()) {
+            // Retrieve and display the gym owner details
+
+            int gymOwnerId = rs.getInt("ownerId");
+            String name = rs.getString("ownerName");
+            String phone = rs.getString("ownerPhone");
+            String address = rs.getString("ownerAddress");
+            String gstNum = rs.getString("ownerGstNum");
+            String panNum = rs.getString("ownerPanNum");
+            String approvalStatus = rs.getString("approvalStatus");
+            int userId = rs.getInt("userId");
+
+            gymOwnerList.add(new FlipFitGymOwner(gymOwnerId, name, phone, address, gstNum, panNum, approvalStatus, userId));
+        } else {
+            System.out.println("No gym owner found with ID " + ownerId);
+            throw new GymOwnerNotFoundException(ownerId);
+        }
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-
-            con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/FlipFit", "root", "mysqliswow");
-
-            String query = "SELECT * FROM flipfitGymOwner WHERE ownerId = ?";
-            stmt = con.prepareStatement(query);
-            stmt.setInt(1, ownerId);
-
-            rs = stmt.executeQuery();
-
-            System.out.println("All Details of GymOwner: " + ownerId);
-
-            if (rs.next()) {
-                // Retrieve and display the gym owner details
-
-                int gymOwnerId = rs.getInt("ownerId");
-                String name = rs.getString("ownerName");
-                String phone = rs.getString("ownerPhone");
-                String address = rs.getString("ownerAddress");
-                String gstNum = rs.getString("ownerGstNum");
-                String panNum = rs.getString("ownerPanNum");
-                String approvalStatus = rs.getString("approvalStatus");
-                int userId = rs.getInt("userId");
-
-                gymOwnerList.add(new FlipFitGymOwner(gymOwnerId, name, phone, address, gstNum, panNum, approvalStatus, userId));
-
-                return gymOwnerList;
-            } else {
-                System.out.println("No gym owner found with ID " + ownerId);
-            }
+            if (rs != null) rs.close();
+            if (stmt != null) stmt.close();
+            if (con != null) con.close();
         } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
-        } finally {
-            try {
-                if (rs != null) rs.close();
-                if (stmt != null) stmt.close();
-                if (con != null) con.close();
-            } catch (Exception e) {
-                System.out.println("Error closing resources: " + e.getMessage());
-            }
+            System.out.println("Error closing resources: " + e.getMessage());
         }
         return gymOwnerList;
     }

@@ -185,7 +185,7 @@ public class GymFlipFitOwnerController {
     // http://localhost:8080/owner/logout
     @GET
     @Path("/logout")
-    public Response customerLogOut() {
+    public Response ownerLogOut() {
         if (userId <= 0) {
             return Response.status(Response.Status.UNAUTHORIZED).entity("You are not an authorized user!").build();
         }

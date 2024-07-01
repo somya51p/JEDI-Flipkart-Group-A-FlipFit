@@ -17,7 +17,7 @@ public class FlipfitAdminService implements FlipfitAdminInterface{
         return adminDAO.viewAllGymOwners();
     }
 
-    public List<FlipFitGymOwner> viewGymOwnerDetails(int ownerId){
+    public List<FlipFitGymOwner> viewGymOwnerDetails(int ownerId) throws Exception {
         return adminDAO.viewGymOwnerDetails(ownerId);
     }
 
@@ -25,9 +25,9 @@ public class FlipfitAdminService implements FlipfitAdminInterface{
         return adminDAO.viewGymOwnerRequests();
 
     }
-    public void approveGymOwnerRequests(int ownerId){
-        adminDAO.approveGymOwnerRequests(ownerId);
+    public boolean approveGymOwnerRequests(int ownerId){
         System.out.println("Approved the gym owner requests with Id "+ ownerId);
+        return adminDAO.approveGymOwnerRequests(ownerId);
     }
     public void removeGymOwner(int ownerId){
         adminDAO.removeGymOwner(ownerId);
