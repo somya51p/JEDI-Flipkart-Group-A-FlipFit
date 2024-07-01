@@ -20,6 +20,10 @@ public class GymFlipFitAdminController {
     FlipfitAdminInterface adminService = new FlipfitAdminService();
     int userId = -1;
 
+    /**
+     * Admin login endpoint.
+     * Example URL: http://localhost:8080/admin/login?email=admin@example.com&password=password123
+     */
     @GET
     @Path("/login")
     public Response adminLogin(@QueryParam("email") String email, @QueryParam("password") String password) {
@@ -34,6 +38,10 @@ public class GymFlipFitAdminController {
         }
     }
 
+    /**
+     * Endpoint to view all gym owners.
+     * Example URL: http://localhost:8080/admin/view-gym-owners
+     */
     @GET
     @Path("/view-gym-owners")
     @Timed
@@ -50,6 +58,10 @@ public class GymFlipFitAdminController {
         }
     }
 
+    /**
+     * Endpoint to view details of a specific gym owner.
+     * Example URL: http://localhost:8080/admin/view-gym-owner-details?ownerId=1
+     */
     @GET
     @Path("/view-gym-owner-details")
     @Timed
@@ -66,6 +78,10 @@ public class GymFlipFitAdminController {
         }
     }
 
+    /**
+     * Endpoint to approve gym owner requests.
+     * Example URL: http://localhost:8080/admin/approve-gym-owner-requests?ownerId=1
+     */
     @GET
     @Path("/view-gym-owner-requests")
     @Timed
@@ -82,6 +98,10 @@ public class GymFlipFitAdminController {
         }
     }
 
+    /**
+     * Endpoint to approve gym owner requests.
+     * Example URL: http://localhost:8080/admin/approve-gym-owner-requests?ownerId=1
+     */
     @GET
     @Path("/approve-gym-owner-requests")
     @Timed
@@ -98,6 +118,10 @@ public class GymFlipFitAdminController {
         }
     }
 
+    /**
+     * Endpoint to remove gym owner.
+     * Example URL: http://localhost:8080/admin/remove-gym-owner?ownerId=1
+     */
     @GET
     @Path("/remove-gym-owner")
     @Timed
@@ -114,6 +138,10 @@ public class GymFlipFitAdminController {
         }
     }
 
+    /**
+     * Endpoint to cancel gym owner request.
+     * Example URL: http://localhost:8080/admin/cancel-request?ownerId=1
+     */
     @GET
     @Path("/cancel-request")
     @Timed
@@ -130,6 +158,9 @@ public class GymFlipFitAdminController {
         }
     }
 
+    /**
+     * Admin logout endpoint.
+     */
     @GET
     @Path("/logout")
     public Response adminLogOut() {

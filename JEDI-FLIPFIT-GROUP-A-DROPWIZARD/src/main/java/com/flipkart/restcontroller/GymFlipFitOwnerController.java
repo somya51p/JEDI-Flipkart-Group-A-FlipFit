@@ -23,7 +23,10 @@ public class GymFlipFitOwnerController {
     FlipFitGymOwnerInterface gymOwnerService = new FlipFitGymOwnerService();
     FlipFitUserInterface userService = new FlipFitUserService();
     int userId =-1;
-
+    /**
+     * Endpoint for creating a new gym owner.
+     * Example URL: http://localhost:8080/owner/create?name=Joey%20Doe&email=joeydoe@example.com&password=securePassword&phone=1234567890&address=123%20Main%20St&pan_no=ABCDE1234F&gst_no=12ABCDE1234F1Z5
+     */
     // http://localhost:8080/owner/create?name=Joey%20Doe&email=joeydoe@example.com&password=securePassword&phone=1234567890&address=123%20Main%20St&pan_no=ABCDE1234F&gst_no=12ABCDE1234F1Z5
     @GET
     @Path("/create")
@@ -34,6 +37,10 @@ public class GymFlipFitOwnerController {
         return Response.ok("Gym owner created successfully").build();
     }
 
+    /**
+     * Endpoint for gym owner login.
+     * Example URL: http://localhost:8080/owner/login?email=gymowner@example.com&password=password123
+     */
     // http://localhost:8080/owner/login?email=gymowner@example.com&password=password123
     @GET
     @Path("/login")
@@ -46,6 +53,10 @@ public class GymFlipFitOwnerController {
         }
     }
 
+    /**
+     * Endpoint for gym owner to register a new gym.
+     * Example URL: http://localhost:8080/owner/registerGym?name=Fit%20Gym&location=Central%20Park
+     */
     // http://localhost:8080/owner/registerGym?name=Fit%20Gym&location=Central%20Park
     @GET
     @Path("/registerGym")
@@ -56,6 +67,10 @@ public class GymFlipFitOwnerController {
         return Response.ok("Gym registered successfully").build();
     }
 
+    /**
+     * Endpoint for gym owner to edit gym details.
+     * Example URL: http://localhost:8080/owner/editGym?gymId=1&name=Fitness%20Center&location=Downtown
+     */
     // http://localhost:8080/owner/editGym?gymId=1&name=Fitness%20Center&location=Downtown
     @GET
     @Path("/editGym")
@@ -66,6 +81,10 @@ public class GymFlipFitOwnerController {
         return Response.ok("Gym details updated").build();
     }
 
+    /**
+     * Endpoint for gym owner to remove a gym.
+     * Example URL: http://localhost:8080/owner/removeGym?gymId=1
+     */
     // http://localhost:8080/owner/removeGym?gymId=1
     @GET
     @Path("/removeGym")
@@ -76,6 +95,10 @@ public class GymFlipFitOwnerController {
         return Response.ok("Gym removed successfully").build();
     }
 
+    /**
+     * Endpoint for gym owner to add a slot to a gym.
+     * Example URL: http://localhost:8080/owner/addSlot?gymId=1&slotId=11&slotTime=10-11&slotCapacity=20&slotPrice=200
+     */
     // http://localhost:8080/owner/addSlot?gymId=1&slotId=11&slotTime=10-11&slotCapacity=20&slotPrice=200
     @GET
     @Path("/addSlot")
@@ -87,6 +110,10 @@ public class GymFlipFitOwnerController {
         return Response.ok("Slot added successfully").build();
     }
 
+    /**
+     * Endpoint for gym owner to remove a slot from a gym.
+     * Example URL: http://localhost:8080/owner/removeSlot?gymId=1&slotId=1
+     */
     // http://localhost:8080/owner/removeSlot?gymId=1&slotId=1
     @GET
     @Path("/removeSlot")
@@ -97,6 +124,10 @@ public class GymFlipFitOwnerController {
         return Response.ok("Slot removed successfully").build();
     }
 
+    /**
+     * Endpoint for gym owner to view available slots of a gym on a specific date.
+     * Example URL: http://localhost:8080/owner/viewAvailableSlots?gymId=1&date=01/07/2024
+     */
     // http://localhost:8080/owner/viewAvailableSlots?gymId=1&date=01/07/2024
     @GET
     @Path("/viewAvailableSlots")
@@ -114,6 +145,10 @@ public class GymFlipFitOwnerController {
         return Response.ok("All available slots are listed below:\n" + json).build();
     }
 
+    /**
+     * Endpoint for gym owner to view all bookings across all their gyms.
+     * Example URL: http://localhost:8080/owner/viewAllBookings
+     */
     // http://localhost:8080/owner/viewAllBookings
     @GET
     @Path("/viewAllBookings")
@@ -130,6 +165,10 @@ public class GymFlipFitOwnerController {
         }
         return Response.ok("All bookings of your gyms are listed below:\n" + json).build();
     }
+    /**
+     * Endpoint for gym owner to view bookings of a specific gym.
+     * Example URL: http://localhost:8080/owner/viewBookings?gymId=1
+     */
 
     // http://localhost:8080/owner/viewBookings?gymId=1
     @GET
@@ -149,6 +188,10 @@ public class GymFlipFitOwnerController {
         return Response.ok("All bookings of gym "+ gymId +" are listed below:\n" + json).build();
     }
 
+    /**
+     * Endpoint for gym owner to view all registered gyms under their account.
+     * Example URL: http://localhost:8080/owner/viewAllGyms
+     */
     // http://localhost:8080/owner/viewAllGyms
     @GET
     @Path("/viewAllGyms")
@@ -166,6 +209,10 @@ public class GymFlipFitOwnerController {
         return Response.ok("All your gyms are listed below:\n" + json).build();
     }
 
+    /**
+     * Endpoint for gym owner to edit their profile information.
+     * Example URL: http://localhost:8080/owner/editProfile?name=John%20Doe&phoneNumber=1234567890&address=123%20Main%20St&panNum=ABCDE1234F&gstNum=12ABCDE1234F1Z5
+     */
     // http://localhost:8080/owner/editProfile?name=John%20Doe&phoneNumber=1234567890&address=123%20Main%20St&panNum=ABCDE1234F&gstNum=12ABCDE1234F1Z5
     @GET
     @Path("/editProfile")
@@ -182,6 +229,10 @@ public class GymFlipFitOwnerController {
         return Response.ok("Successfully Edited the Profile").build();
     }
 
+    /**
+     * Endpoint for gym owner to log out.
+     * Example URL: http://localhost:8080/owner/logout
+     */
     // http://localhost:8080/owner/logout
     @GET
     @Path("/logout")
