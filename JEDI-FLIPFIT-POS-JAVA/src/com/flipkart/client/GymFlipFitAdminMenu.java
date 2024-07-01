@@ -8,6 +8,7 @@ import com.flipkart.exceptions.WrongCredentialsException;
 import com.flipkart.business.FlipFitUserInterface;
 import com.flipkart.business.FlipFitUserService;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Scanner;
 
@@ -16,10 +17,11 @@ public class GymFlipFitAdminMenu {
 	public static void login(String email, String password) throws WrongCredentialsException
 	{
 		FlipFitUserInterface user = new FlipFitUserService();
-
+		LocalDateTime loginTime = LocalDateTime.now();
 		if(user.authenticateUser(email, password, 3) > 0)
 		{
 			System.out.println("Logged in as Admin");
+			System.out.println("Login Time: " + loginTime);
 			try {
 				displayAdminOptions();
 			} catch (InvalidChoiceException e) {

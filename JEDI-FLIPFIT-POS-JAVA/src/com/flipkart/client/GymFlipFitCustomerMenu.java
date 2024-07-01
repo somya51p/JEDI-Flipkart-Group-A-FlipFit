@@ -11,6 +11,7 @@ import com.flipkart.exceptions.InvalidChoiceException;
 import com.flipkart.exceptions.UserNotFoundException;
 import com.flipkart.exceptions.WrongCredentialsException;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class GymFlipFitCustomerMenu {
@@ -18,9 +19,11 @@ public class GymFlipFitCustomerMenu {
 	public static void login(String email, String password) throws UserNotFoundException,WrongCredentialsException {
 		FlipFitUserInterface user = new FlipFitUserService();
 		int userId = user.authenticateUser(email, password, 1);
+		LocalDateTime loginTime = LocalDateTime.now();
 		if(userId > 0)
 		{
 			System.out.println("Logged in as Customer");
+			System.out.println("Login Time: " + loginTime);
 			try {
 			displayCustomerOptions(userId);}
 			catch(InvalidChoiceException e){
