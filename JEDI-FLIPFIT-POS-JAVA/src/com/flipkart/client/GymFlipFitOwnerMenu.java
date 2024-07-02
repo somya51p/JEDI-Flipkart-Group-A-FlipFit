@@ -9,18 +9,31 @@ import com.flipkart.business.FlipFitUserService;
 import com.flipkart.exceptions.InvalidChoiceException;
 import com.flipkart.exceptions.WrongCredentialsException;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
+/**
+ * Menu interface for FlipFit gym owners, providing various options like managing gyms,
+ * slots, bookings, and profile editing.
+ */
 public class GymFlipFitOwnerMenu {
 
+	/**
+	 * Handles gym owner login and redirects to the main menu upon successful login.
+	 *
+	 * @param email    The email of the gym owner.
+	 * @param password The password of the gym owner.
+	 * @throws WrongCredentialsException If the login credentials are incorrect.
+	 */
 	public static void login(String email, String password) throws WrongCredentialsException
 	{
 		FlipFitUserInterface user = new FlipFitUserService();
 		int userId = user.authenticateUser(email, password, 2);
-
+		LocalDateTime loginTime = LocalDateTime.now();
 		if(userId >0)
 		{
 			System.out.println("Logged in as Gym Owner");
+			System.out.println("Login Time: " + loginTime);
 			try {
 				displayGymOwnerOptions(userId);
 			} catch (InvalidChoiceException e) {
@@ -31,40 +44,45 @@ public class GymFlipFitOwnerMenu {
 			throw new WrongCredentialsException();
 		}
 	}
-
+	/**
+	 * Displays various options for gym owners after successful login.
+	 *
+	 * @param userId The ID of the logged-in gym owner.
+	 * @throws InvalidChoiceException If an invalid menu choice is made.
+	 */
 	public static void displayGymOwnerOptions(int userId) throws InvalidChoiceException {
 
 		FlipFitGymOwnerInterface gymOwnerService = new FlipFitGymOwnerService();
-		 boolean flag = true;
+		boolean flag = true;
 
 		do {
 			System.out.println("GymOwnerMenu:\n 1.Register a Gym\n 2.Edit Gym details\n 3.Remove a Gym\n " +
-							"4.Add new slot\n 5.Remove slot\n 6.View Available slots\n 7.View All Bookings\n " +
-							"8.View Bookings for a Gym\n 9.View all Registered Gyms\n 10.Edit Profile\n 11.Exit");
+					"4.Add new slot\n 5.Remove slot\n 6.View Available slots\n 7.View All Bookings\n " +
+					"8.View Bookings for a Gym\n 9.View all Registered Gyms\n 10.Edit Profile\n 11.Exit");
 
 			Scanner in = new Scanner(System.in);
 			int i = in.nextInt();
 			String name, location, temp, slotTime, panNum, gstNum, phoneNumber, address;
-			int gymId,slotId,slotCapacity;
+			int gymId,slotId,slotCapacity, slotPrice;
 			List<Booking> bookings;
 
 			switch(i){
 				case 1:
-					 temp = in.nextLine();
+					temp = in.nextLine();
 					System.out.println("Enter gym name");
-					 name = in.nextLine();
+					name = in.nextLine();
 					System.out.println("Enter location");
-					 location = in.nextLine();
+					location = in.nextLine();
 					gymOwnerService.registerGym(userId, name, location);
 					break;
 				case 2:
 					System.out.println("Enter gym id of gym to be modified");
-					 gymId = in.nextInt();
-					 temp = in.nextLine();
+					gymId = in.nextInt();
+					temp = in.nextLine();
 					System.out.println("Enter gym name");
-					 name = in.nextLine();
+					name = in.nextLine();
 					System.out.println("Enter location");
-					 location = in.nextLine();
+					location = in.nextLine();
 					gymOwnerService.editGym(gymId, name, location);
 					break;
 				case 3:
@@ -82,7 +100,9 @@ public class GymFlipFitOwnerMenu {
 					slotTime = in.nextLine();
 					System.out.println("Enter slot capacity");
 					slotCapacity = in.nextInt();
-					gymOwnerService.addSlot(gymId, slotId, slotTime, slotCapacity);
+					System.out.println("Enter slot price");
+					slotPrice = in.nextInt();
+					gymOwnerService.addSlot(gymId, slotId, slotTime, slotCapacity, slotPrice);
 					break;
 				case 5:
 					System.out.println("Enter gym id ");
@@ -144,17 +164,17 @@ public class GymFlipFitOwnerMenu {
 					System.out.println("view All Gym Centers");
 					break;
 				case 10:
-					 temp = in.nextLine();
+					temp = in.nextLine();
 					System.out.println("Enter your name");
-					 name = in.nextLine();
+					name = in.nextLine();
 					System.out.println("Enter your phone number");
-					 phoneNumber = in.nextLine();
+					phoneNumber = in.nextLine();
 					System.out.println("Enter your address");
-					 address = in.nextLine();
+					address = in.nextLine();
 					System.out.println("Enter your Pan Number");
-					 panNum = in.next();
+					panNum = in.next();
 					System.out.println("Enter your GST Number");
-					 gstNum = in.next();
+					gstNum = in.next();
 					gymOwnerService.editProfile(userId, name, phoneNumber, address, panNum, gstNum);
 					break;
 				case 11:

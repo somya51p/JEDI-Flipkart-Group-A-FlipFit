@@ -26,19 +26,19 @@ public class FlipFitGymOwnerService implements FlipFitGymOwnerInterface {
         System.out.println("edited gym owner details");
     }
 
-    public void registerGym(int gymId, String name, String location) {
-        ownerDAO.registerGym(gymId, name, location);
+    public void registerGym(int userId, String name, String location) {
+        ownerDAO.registerGym(userId, name, location);
         System.out.println("gym registered successfully");
     }
 
     public void editGym(int gymId, String gymName, String gymLocation) {
         ownerDAO.editGym(gymId, gymName, gymLocation);
-        System.out.println("gym " + gymId + "edited successfully");
+        System.out.println("gym " + gymId + " edited successfully");
     }
 
     public void removeGym(int gymId) {
         ownerDAO.removeGym(gymId);
-        System.out.println("gym " + gymId + "removed successfully");
+        System.out.println("gym " + gymId + " removed successfully");
     }
 
     public List<FlipFitGym> viewAllRegisteredGymCenters(int userId) {
@@ -64,14 +64,14 @@ public class FlipFitGymOwnerService implements FlipFitGymOwnerInterface {
         }
     }
 
-    public void addSlot(int gymId, int slotId, String slotTime, int slotCapacity) {
-        ownerDAO.addSlot(gymId, slotId, slotTime, slotCapacity);
-        System.out.println("Added slot " + slotId + "for gym " + gymId);
+    public void addSlot(int gymId, int slotId, String slotTime, int slotCapacity, int slotPrice) {
+        ownerDAO.addSlot(gymId, slotId, slotTime, slotCapacity, slotPrice);
+        System.out.println("Added slot " + slotId + " for gym " + gymId);
     }
 
     public void removeSlot(int gymId, int slotId) {
         ownerDAO.removeSlot(gymId, slotId);
-        System.out.println("Removed slot " + slotId + "for gym " + gymId);
+        System.out.println("Removed slot " + slotId + " for gym " + gymId);
     }
 
 }

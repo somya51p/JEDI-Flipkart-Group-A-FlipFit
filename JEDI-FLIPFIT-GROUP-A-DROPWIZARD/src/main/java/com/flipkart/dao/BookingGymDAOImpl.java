@@ -1,9 +1,9 @@
 package com.flipkart.dao;
 
 import com.flipkart.bean.Booking;
-import com.flipkart.business.BookingGymInterface;
-import com.flipkart.exceptions.BookingFailedException;
 
+import com.flipkart.business.BookingGymInterface;
+import com.flipkart.exceptions.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,18 +14,18 @@ public class BookingGymDAOImpl implements BookingGymDAOInterface {
         BookingGymDAOInterface dao = new BookingGymDAOImpl();
 //        dao.createBooking(1, 1, 150, 250, "02-03-24","5", "confirmed", 500);
 //        dao.makePayment(2, 1111333333, "12/25", "net banking");
-        dao.cancelBookings(2);
+//        dao.cancelBookings(2);
     }
 
     @Override
-    public void createBooking(int userId, int gymId, int transactionId, String bookingDate, String bookingTimeSlot, String bookingType, int bookingAmount) throws BookingFailedException {
+    public void createBooking(int userId, int gymId, int transactionId, String bookingDate, String bookingTimeSlot, String bookingType, int bookingAmount) throws Exception {
         Connection con = null;
         PreparedStatement stmt = null;
         PreparedStatement stmtcustomer = null;
         ResultSet rs1 = null;
         int customerId = 0;
 
-        try {
+//        try {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
             con = DriverManager.getConnection(
@@ -60,16 +60,16 @@ public class BookingGymDAOImpl implements BookingGymDAOInterface {
             } else {
                 throw new BookingFailedException("Failed to create booking");
             }
-        } catch (Exception e) {
-            throw new BookingFailedException(e.getMessage());
-        } finally {
+//        } catch (Exception e) {
+//            throw new BookingFailedException(e.getMessage());
+//        } finally {
             try {
                 if (stmt != null) stmt.close();
                 if (con != null) con.close();
             } catch (Exception e) {
                 System.out.println("Error closing resources: " + e.getMessage());
             }
-        }
+//        }
     }
 
 
@@ -143,14 +143,14 @@ public class BookingGymDAOImpl implements BookingGymDAOInterface {
     }
 
     @Override
-    public void cancelBookings(int bookingId) {
+    public void cancelBookings(int bookingId) throws Exception {
         Connection con = null;
         PreparedStatement stmtSelect = null;
         PreparedStatement stmtDeleteBooking = null;
         PreparedStatement stmtDeletePayment = null;
         ResultSet rs = null;
 
-        try {
+//        try {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
             con = DriverManager.getConnection(
@@ -182,15 +182,17 @@ public class BookingGymDAOImpl implements BookingGymDAOInterface {
                         System.out.println("No payment found with the given transactionId.");
                     }
                 } else {
-                    System.out.println("No booking found with the given bookingId.");
+                	  throw new BookingNotFoundException("No booking found with the given bookingId");
+//                    System.out.println("No booking found with the given bookingId.");
                 }
             } else {
-                System.out.println("No booking found with the given bookingId.");
+            	 throw new BookingNotFoundException("No booking found with the given bookingId");
+//                System.out.println("No booking found with the given bookingId.");
             }
 
-        } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
-        } finally {
+//        } catch (Exception e) {
+//            System.out.println("Error: " + e.getMessage());
+//        } finally {
             try {
                 if (rs != null) rs.close();
                 if (stmtSelect != null) stmtSelect.close();
@@ -200,7 +202,7 @@ public class BookingGymDAOImpl implements BookingGymDAOInterface {
             } catch (Exception e) {
                 System.out.println("Error closing resources: " + e.getMessage());
             }
-        }
+//        }
     }
 
     @Override

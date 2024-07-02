@@ -1,14 +1,20 @@
-
 package com.flipkart.client;
 import com.flipkart.business.*;
 import com.flipkart.exceptions.UserNotFoundException;
 import com.flipkart.exceptions.WrongCredentialsException;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
+/**
+ * Main application class for FlipFit, which handles user login, registration,
+ * and menu navigation for different roles (Customer, Gym Owner, Admin).
+ */
 public class GymFlipFitApplication {
 
-
+    /**
+     * Handles user login based on role (Customer, Gym Owner, Admin).
+     */
     public static void login() {
 
         Scanner in = new Scanner(System.in);
@@ -19,30 +25,34 @@ public class GymFlipFitApplication {
         String password = in.next();
         System.out.println("Enter your role: \n1. Customer\n2. Gym owner\n3. Admin");
         int role = in.nextInt();
-
         if(role == 1) {
             try {
-				GymFlipFitCustomerMenu.login(email, password);
-			} catch (Exception e) {
-			     System.out.println("Error:"+e.getMessage());
-			} 
+                GymFlipFitCustomerMenu.login(email, password);
+            } catch (Exception e) {
+                System.out.println("Error:"+e.getMessage());
+            }
         } else if(role == 2) {
             try {
-				GymFlipFitOwnerMenu.login(email, password);
-			} catch (Exception e) {
-				 System.out.println("Error:"+e.getMessage());
-			}
+                GymFlipFitOwnerMenu.login(email, password);
+            } catch (Exception e) {
+                System.out.println("Error:"+e.getMessage());
+            }
         } else if(role == 3) {
-        	try {
-            GymFlipFitAdminMenu.login(email, password);}
-        	catch(Exception e) {
-        		 System.out.println("Error:"+e.getMessage());
-        	}
+            try {
+                GymFlipFitAdminMenu.login(email, password);}
+            catch(Exception e) {
+                System.out.println("Error:"+e.getMessage());
+            }
         }  else {
             System.out.println("Invalid role choice");
         }
     }
 
+    /**
+     * Registers a new customer.
+     *
+     * @throws UserNotFoundException If the user is not found during registration.
+     */
     public static void registerCustomer() throws UserNotFoundException {
 
         FlipFitCustomerInterface customerService = new FlipFitCustomerService();
@@ -63,11 +73,15 @@ public class GymFlipFitApplication {
         String userPassword = in.next();
         System.out.println("Enter your confirm password: ");
         String confirmUserPassword = in.next();
+
+        LocalDateTime loginTime = LocalDateTime.now();
+
         if(userPassword.equals(confirmUserPassword)) {
             int userId = userService.createUser(userEmail, userPassword, 1);
             if(userId > 0) {
                 customerService.createCustomer(userId, userName, userPhoneNumber, address);
                 System.out.println("You have successfully registered as Customer");
+                System.out.println("Login Time: " + loginTime);
                 System.out.println("*********************************************");
                 login();
             }
@@ -77,6 +91,11 @@ public class GymFlipFitApplication {
         }
     }
 
+    /**
+     * Registers a new gym owner.
+     *
+     * @throws UserNotFoundException If the user is not found during registration.
+     */
     public static void registerGymOwner() throws UserNotFoundException {
 
         FlipFitGymOwnerInterface gymOwnerService = new FlipFitGymOwnerService();
@@ -101,12 +120,16 @@ public class GymFlipFitApplication {
         String ownerPassword = in.next();
         System.out.println("Enter your confirm password: ");
         String confirmOwnerPassword = in.next();
+
+        LocalDateTime loginTime = LocalDateTime.now();
+
         if(ownerPassword.equals(confirmOwnerPassword)) {
             int userId = userService.createUser(ownerEmail, ownerPassword, 2);
             if(userId > 0) {
                 gymOwnerService.createGymOwner(userId, ownerName, ownerPhoneNumber,  ownerAddress,
                         panNumber, gstNumber);
                 System.out.println("You have successfully registered as Gym owner");
+                System.out.println("Login Time: " + loginTime);
                 System.out.println("*********************************************");
                 login();
             }
@@ -116,6 +139,12 @@ public class GymFlipFitApplication {
         }
     }
 
+    /**
+     * Main method to run the FlipFit application.
+     *
+     * @param args Command-line arguments (not used).
+     * @throws UserNotFoundException If the user is not found during registration.
+     */
 
     public static void main(String[] args) throws UserNotFoundException {
 

@@ -1,9 +1,14 @@
 package com.flipkart.exceptions;
 
+/**
+ * Exception thrown when invalid credentials are provided.
+ */
+public class WrongCredentialsException extends Exception {
 
-	public class WrongCredentialsException extends Exception {
-	    public WrongCredentialsException() {
-	        super("InValidCredentials!");
-	    }
+	/**
+	 * Constructs a new WrongCredentialsException with a default message.
+	 */
+	public WrongCredentialsException() {
+		super("Invalid credentials!"); // Default message indicating invalid credentials
 	}
-
+}

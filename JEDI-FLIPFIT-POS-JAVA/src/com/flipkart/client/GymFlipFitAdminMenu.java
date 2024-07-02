@@ -8,18 +8,31 @@ import com.flipkart.exceptions.WrongCredentialsException;
 import com.flipkart.business.FlipFitUserInterface;
 import com.flipkart.business.FlipFitUserService;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * A client class that simulates an admin menu for managing gym owners in the FlipFit application.
+ */
 public class GymFlipFitAdminMenu {
+
+	/**
+	 * Authenticates the admin user based on the provided email, password, and role ID.
+	 *
+	 * @param email    The email of the admin user.
+	 * @param password The password of the admin user.
+	 * @throws WrongCredentialsException If the authentication fails due to incorrect credentials.
+	 */
 
 	public static void login(String email, String password) throws WrongCredentialsException
 	{
 		FlipFitUserInterface user = new FlipFitUserService();
-
+		LocalDateTime loginTime = LocalDateTime.now();
 		if(user.authenticateUser(email, password, 3) > 0)
 		{
 			System.out.println("Logged in as Admin");
+			System.out.println("Login Time: " + loginTime);
 			try {
 				displayAdminOptions();
 			} catch (InvalidChoiceException e) {
@@ -29,8 +42,14 @@ public class GymFlipFitAdminMenu {
 		else{
 			throw new WrongCredentialsException();
 		}
-		
+
 	}
+
+	/**
+	 * Displays the admin menu options and handles user input to execute corresponding actions.
+	 *
+	 * @throws InvalidChoiceException If an invalid menu choice is entered by the admin.
+	 */
 
 	public static void displayAdminOptions() throws InvalidChoiceException {
 		FlipfitAdminInterface adminService = new FlipfitAdminService() ;
@@ -38,8 +57,8 @@ public class GymFlipFitAdminMenu {
 		int gymOwnerId;
 		List<FlipFitGymOwner> gymOwners;
 		do {
-			System.out.println("Welcome to admin page :");
-			System.out.println("1. View all Gym Owners : \n2. View all details of gym owner : \n3. View requests of gym owners : \n4. Approval of gym owner requests : \n5. Remove any gym owner : \n6. Cancel any pending request : \n7. Exit");
+			System.out.println("Welcome to admin page : ");
+			System.out.println("1. View all Gym Owners \n2. View all details of gym owner \n3. View requests of gym owners \n4. Approval of gym owner requests \n5. Remove any gym owner \n6. Cancel any pending request \n7. Exit");
 			Scanner sc = new Scanner(System.in);
 			int option = sc.nextInt();
 			switch (option) {
